@@ -1,0 +1,22 @@
+# Git backups of nested repos
+*.git_bak/
+*.git_bak
+
+# Exclude TH_LTANTT folder (already moved to Documents/TH_LTANTT_2387701939)
+TH_LTANTT_2387701939/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Office temporary files
+~$*
+*.tmp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
