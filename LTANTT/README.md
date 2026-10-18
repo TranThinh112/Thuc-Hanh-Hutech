@@ -1,10 +1,10 @@
-﻿# Lập Trình An Toàn Thông Tin (LTANTT)
+# Lập Trình An Toàn Thông Tin (LTANTT)
 
 Kho lưu trữ bài tập và báo cáo thực hành môn **Lập trình An toàn Thông tin** - Trường Đại học Công nghệ TP.HCM (HUTECH).
 
 * **Sinh viên thực hiện:** Trần Tăng Trường Thịnh
 * **MSSV:** 2387701939
-* **Ngôn ngữ & Công cụ:** Python 3.x, Visual Studio Code.
+* **Ngôn ngữ & Công cụ:** Python 3.x, Kali Linux, Nmap, Metasploit Framework, Visual Studio Code.
 
 ---
 
@@ -23,5 +23,9 @@ Kho lưu trữ bài tập và báo cáo thực hành môn **Lập trình An toà
 * `hashing_basics.py`: Ứng dụng các thuật toán hàm băm bảo mật (MD5, SHA-256) kiểm tra tính toàn vẹn của tệp văn bản (`sample.txt`).
 * Báo cáo thực hành chi tiết: `TranTangTruongThinh_2387701939.docx`.
 
-### 3. `lab 3` (Lab 3: Mật mã học nâng cao & Xác thực)
-* Báo cáo toàn văn: `TranTangTruongThinh_1939_Lab3.docx`.
+### 3. `lab 3` (Lab 3: Mô hình hóa & Săn tìm Mối đe dọa Mạng - Threat Hunting)
+* **Báo cáo toàn văn:** `TranTangTruongThinh_1939_Lab3.docx`.
+* **Nội dung thực nghiệm:**
+  * Thu thập thông tin mạng trên Kali Linux: kiểm tra địa chỉ IP và bảng định tuyến (Routing table).
+  * Rà quét dịch vụ mạng bằng Nmap: phát hiện các cổng mở (80/HTTP, 443/HTTPS chạy Apache trên Debian Linux).
+  * Khai thác lỗ hổng bảo mật với **Metasploit Framework** (`msfconsole`): tìm kiếm module khai thác SMB (`search smb`), thử nghiệm tấn công lỗ hổng MS17-010 (EternalBlue) trên máy mục tiêu và đánh giá khả năng tạo phiên Meterpreter.
