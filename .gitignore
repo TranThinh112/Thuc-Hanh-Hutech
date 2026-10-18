@@ -2,7 +2,8 @@
 *.git_bak/
 *.git_bak
 
-# Exclude TH_LTANTT folder (already moved to Documents/TH_LTANTT_2387701939)
+# Exclude TH_LTANTT folder
+TH_LTANTT/
 TH_LTANTT_2387701939/
 
 # Python cache
