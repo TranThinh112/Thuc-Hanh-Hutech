@@ -1,0 +1,35 @@
+@page
+@model Web_Buoi4.Pages.TodoListModel;
+
+<h2>DANH SÁCH CÔNG VIỆC</h2>
+
+<a asp-page="/CreateTask/CreateTask">Tạo mới công việc</a>
+
+<table border="1" cellpadding="10">
+    <thead>
+        <tr>
+            <th>Mã công việc</th>
+            <th>Tên công việc</th>
+            <th>Trạng thái hoàn thành</th>
+            <th>Chức năng</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var task in Model.Tasks)
+        {
+            <tr>
+                <td>@task.Id</td>
+                <td>@task.TaskName</td>
+                <td>
+                    <input type="checkbox" checked="@task.IsCompleted" disabled />
+                </td>
+                <td>
+                    <a asp-page="/EditTask/EditTask" asp-route-id="@task.Id">Sửa</a> |
+                    <a asp-page="/DetailTask/DetailTask" asp-route-id="@task.Id">Chi tiết</a> |
+                    <a asp-page="/DeleteTask/DeleteTask" asp-route-id="@task.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

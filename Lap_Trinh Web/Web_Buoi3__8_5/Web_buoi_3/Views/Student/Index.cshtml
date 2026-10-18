@@ -1,0 +1,29 @@
+@model WebTestBuoi3.Models.StudentViewModel
+
+@* @section Styles {
+    <link rel="stylesheet" href="~/css/student.css" />
+} *@
+
+<form asp-controller="Student" asp-action="ShowKQ" method="post" class="student-form">
+    <h2>Đăng ký chuyên ngành</h2>
+
+    <label>MSSV</label>
+    <input asp-for="MSSV" />
+
+    <label>Họ tên</label>
+    <input asp-for="HoTen" />
+
+    <label>Điểm TB</label>
+    <input asp-for="DiemTB" />
+
+    <label>Chuyên ngành</label>
+    <select asp-for="ChuyenNganh">
+        <option>Công Nghệ Phần Mền</option>
+        <option>Thú Y</option>
+        <option>Quản Trị Kinh Doanh</option>
+        <option>Kế Toán</option>
+        <option>Ô tô</option>
+    </select>
+
+    <button type="submit">Đăng ký</button>
+</form>

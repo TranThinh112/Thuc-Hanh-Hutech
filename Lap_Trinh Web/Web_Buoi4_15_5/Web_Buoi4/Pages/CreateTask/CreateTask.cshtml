@@ -1,0 +1,25 @@
+@page
+@model Web_Buoi4.Pages.CreateTask.CreateTaskModel
+
+<h1>Thêm mới công việc</h1>
+
+<form method="post">
+    <div>
+        <label>Mã công việc</label>
+        <input asp-for="Task.Id" />
+    </div>
+
+    <div>
+        <label>Tên công việc</label>
+        <input asp-for="Task.TaskName" />
+    </div>
+
+    <div>
+        <input asp-for="Task.IsCompleted" />
+        <label>Trạng thái hoàn thành</label>
+    </div>
+
+    <button type="submit">Tạo mới</button>
+</form>
+
+<a href="/TodoList">Quay trở lại</a>

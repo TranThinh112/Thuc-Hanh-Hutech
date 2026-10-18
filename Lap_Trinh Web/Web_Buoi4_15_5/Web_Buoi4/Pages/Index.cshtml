@@ -1,0 +1,51 @@
+﻿@page
+@using Web_Buoi4.Models
+
+@{
+    var actors = new List<Actor>
+    {
+        new Actor
+        {
+            Name = "Phương Anh Đào",
+            Wiki = "https://vi.wikipedia.org/wiki/Ph%C6%B0%C6%A1ng_Anh_%C4%90%C3%A0o",
+            Height = 160,
+            Role = "Mai"
+        },
+        new Actor
+        {
+            Name = "Tuấn Trần",
+            Height = 170,
+            Wiki = "https://vi.wikipedia.org/wiki/Tu%E1%BA%A5n_Tr%E1%BA%A7n",
+            Role = "Dương (Sâu)"
+        },
+        new Actor
+        {
+            Name = "Trấn Thành",
+            Height = 150,
+            Wiki = "https://vi.wikipedia.org/wiki/Tr%E1%BA%A5n_Th%C3%A0nh",
+            Role = "ông Hoàng"
+        }
+    };
+}
+
+<ol>
+    @foreach (var actor in actors)
+    {
+        <li style="gap: 50px;">
+            <a href="@actor.Wiki" target="_blank">
+                <strong style="color: red;">@actor.Name</strong>
+            </a>
+            - Chiều cao: @actor.Height cm
+            - Vai diễn:
+
+            @if (actor.Height >= 160)
+            {
+                <strong>@actor.Role</strong>
+            }
+            else
+            {
+                <i>@actor.Role</i>
+            }
+        </li>
+    }
+</ol>

@@ -1,0 +1,23 @@
+@model List<WebTestBuoi3.Models.SanPhamViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bài tập 2</title>
+</head>
+<body>
+    <h2>Thông tin sản phẩm</h2>
+
+    <div class="product-container">
+        @foreach (SanPhamViewModel sp in Model)
+        {
+            <div class="product-card">
+                <img src="@sp.AnhMoTa" />
+                <h3>@sp.TenSanPham</h3>
+                <p>Giá: @sp.GiaBan VNĐ</p>
+            </div>
+        }
+    </div
+
+</body>
+</html>

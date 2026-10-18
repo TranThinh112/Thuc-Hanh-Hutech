@@ -1,0 +1,26 @@
+@model Product
+
+@{
+    ViewData["Title"] = Model.Name;
+    var currency = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<div class="row g-4 align-items-start">
+    <div class="col-lg-6">
+        <img src="@Model.ImageUrl" class="product-detail-image" alt="@Model.Name" />
+    </div>
+    <div class="col-lg-6">
+        <p class="section-kicker">Chi tiết sản phẩm</p>
+        <h1 class="mb-3">@Model.Name</h1>
+        <p class="lead text-secondary">@Model.Description</p>
+        <p class="detail-price">@Model.Price.ToString("C0", currency)</p>
+
+        <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post" class="d-flex gap-2 mb-3">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <input class="form-control quantity-input" type="number" name="quantity" value="1" min="1" aria-label="Số lượng" />
+            <button class="btn btn-primary" type="submit">Thêm vào giỏ hàng</button>
+        </form>
+
+        <a class="btn btn-outline-secondary" asp-action="Index">Quay lại sàn sản phẩm</a>
+    </div>
+</div>

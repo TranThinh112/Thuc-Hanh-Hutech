@@ -1,0 +1,178 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    max-width: 1200px;
+    margin:  0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(to right,   rgb(12, 241, 192), rgb(13, 126, 111));
+    font-size: 16px;
+    align-items: center;
+    gap: 20px;
+}
+
+header{
+    padding: 20px;
+    background-color: #c7cc19;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    grid-column: 1 / span 2;
+}
+
+nav{
+    background-color: #ffa486;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    grid-column: 1 / span 2;
+     list-style-type: none;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.product-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 20px;
+    grid-column: 1;
+}
+
+.product-card{
+    background-color: white;
+    display: flex;
+    flex-direction:column;
+    text-align: center;
+    align-items: center;
+    /* border: 2px solid black; */
+    border-radius: 20px;
+    width: 100%;
+    gap: 10px;
+    transition: transform 0.3 ease;
+}
+
+.product-card img{
+    border-radius: 20px 20px 0 0 ;
+    max-width: 100%;
+    height: 240px;
+}
+
+.product-card:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+/* sidebar */
+
+    .sidebar{
+        text-align: center;
+        background-color: #199cff;
+        color: #fff;
+        padding: 10px;
+        grid-column: 2;
+    }
+
+    .social-icons{
+        margin-top: 20px;
+    }
+
+    .social-icons a{
+        color: #fff;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+.footer{
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / span 2;
+    display: grid;
+}
+
+.footer-item{
+    padding: 10px  ;
+}
+
+/* man hinh dien thoai */
+@media (max-width: 768px){
+    .product-list{
+        grid-template-columns: 1fr;
+    }
+
+    .product-card{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .sidebar{
+        grid-column: 1 /span 2;
+    }
+
+    .footer{
+        grid-template-columns: 1fr;
+    }
+}
+/* man hinh may tinh */
+@media (min-width: 768px){
+    .footer{
+        grid-template-columns:  repeat(3, 1fr);
+    }
+}
+
+.btn{
+        background: linear-gradient(to right, rgb(23, 148, 110), rgb(179, 128, 228));
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 10%;
+        margin-bottom: 20px ;
+      
+    }
+.btn:hover{
+    cursor: pointer;
+    /* animation: lac 0.3s; */
+        transform: scale(1.1);
+
+}
+
+@keyframes lac{
+     0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(-5deg);
+    }
+
+    50%{
+        transform: rotate(10deg);
+    }
+
+    75%{
+        transform: rotate(-15deg);
+    }
+
+    100%{
+        transform: rotate(0deg);
+    }
+}
+

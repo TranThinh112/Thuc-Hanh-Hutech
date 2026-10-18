@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|c:\\users\\admin\\documents\\web_basic\\th_lap_trinh_web\\2387701939-truongthinh-th4-6_6\\thltw_buoi_4\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|solutionrelative:areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|c:\\users\\admin\\documents\\web_basic\\th_lap_trinh_web\\2387701939-truongthinh-th4-6_6\\thltw_buoi_4\\migrations\\20260606031753_addappuseridentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|solutionrelative:migrations\\20260606031753_addappuseridentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|c:\\users\\admin\\documents\\web_basic\\th_lap_trinh_web\\2387701939-truongthinh-th4-6_6\\thltw_buoi_4\\migrations\\20260606025632_initialcreateindentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|solutionrelative:migrations\\20260606025632_initialcreateindentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|c:\\users\\admin\\documents\\web_basic\\th_lap_trinh_web\\2387701939-truongthinh-th4-6_6\\thltw_buoi_4\\models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AEF10D7-4445-E96A-D522-1A6075F669C7}|THLTW_buoi_4.csproj|solutionrelative:models\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAAAHsAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T03:23:30.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20260606031753_AddAppUserIdentity.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Migrations\\20260606031753_AddAppUserIdentity.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260606031753_AddAppUserIdentity.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Migrations\\20260606031753_AddAppUserIdentity.cs",
+              "RelativeToolTip": "Migrations\\20260606031753_AddAppUserIdentity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T03:21:33.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppUser.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Models\\AppUser.cs",
+              "RelativeDocumentMoniker": "Models\\AppUser.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Models\\AppUser.cs",
+              "RelativeToolTip": "Models\\AppUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T03:20:04.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "20260606025632_InitialCreateIndentity.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Migrations\\20260606025632_InitialCreateIndentity.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260606025632_InitialCreateIndentity.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\TH_Lap_Trinh_Web\\2387701939-TruongThinh-TH4-6_6\\THLTW_Buoi_4\\Migrations\\20260606025632_InitialCreateIndentity.cs",
+              "RelativeToolTip": "Migrations\\20260606025632_InitialCreateIndentity.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAjwEUAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-06T02:56:32.361Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

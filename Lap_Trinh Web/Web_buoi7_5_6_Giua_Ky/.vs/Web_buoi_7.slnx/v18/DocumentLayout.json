@@ -1,0 +1,169 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\views\\course\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\views\\course\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\views\\course\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\controllers\\enrollmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\controllers\\enrollmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|c:\\users\\admin\\documents\\web_basic\\lap_trinh web\\web_buoi7_5_6_giua_ky\\web_buoi_7\\web_buoi_7.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{60516CDA-9B6E-C7A5-84CD-493086758334}|Web_buoi_7\\Web_buoi_7.csproj|solutionrelative:web_buoi_7\\web_buoi_7.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Course\\Index.cshtml",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Views\\Course\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Course\\Index.cshtml",
+              "RelativeToolTip": "Web_buoi_7\\Views\\Course\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAAB4AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T03:32:58.458Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Course\\Edit.cshtml",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Views\\Course\\Edit.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Course\\Edit.cshtml",
+              "RelativeToolTip": "Web_buoi_7\\Views\\Course\\Edit.cshtml",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABQAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T03:20:27.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EnrollmentController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Controllers\\EnrollmentController.cs",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Controllers\\EnrollmentController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Controllers\\EnrollmentController.cs",
+              "RelativeToolTip": "Web_buoi_7\\Controllers\\EnrollmentController.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAwwEwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T03:17:20.638Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Web_buoi_7\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACAAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T03:10:09.365Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Web_buoi_7\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADoAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-05T02:55:48.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Register.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "RelativeToolTip": "Web_buoi_7\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAYwHsAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T02:47:49.756Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Program.cs",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Program.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Program.cs",
+              "RelativeToolTip": "Web_buoi_7\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T02:02:00.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "Web_buoi_7\\Controllers\\CourseController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAmwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T02:38:45.572Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Web_buoi_7.csproj",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Web_buoi_7.csproj",
+              "RelativeDocumentMoniker": "Web_buoi_7\\Web_buoi_7.csproj",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\Web_basic\\Lap_Trinh Web\\Web_buoi7_5_6_Giua_Ky\\Web_buoi_7\\Web_buoi_7.csproj",
+              "RelativeToolTip": "Web_buoi_7\\Web_buoi_7.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-05T02:08:32.561Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

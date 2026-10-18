@@ -1,0 +1,116 @@
+﻿@model WeatherData
+@{
+    ViewData["Title"] = "Weather App";
+}
+
+<div class="container-fluid weather-container">
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col-md-8 mx-auto">
+            <form method="get" action="/" class="d-flex gap-2">
+                <input type="text" name="city" class="form-control" placeholder="Nhập tên thành phố..." 
+                       value="@Model?.SearchQuery" required>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-search"></i> Tìm kiếm
+                </button>
+            </form>
+        </div>
+    </div>
+
+    @if (Model != null)
+    {
+        <!-- Weather Display -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="weather-card">
+                    <!-- Header -->
+                    <div class="weather-header">
+                        <h1>@Model.City, @Model.Country</h1>
+                        <p class="text-capitalize">@Model.Description</p>
+                    </div>
+
+                    <!-- Main Temperature Section -->
+                    <div class="row main-weather-section">
+                        <div class="col-md-6 text-center">
+                            <div class="weather-icon">
+                                <img src="https://openweathermap.org/img/wn/@Model.Icon@@4x.png" alt="@Model.Description">
+                            </div>
+                            <div class="main-temp">
+                                <span class="temperature">@Model.Temperature.ToString("F1")°C</span>
+                            </div>
+                            <p class="feels-like">Cảm giác như: @Model.FeelsLike.ToString("F1")°C</p>
+                        </div>
+
+                        <!-- Temperature Range -->
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="temp-range w-100">
+                                <div class="temp-row">
+                                    <span class="label">Tối đa:</span>
+                                    <span class="value">@Model.TempMax.ToString("F1")°C</span>
+                                </div>
+                                <div class="temp-row">
+                                    <span class="label">Tối thiểu:</span>
+                                    <span class="value">@Model.TempMin.ToString("F1")°C</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Details Grid -->
+                    <div class="row weather-details mt-4">
+                        <div class="col-md-4 detail-item">
+                            <div class="detail-box">
+                                <i class="fas fa-tint"></i>
+                                <p class="detail-label">Độ ẩm</p>
+                                <p class="detail-value">@Model.Humidity%</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 detail-item">
+                            <div class="detail-box">
+                                <i class="fas fa-wind"></i>
+                                <p class="detail-label">Tốc độ gió</p>
+                                <p class="detail-value">@Model.WindSpeed.ToString("F1") m/s</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 detail-item">
+                            <div class="detail-box">
+                                <i class="fas fa-cloud"></i>
+                                <p class="detail-label">Mây</p>
+                                <p class="detail-value">@Model.Cloudiness%</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 detail-item mt-3">
+                            <div class="detail-box">
+                                <i class="fas fa-compress"></i>
+                                <p class="detail-label">Áp suất</p>
+                                <p class="detail-value">@Model.Pressure hPa</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 detail-item mt-3">
+                            <div class="detail-box">
+                                <i class="fas fa-eye"></i>
+                                <p class="detail-label">Tầm nhìn</p>
+                                <p class="detail-value">@Model.Visibility.ToString("F1") km</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 detail-item mt-3">
+                            <div class="detail-box">
+                                <i class="fas fa-thermometer-half"></i>
+                                <p class="detail-label">Nhiệt độ</p>
+                                <p class="detail-value">@Model.Temperature.ToString("F1")°C</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="fas fa-exclamation-circle"></i> Không tìm thấy thành phố này. Vui lòng thử lại!
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

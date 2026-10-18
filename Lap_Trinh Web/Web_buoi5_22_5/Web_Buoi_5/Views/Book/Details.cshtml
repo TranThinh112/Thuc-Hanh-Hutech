@@ -1,0 +1,21 @@
+@model Web_Buoi_5.Models.Book
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-info text-white">
+            <h2>Chi tiết sách</h2>
+        </div>
+
+        <div class="card-body">
+            <img src="@Model.Image" width="200" class="mb-3" />
+
+            <p><strong>Tên sách:</strong> @Model.Title</p>
+            <p><strong>Tác giả:</strong> @Model.Author</p>
+            <p><strong>Giá:</strong> @Model.Price VNĐ</p>
+            <p><strong>Mô tả:</strong> @Model.Description</p>
+            <p><strong>Chủ đề:</strong> @Model.Category.CategoryName</p>
+
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+</div>

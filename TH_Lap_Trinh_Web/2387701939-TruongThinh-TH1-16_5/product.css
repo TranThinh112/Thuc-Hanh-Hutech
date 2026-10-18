@@ -1,0 +1,47 @@
+
+ body{
+            background: linear-gradient(to right,#00c9a7,#00796b);
+            min-height: 100vh;
+        }
+
+        .product-box{
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .product-image img{
+            width: 100%;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .product-image img:hover{
+            transform: scale(1.05);
+        }
+
+        .price{
+            color: red;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .buy-btn{
+            padding: 12px 30px;
+            font-size: 20px;
+        }
+
+        @keyframes lac{
+            0%{
+                transform: rotate(-5deg);
+            }
+
+            100%{
+                transform: rotate(5deg);
+            }
+        }
+
+        .lac{
+            animation: lac 0.3s infinite alternate;
+        }

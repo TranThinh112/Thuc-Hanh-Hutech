@@ -1,0 +1,29 @@
+@model Thuyet_Trinh.Models.WeatherIndexViewModel
+
+@{
+    ViewData["Title"] = "Weather";
+}
+
+<div class="weather-app container mt-4">
+    <h1 class="mb-3">Weather — Thuyet_Trinh</h1>
+
+    <form id="searchForm" class="d-flex mb-3">
+        <input id="cityInput" name="city" class="form-control me-2" placeholder="Nhập tên thành phố" />
+        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+    </form>
+
+    <div class="alert alert-info">Hiển thị danh sách thành phố có sẵn. Khi bạn tìm kiếm, chỉ kết quả thành phố bạn vừa nhập sẽ xuất hiện.</div>
+
+    <div id="weatherCards" class="row">
+        @foreach (var city in Model.Cities)
+        {
+            <partial name="_WeatherCard" model="city" />
+        }
+    </div>
+
+    <div id="weatherResult" class="row"></div>
+</div>
+
+@section Scripts {
+    <script src="~/js/weather.js"></script>
+}

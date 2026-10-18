@@ -1,0 +1,32 @@
+Add-Migration Tao_Bang_Student_va_Grade
+Add-Migration 'Them Du Lieu'
+Update-Database
+
+
+
+dotnet ef migrations add ThemDuLieuRole --context ApplicationDbContext
+dotnet ef database update --context ApplicationDbContext
+
+viet gop:
+    migrationBuilder.InsertData(
+        table: "Grades",
+        columns: new[] { "GradeId", "GradeName" },
+        values: new object[,]
+        {
+            { 1, "CNTT1" },
+            { 2, "LS" },
+            { 3, "TY" },
+            { 4, "KTOT" }
+        });
+
+tao project truoc roi add sln sau
+	dotnet new sln -n Web_buoi_6
+	dotnet sln add THLTW_buoi_4.csproj
+
+
+tao sln truoc
+	dotnet new sln -n test
+	dotnet new mvc -n test
+	dotnet sln test.sln add test/test.csproj
+
+Can tai: design, Tools, SqlServer

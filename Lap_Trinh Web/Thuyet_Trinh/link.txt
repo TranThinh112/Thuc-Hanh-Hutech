@@ -1,0 +1,9 @@
+https://canva.link/2ycz1l6h1m3pqtu
+
+webbasic-production-cdb1.up.railway.app
+
+
+Railway cấp phát cổng (PORT) động cho ứng dụng.
+ASP.NET Core mặc định chạy localhost nên Railway không truy cập được.
+Đoạn code đọc biến môi trường PORT do Railway cung cấp.
+Sau đó bind ứng dụng vào địa chỉ 0.0.0.0 để nhận kết nối từ Internet.

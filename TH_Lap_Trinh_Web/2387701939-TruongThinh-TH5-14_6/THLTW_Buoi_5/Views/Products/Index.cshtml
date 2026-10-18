@@ -1,0 +1,42 @@
+@model IReadOnlyList<Product>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+    var currency = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+}
+
+<section class="store-heading">
+    <div>
+        <p class="section-kicker">Bài 5 - ASP.NET Core MVC</p>
+        <h1>Website bán hàng</h1>
+        <p class="text-secondary mb-0">Chọn sản phẩm, thêm vào giỏ hàng và đặt hàng.</p>
+    </div>
+    <a class="btn btn-outline-primary" asp-controller="ShoppingCart" asp-action="Index">Xem giỏ hàng</a>
+</section>
+
+@if (TempData["SuccessMessage"] is string successMessage)
+{
+    <div class="alert alert-success">@successMessage</div>
+}
+
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <article class="card product-card shadow-sm">
+            <img src="@product.ImageUrl" class="card-img-top product-image" alt="@product.Name" />
+            <div class="card-body d-flex flex-column">
+                <h2 class="h5">@product.Name</h2>
+                <p class="text-secondary flex-grow-1">@product.Description</p>
+                <div class="d-flex justify-content-between align-items-center gap-2 mb-3">
+                    <span class="price">@product.Price.ToString("C0", currency)</span>
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@product.Id">Chi tiết sản phẩm</a>
+                </div>
+                <form asp-controller="ShoppingCart" asp-action="AddToCart" method="post" class="d-flex gap-2">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <input class="form-control quantity-input" type="number" name="quantity" value="1" min="1" aria-label="Số lượng" />
+                    <button class="btn btn-primary flex-grow-1" type="submit">Thêm vào giỏ hàng</button>
+                </form>
+            </div>
+        </article>
+    }
+</div>

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "Thuyet_Trinh/1.0.0": {
+        "runtime": {
+          "Thuyet_Trinh.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Thuyet_Trinh/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

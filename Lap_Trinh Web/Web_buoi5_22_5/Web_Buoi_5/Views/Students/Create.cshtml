@@ -1,0 +1,17 @@
+@model Web_Buoi_5.Models.Student
+
+<h1>Thêm sinh viên</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Name</label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <label>Email</label>
+        <input asp-for="Email" />
+    </div>
+
+    <button type="submit">Lưu</button>
+</form>

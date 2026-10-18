@@ -1,0 +1,14 @@
+@page "{id:int}"
+@model Web_Buoi4.Pages.DeleteTask.DeleteTaskModel
+
+<h1>Xóa công việc</h1>
+
+<p>Bạn có chắc muốn xóa?</p>
+
+<p>@Model.Task.TaskName</p>
+
+<form method="post">
+    <button type="submit">Xóa</button>
+</form>
+
+<a href="/TodoList">Hủy</a>

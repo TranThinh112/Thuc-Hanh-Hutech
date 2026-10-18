@@ -1,0 +1,29 @@
+@model Web_Buoi_5.Models.Book
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h2>Xóa sách</h2>
+        </div>
+
+        <div class="card-body">
+            <p>Bạn có chắc muốn xóa sách này?</p>
+
+            <img src="@Model.Image" width="200" class="mb-3" />
+
+            <p><strong>@Model.Title</strong></p>
+
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" asp-for="Id" />
+
+                <button type="submit" class="btn btn-danger">
+                    Xác nhận xóa
+                </button>
+
+                <a asp-action="Index" class="btn btn-secondary">
+                    Hủy
+                </a>
+            </form>
+        </div>
+    </div>
+</div>

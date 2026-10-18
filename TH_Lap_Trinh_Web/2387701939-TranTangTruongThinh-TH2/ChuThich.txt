@@ -1,0 +1,1 @@
+Bài tập xây dựng ứng dụng quản lý sản phẩm bằng ASP.NET Core MVC với chức năng CRUD, upload hình ảnh và áp dụng Repository Pattern với dữ liệu mô phỏng (mock data).

@@ -1,0 +1,38 @@
+@THLTW_Buoi_6_HostAddress = http://localhost:5184
+
+GET {{THLTW_Buoi_6_HostAddress}}/api/products
+Accept: application/json
+
+###
+
+GET {{THLTW_Buoi_6_HostAddress}}/api/products/1
+Accept: application/json
+
+###
+
+POST {{THLTW_Buoi_6_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Man hinh 24 inch",
+  "price": 2750000,
+  "description": "Man hinh full HD"
+}
+
+###
+
+PUT {{THLTW_Buoi_6_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Laptop Dell Inspiron",
+  "price": 14990000,
+  "description": "Laptop van phong da cap nhat gia"
+}
+
+###
+
+DELETE {{THLTW_Buoi_6_HostAddress}}/api/products/1
+
+###

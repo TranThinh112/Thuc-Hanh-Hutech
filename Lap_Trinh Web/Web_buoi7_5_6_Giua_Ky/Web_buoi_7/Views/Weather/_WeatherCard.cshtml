@@ -1,0 +1,25 @@
+@model Thuyet_Trinh.Models.WeatherViewModel
+
+<div class="col-md-6 mb-3 weather-card-wrapper" data-city="@Model.City" data-favorite="@(Model.IsFavorite.ToString().ToLower())">
+    <div class="weather-card p-4 text-white" data-condition="@Model.Condition">
+        <div class="city-photo" style="background-image:url('@Model.ImageUrl');"></div>
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <h2>@Model.City, @Model.Country</h2>
+                <p class="lead text-capitalize">@Model.Description</p>
+            </div>
+            <div class="temp-display text-end">
+                <h1>@Math.Round(Model.Temperature)°C</h1>
+            </div>
+        </div>
+
+        <div class="weather-animation mt-3" aria-hidden="true"></div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <button type="button" class="btn @(Model.IsFavorite ? "btn-warning" : "btn-outline-light") btn-sm favorite-btn" data-city="@Model.City">
+                <span class="favorite-icon">@(Model.IsFavorite ? "★" : "☆")</span>
+                <span class="favorite-label">@(Model.IsFavorite ? "Đã yêu thích" : "Yêu thích")</span>
+            </button>
+            <span class="badge bg-light text-dark">@Model.Condition</span>
+        </div>
+    </div>
+</div>

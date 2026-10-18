@@ -1,0 +1,47 @@
+@model WeatherDto?
+
+<h2>Tra cứu thời tiết</h2>
+
+<form method="post">
+    <input type="text"
+           name="city"
+           placeholder="Nhập tên thành phố" />
+
+    <button type="submit">
+        Tìm kiếm
+    </button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">
+        @ViewBag.Error
+    </p>
+}
+
+@if (Model != null)
+{
+    <hr />
+
+    <h3>@Model.City</h3>
+
+    <p>
+        Quốc gia:
+        @Model.Country
+    </p>
+
+    <p>
+        Nhiệt độ:
+        @Model.Temperature °C
+    </p>
+
+    <p>
+        Độ ẩm:
+        @Model.Humidity %
+    </p>
+
+    <p>
+        Thời tiết:
+        @Model.Description
+    </p>
+}

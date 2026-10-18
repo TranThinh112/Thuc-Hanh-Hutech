@@ -1,0 +1,50 @@
+@model IEnumerable<Web_buoi_6.Models_Shop.Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Danh sách sản phẩm</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>CategoryId</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(product.ImageUrl))
+                    {
+                        <img src="@product.ImageUrl" style="width: 100px; height: auto;" />
+                    }
+                </td>
+                <td>@product.Price</td>
+                <td>@product.Description</td>
+                <td>@product.CategoryId</td>
+                <td>
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Display" asp-route-id="@product.Id">Details</a> |
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@product.Id">Edit</a> |
+                    <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

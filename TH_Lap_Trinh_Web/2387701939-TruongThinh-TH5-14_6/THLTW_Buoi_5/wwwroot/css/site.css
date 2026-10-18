@@ -1,0 +1,136 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  background: #f6f8fb;
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.section-kicker {
+  color: #1f6f5b;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+}
+
+.store-heading {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.store-heading h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 750;
+  margin: 0;
+}
+
+.product-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.product-card {
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-image {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.product-detail-image {
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  box-shadow: 0 1rem 2rem rgba(20, 35, 55, 0.12);
+  object-fit: cover;
+  width: 100%;
+}
+
+.price,
+.detail-price {
+  color: #b84a3a;
+  font-size: 1.2rem;
+  font-weight: 750;
+}
+
+.detail-price {
+  font-size: 1.8rem;
+}
+
+.quantity-input {
+  max-width: 92px;
+}
+
+.cart-table,
+.checkout-form,
+.order-success,
+.empty-panel {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.cart-product {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  min-width: 220px;
+}
+
+.cart-product img {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  object-fit: cover;
+  width: 56px;
+}
+
+.checkout-wrap {
+  margin-inline: auto;
+  max-width: 760px;
+}
+
+.empty-panel {
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+
+@media (max-width: 575.98px) {
+  .store-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

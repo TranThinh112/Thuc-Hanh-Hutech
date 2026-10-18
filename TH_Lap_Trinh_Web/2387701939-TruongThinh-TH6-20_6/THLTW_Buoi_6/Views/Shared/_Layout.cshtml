@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - THLTW_Buoi_6</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <nav class="nav">
+            <a class="brand" asp-controller="Products" asp-action="Index">THLTW_Buoi_6</a>
+            <div class="nav-links">
+                <a asp-controller="Products" asp-action="Index">Sản phẩm</a>
+                <a href="/swagger">Swagger API</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="page">
+        @RenderBody()
+    </main>
+
+    <footer class="footer">
+        <span>ASP.NET Core MVC + RESTful API</span>
+    </footer>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,7 @@
+Application va Authentication
+Weather
+Shop
+
+dotnet clean Web_buoi_6.csproj
+dotnet build Web_buoi_6.csproj 
+dotnet watch run --project Web_buoi_6.csproj

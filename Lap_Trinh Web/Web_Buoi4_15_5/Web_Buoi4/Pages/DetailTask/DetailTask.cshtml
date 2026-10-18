@@ -1,0 +1,10 @@
+@page "{id:int}"
+@model Web_Buoi4.Pages.DetailTask.DetailTaskModel
+
+<h1>Chi tiết công việc</h1>
+
+<p>Mã: @Model.Task.Id</p>
+<p>Tên: @Model.Task.TaskName</p>
+<p>Hoàn thành: @Model.Task.IsCompleted</p>
+
+<a href="/TodoList">Quay lại</a>

@@ -1,0 +1,59 @@
+@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+}
+
+<section class="page-header">
+    <div>
+        <p class="eyebrow">Quản lý sản phẩm</p>
+        <h1>Danh sách sản phẩm</h1>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Thêm sản phẩm</a>
+</section>
+
+@if (TempData["SuccessMessage"] is string message)
+{
+    <div class="alert-success">@message</div>
+}
+
+<section class="panel">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Mô tả</th>
+                    <th class="actions-col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="5" class="empty-state">Chưa có sản phẩm nào.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>#@product.Id</td>
+                            <td class="strong">@product.Name</td>
+                            <td>@product.Price.ToString("N0") đ</td>
+                            <td>@(string.IsNullOrWhiteSpace(product.Description) ? "Không có mô tả" : product.Description)</td>
+                            <td class="actions">
+                                <a class="btn btn-small" asp-action="Details" asp-route-id="@product.Id">Chi tiết</a>
+                                <a class="btn btn-small btn-warning" asp-action="Edit" asp-route-id="@product.Id">Sửa</a>
+                                <a class="btn btn-small btn-danger" asp-action="Delete" asp-route-id="@product.Id">Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
