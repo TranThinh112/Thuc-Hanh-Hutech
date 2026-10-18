@@ -45,14 +45,13 @@ Thuc-Hanh-Hutech/
 │   ├── 📁 Buoi_5_10_6/             # Buổi 5: Triển khai Splunk SIEM Enterprise, Universal Forwarder, Syslog, FIM & Alert
 │   └── 📁 Buoi_6_16_6/             # Buổi 6: Thiết kế SOC Dashboard, Visualizations (Pie/Column) & Interactive Drilldown
 │
-├── 📁 TH_Lap_Trinh_Web/            # Thực hành Lập trình Web (Mã nguồn thực hành trên lớp)
+└── 📁 TH_Lap_Trinh_Web/            # Thực hành Lập trình Web (Mã nguồn thực hành trên lớp)
 │   ├── 📁 TH1-16_5                 # TH1: Thiết kế giao diện Web Responsive với HTML5/CSS3 & Bootstrap
 │   ├── 📁 TH2                      # TH2: Mô hình MVC với Repository Pattern, CRUD Mock Data & File Upload
 │   ├── 📁 TH4-6_6                  # TH4: Kết nối SQL Server với EF Core Code-First Migrations & Phân hệ Admin Area
 │   ├── 📁 TH5-14_6                 # TH5: Xây dựng Giỏ hàng (Shopping Cart) lưu trữ ISession & Quy trình Checkout
 │   └── 📁 TH6-20_6                 # TH6: Xây dựng dịch vụ RESTful Web API (GET, POST, PUT, DELETE)
 │
-└── 📁 TH_LTANTT_2387701939/        # Thực hành Lập trình An toàn Thông tin (Mã nguồn & Bài tập cá nhân)
 ```
 
 ---
