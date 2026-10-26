@@ -40,8 +40,7 @@ Thuc-Hanh-Hutech/
 │   ├── 📄 TranTangTruongThinh_2387701939_Lab3.pdf   # Lab 3: Khai thác & Phòng chống Command Injection và SQL Injection
 │   ├── 📄 TranTangTruongThinh_2387701939_Lab4.pdf   # Lab 4: Khai thác lỗ hổng PHP (File Upload, LFI) và tấn công XSS
 │   ├── 📄 TranTangTruongThinh_2387701939_Lab5.pdf   # Lab 5: Khai thác lỗ hổng CSRF & Replay Request với Wireshark / cURL
-│   ├── 📁 Lab 6 26_10_26/          # Lab 6: Bảo vệ máy chủ (iptables/iptstate) & Tự động hóa request Web bằng Python
-│   └── 📄 README.md                # Tài liệu chi tiết nội dung các bài thực hành Lab 1 - Lab 6
+│   └── 📁 Lab 6 26_10_26/          # Lab 6: Bảo vệ máy chủ (iptables/iptstate) & Tự động hóa request Web bằng Python
 │
 ├── 📁 TH_Chieu_T4/                 # Thực hành An toàn Mạng & Giám sát An ninh Thông tin (SIEM / SOC)
 │   ├── 📁 Buoi_1_13_5/             # Buổi 1: Hệ thống Hybrid IPS thời gian thực bằng Python + Tshark + IPTables
