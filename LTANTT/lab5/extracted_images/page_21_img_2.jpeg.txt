@@ -1,0 +1,18 @@
+dast-tool>tests>test_memory_analyzer.py>
+1
+importunittest
+2
+frommemory_analyzer import MemoryAnalyzer
+3
+class TestMemoryAnalyzer(unittest.TestCase):
+5
+def test_check_overflow(self):
+6
+ma =MemoryAnalyzer()
+7
+self.assertTrue(ma.check_overflow(2**64))
+8
+self.assertFalse(ma.check_overflow(1o0))
+9
+
+=

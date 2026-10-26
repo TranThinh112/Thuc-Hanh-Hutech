@@ -1,0 +1,14 @@
+13
+reporter=SarifReporter
+14
+output_file=
+test_report.sarif"
+15
+reporter.generate_report（issues,output_file)
+16
+self.assertTrue(os.path.exists(output_file))
+17
+os.remove(output_file)
+18
+
+=

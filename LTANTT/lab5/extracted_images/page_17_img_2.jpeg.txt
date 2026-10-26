@@ -1,0 +1,36 @@
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHU0C\Desktop\THLTANTT1511060249\dast-tool
+pip
+install-r.\requirements.txt
+Requirementalready
+s
+（from-r.require
+Requirement already
+satisfied:Flaskinc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+(from-r.requiren
+Requirement already
+satisfied:Werkzeug>=2.3.7in c:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages
+（fromFla
+Requirement already
+satisfied:Jinja2>=3.1.2inc:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages
+（from Flask
+Requirement already
+satisfied:itsdangerous>=2.1.2inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+(fron
+Requirement already
+/satisfied:click>=8.1.3inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+（from Flask-
+Requirementalready
+satisfied:blinker>=1.6.2inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+（from Flas
+00
+ic+iod：
+fnor
+click
+
+=

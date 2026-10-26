@@ -1,0 +1,51 @@
+sast-tool>sast_tool>code_quality_checker.py>CodeQualityChecker>check
+1
+import subprocess
+2
+3
+class CodeQualityChecker:
+4
+def check(self,filepath):
+5
+issues =[]
+6
+result = subprocess.run(["flake8",filepath],
+7
+capture_output=True,text=True)
+8
+for line in result.stdout.splitlines():
+9
+if line:
+10
+parts=line.split(":")
+11
+if len（parts）>=4:
+12
+#kiem tra chac chan phan line va col la so
+13
+try:
+14
+lineno = int(parts[1])
+15
+col_offset=int(parts[2])
+16
+except ValueError:
+17
+continue
+18
+issues.append({
+19
+'type':Lint Issue',
+20
+'message':line,
+21
+'lineno':lineno,
+22
+'col_offset':col_offset
+23
+H)
+24
+return issues
+25
+
+=

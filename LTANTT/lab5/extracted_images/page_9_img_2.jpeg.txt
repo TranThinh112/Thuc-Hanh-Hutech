@@ -1,0 +1,55 @@
+sast-tool>sast_tool>main.py>
+1
+import sys
+2
+from sast_tool.ast_analyzer import ASTAnalyzer
+3
+from sast_tool.vuln_pattern_matcher importVulnPatternMatcher
+4
+from sast_tool.security_rule_engine import SecurityRuleEngine
+5
+from sast_tool.code_quality_checker import CodeQualityChecker
+6
+from sast_tool.sarif_reporter import SarifReporter
+7
+8
+def main（file_path):
+9
+with open(file_path)as f:
+10
+code = f.read()
+11
+12
+ast_issues =AsTAnalyzer().analyze(code)
+13
+pattern_issues =VulnPatternMatcher().match(code)
+14
+quality_issues = CodeQualityChecker().check(file_path)
+15
+16
+rule_engine = SecurityRuleEngine()
+17
+final_issues = rule_engine.evaluate(ast_issues,pattern_issues)+ quality_issues
+18
+19
+SarifReporter().generate_report(final_issues,analyzed_file=file_path)
+20
+print(f'''Analysiscomplete.
+21
+Report saved to report.sarif with (len（final_issues)} issues.)
+22
+23
+if
+name
+main_':
+24
+iflen(sys.argv)!=2:
+25
+print("Usage: python -m sast_tool.main <file_to_analyze.py>")
+26
+sys.exit(1)
+27
+main(sys.argv[1])
+28
+
+=

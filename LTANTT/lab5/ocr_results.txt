@@ -1,0 +1,1298 @@
+=== page_4_img_1.jpeg ===
+sast-tool>=requirements.txt
+1
+flake8
+2
+sarif-om
+3
+jsonpickle
+
+=== page_5_img_1.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PS C:\Users\HONGPHU0C\Desktop\TH_LTANTT_1511060249\sast-tool>
+pipinstall-r.\requirements.txt
+Requirementalreadysatisfied:flake8inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages（from-r.\requirem
+Requirementalreadysatisfied:sarif-ominc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages（from -r.\requir
+Requirementalready
+/satisfied:jsonpickleinc:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages（from-r.\requ
+Requirementalready
+satisfied:mccabe<0.8.0,>=0.7.0inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages（from
+Requirementalreadysatisfied:pycodestyle<2.15.0,>=2.14.0inc:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-package
+Requirementalready
+satisfied:pyflakes<3.5.0,>=3.4.0inc:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages（fr
+Requirementalready
+/satisfied:attrsinc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages（from sarif-om->-r
+Requirement already satisfied:pbrin c:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages（from sarif-om->-r.\r
+Requirementalreadysatisfied:setuptoolsinc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages（from pbr->sari
+PSC:\Users\HONGPHU0C\Desktop\THLTANTT1511060249\sast-tool>
+
+=== page_5_img_2.jpeg ===
+sast-tool>examples>vulnerable_01.py>.
+1
+password="123456"
+#Hardcoded password
+2
+3
+import pickle #c6the gaynguy hiém
+4
+5
+def unsafe_func（data):
+6
+return eval(data)
+#Rat nguy hiem,eval dung tuy y
+7
+8
+def safe_func():
+9
+print("Hello world!")
+10
+11
+if
+name
+main
+12
+unsafe_func（"2+2")
+13
+safe_func()
+14
+
+=== page_6_img_1.jpeg ===
+sast-tool>examples>vulnerable_02.py>dangerous_eval
+1
+def dangerous_eval(user_input):
+2
+#Nguy hiem vi eval khong kiem soat dau vao
+3
+return eval(user_input)
+4
+5
+def read file（filename):
+6
+with open(filename,
+r'）asf:
+7
+data=f.read()
+8
+return data
+9
+10
+def execute_code(code):
+11
+exec(code)
+12
+13
+if
+name
+main
+14
+user_code =
+"print('Hello from eval')"
+15
+dangerous_eval(user_code)
+16
+
+=== page_6_img_2.jpeg ===
+sast-tool>rules>[]default_rules.json>
+1
+2
+{"type":
+"Useofeval",
+severity":"high"},
+3
+{"type
+"PatternMatch"
+severity":
+medium"},
+4
+{"type":"Lint Issue
+severity":
+："low"}
+5
+一
+6
+
+=== page_6_img_3.jpeg ===
+sast-tool>sast_tool>ast_analyzer.py>
+1
+import ast
+2
+3
+class ASTAnalyzer:
+4
+def analyze（self,code:str):
+5
+tree=ast.parse(code)
+6
+issues=[]
+7
+fornode in ast.walk（tree):
+8
+if isinstance（node,ast.Call)and getattr（node.func,'id',
+'eval':
+9
+issues.append({
+10
+'type':'Use of eval'
+11
+'message':'Use of eval() is dangerous and should be avoided.
+12
+lineno':node.lineno,
+13
+'col_offset':node.col_offset
+14
+15
+return issues
+16
+
+=== page_7_img_1.jpeg ===
+sast-tool>sast_tool>code_quality_checker.py>CodeQualityChecker>check
+1
+import subprocess
+2
+3
+class CodeQualityChecker:
+4
+def check(self,filepath):
+5
+issues =[]
+6
+result = subprocess.run(["flake8",filepath],
+7
+capture_output=True,text=True)
+8
+for line in result.stdout.splitlines():
+9
+if line:
+10
+parts=line.split(":")
+11
+if len（parts）>=4:
+12
+#kiem tra chac chan phan line va col la so
+13
+try:
+14
+lineno = int(parts[1])
+15
+col_offset=int(parts[2])
+16
+except ValueError:
+17
+continue
+18
+issues.append({
+19
+'type':Lint Issue',
+20
+'message':line,
+21
+'lineno':lineno,
+22
+'col_offset':col_offset
+23
+H)
+24
+return issues
+25
+
+=== page_7_img_2.jpeg ===
+sast-tool>sasttool>sarif_reporter.py>
+1
+from sarif_om import SarifLog,Run,Tool,ToolComponent,Result,Message
+2
+from sarif_om import ArtifactLocation,Location,PhysicalLocation,Region
+3
+import jsonpickle
+4
+5
+class SarifReporter:
+6
+def generate_report(self,issues,output_file='report.sarif',
+7
+analyzed_file="input.py"):
+8
+results=[]
+9
+for i in issues:
+10
+results.append(Result(
+11
+message=Message(text=i['message']),
+12
+locations=[Location(
+13
+physical_location=PhysicalLocation(
+14
+artifact_location=ArtifactLocation(uri=analyzed_file),
+15
+region=Region(start_line=i['lineno'],
+16
+start_column=i['col_offset']+1)
+17
+18
+）]
+19
+
+=== page_8_img_1.jpeg ===
+20
+21
+run =Run（
+22
+tool=Tool（driver=ToolComponent（name="PySAST",version="1.0.o")),
+23
+results=results
+24
+25
+log =SarifLog(schema_uri="https://json.schemastore.org/sarif-2.1.0.json"
+26
+version="2.1.o",runs=[run])
+27
+28
+withopen(output_file,'w')asf:
+29
+f.write（jsonpickle.encode（log,unpicklable=False,indent=2))
+30
+
+=== page_8_img_2.jpeg ===
+sast-tool>sast_tool>security_rule_engine.py>
+1
+import json
+2
+3
+class SecurityRuleEngine:
+4
+definit_（self,rules_file='rules/default_rules.json'):
+5
+withopen（rules_file)as f:
+6
+self.rules =json.load(f)
+7
+8
+def evaluate(self,ast_issues,pattern_issues):
+6
+issues =[]
+10
+for issue in ast_issues + pattern_issues:
+11
+forrule in self.rules:
+12
+ifrule['type']in issue['type']:
+13
+issue['severity']=rule.get（'severity','medium')
+14
+issues.append(issue)
+15
+returnissues
+16
+
+=== page_8_img_3.jpeg ===
+sast-tool>sasttool>vuln_pattem_matcher.py>
+1
+import re
+2
+34567
+class VulnPatternMatcher:
+def match（self,code:str）:
+patterns=
+{'pattern':r'password\s*=\s*"*"
+message
+Hardcodedpassworddetected.'},
+8
+['pattern':r'import\s+pickle'
+9
+message':'Usage of pickle module can be unsafe.'}
+10
+
+=== page_9_img_1.jpeg ===
+11
+issues=[]
+12
+for p in patterns:
+13
+formatchin re.finditer（p['pattern'],code):
+14
+issues.append({
+15
+type':'Pattern Match'
+16
+message':p['message']
+17
+lineno':code[:match.start()].count（'\n')+1,
+18
+col_offset':match.start（)-code.rfind（'\n',0,match.start（))-1
+19
+）
+20
+returnissues
+21
+
+=== page_9_img_2.jpeg ===
+sast-tool>sast_tool>main.py>
+1
+import sys
+2
+from sast_tool.ast_analyzer import ASTAnalyzer
+3
+from sast_tool.vuln_pattern_matcher importVulnPatternMatcher
+4
+from sast_tool.security_rule_engine import SecurityRuleEngine
+5
+from sast_tool.code_quality_checker import CodeQualityChecker
+6
+from sast_tool.sarif_reporter import SarifReporter
+7
+8
+def main（file_path):
+9
+with open(file_path)as f:
+10
+code = f.read()
+11
+12
+ast_issues =AsTAnalyzer().analyze(code)
+13
+pattern_issues =VulnPatternMatcher().match(code)
+14
+quality_issues = CodeQualityChecker().check(file_path)
+15
+16
+rule_engine = SecurityRuleEngine()
+17
+final_issues = rule_engine.evaluate(ast_issues,pattern_issues)+ quality_issues
+18
+19
+SarifReporter().generate_report(final_issues,analyzed_file=file_path)
+20
+print(f'''Analysiscomplete.
+21
+Report saved to report.sarif with (len（final_issues)} issues.)
+22
+23
+if
+name
+main_':
+24
+iflen(sys.argv)!=2:
+25
+print("Usage: python -m sast_tool.main <file_to_analyze.py>")
+26
+sys.exit(1)
+27
+main(sys.argv[1])
+28
+
+=== page_10_img_1.jpeg ===
+sast-tool>tests>test_ast_analyzer.py>.
+1
+import unittest
+from sast_tool.ast_analyzer import ASTAnalyzer
+3
+class TestASTAnalyzer(unittest.TestCase):
+5
+def test_eval_detection(self):
+6
+code="eval（'2+2')"
+7
+analyzer=AsTAnalyzer()
+8
+issues =analyzer.analyze（code)
+9
+self.assertTrue（any（i['type']== 'Use of eval'for i in issues）)
+10
+
+=== page_10_img_2.jpeg ===
+sast-tool>tests>test_code_quality_checker.py>..
+1
+import unittest
+2
+import tempfile
+3
+from sast_tool.code_quality_checkerimportCodeQualityChecker
+4
+5
+class TestCodeQualityChecker(unittest.TestCase):
+6
+def test_flake8 detection(self):
+7
+with tempfile.NamedTemporaryFile(suffix=".py",
+08
+mode="w",delete=True)as tmp:
+9
+tmp.write（"importos\n\n\n")
+10
+tmp.flush()
+11
+checker =CodeQualityChecker()
+12
+issues=checker.check（tmp.name)
+13
+self.assertTrue（all（i['type']=='Lint Issue'foriin issues)
+14
+orlen（issues)==θ)
+15
+
+=== page_10_img_3.jpeg ===
+sast-tool>tests>test_sarif_reporter.py>
+1
+import unittest
+2
+import os
+3
+from sast_tool.sarif_reporter import SarifReporter
+5
+class TestSarifReporter(unittest.TestCase):
+6
+def test_generate_report(self):
+7
+issues=[{
+8
+'type':'Test',
+9
+message':'Testmessage'
+10
+lineno':1,
+11
+col_offset':0
+12
+}]
+
+=== page_11_img_1.jpeg ===
+13
+reporter=SarifReporter
+14
+output_file=
+test_report.sarif"
+15
+reporter.generate_report（issues,output_file)
+16
+self.assertTrue(os.path.exists(output_file))
+17
+os.remove(output_file)
+18
+
+=== page_11_img_2.jpeg ===
+sast-tool>tests>test_security_rule_engine.py>.
+1
+import unittest
+2
+import json
+3
+from sast_tool.security_rule_engine import SecurityRuleEngine
+4
+5
+class TestSecurityRuleEngine(unittest.TestCase):
+6
+def setUp(self):
+7
+#Create temporary rule file
+8
+self.rules =[
+6
+10
+{"type":"Pattern Match",“severity":"medium"}
+11
+12
+with open("rules/temp_rules.json","w")as f:
+13
+json.dump(self.rules,f)
+14
+self.engine =SecurityRuleEngine("rules/temp_rules.json")
+15
+16
+def tearDown(self):
+17
+import os
+18
+os.remove("rules/temp_rules.json")
+19
+20
+def test_evaluate(self):
+21
+ssod=sss
+22
+"lineno":1,"col_offset":0}]
+23
+pattern_issues =[{"type":"Pattern Match","message":
+24
+"msg",“1ineno":2,"col_offset":1}]
+25
+results = self.engine.evaluate(ast_issues,pattern_issues)
+26
+self.assertEqual(len(results),2)
+27
+self.assertEqual(results[θ]['severity'],"high")
+28
+self.assertEqual(results[1]['severity'],“medium")
+29
+
+=== page_12_img_1.jpeg ===
+sast-tool>tests>test_vuln_pattern_matcher.py>
+1
+import unittest
+2
+fromsast_tool.vuln_pattern_matcherimportVulnPatternMatcher
+3
+4
+class TestVulnPatternMatcher(unittest.TestCase):
+5
+deftest_hardcoded_password(self):
+6
+code='password="secret"
+7
+matcher=VulnPatternMatcher(）
+8
+issues = matcher.match（code)
+9
+self.assertTrue（any（i['type']=='Pattern Match'for i in issues）)
+10
+11
+deftest_pickle_import(self):
+12
+code='import pickle
+13
+matcher=VulnPatternMatcher()
+14
+issues =matcher.match（code)
+15
+self.assertTrue（any（i['type']=='Pattern Match'for i in issues)）
+16
+
+=== page_12_img_2.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\sast-tool>
+python -m unittest discover tests
+Ran6testsin0.373s
+OK
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\sast-tool>
+
+=== page_12_img_3.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHUOC\Desktop\THLTANTT
+1511060249\sast-tool>
+python-m sast_tool.main.\examples\vulnerable_01.py
+Analysiscomplete.
+Reportsaved
+to
+report.sarifwith 8 issues
+PS C:\Users\HONGPHU0C\Desktop\TH_LTANTT_1511060249\sast-tool>
+
+=== page_12_img_4.jpeg ===
+SARIFVieWer
+MicrosoftDevLabs
+microsoft.com
+265.771
+食食食食食（5）
+AddssupportforviewingSARIFlogs
+Disable
+Uninstall
+Auto Update
+DETAILS
+FEATURES
+CHANGELOG
+DEPENDENCIES
+SARlFViewerforVisualStudioCode
+
+=== page_13_img_1.jpeg ===
+report.sarif8,U
+8SARIF Results
+sast-tool>{} report.sarif>.
+LOCATIONS
+RULES
+LOGS1
+Filterresults
+白
+B
+1
+2
+"runs":[
+Message
+3
+No Location
+"tool":{
+A
+Use of eval0 is dangerous and shouldbeavoided.
+4
+A
+Hardcodedpassword detected.
+5
+"driver":{
+A
+Usageof picklemodule canbe unsafe.
+6
+"name":"PySAST"
+A
+\examples\vulnerable_01.py:3:1:F401'pickle'importedbutunused
+7
+"associated_component":null,
+\examples\vulnerable_01.py:3:1:E402modulelevelimportnotat topof file
+"contents":[
+A
+examples\vulnerable_01.py:5:1:E302expected2blanklines,found1
+8
+A
+examples\vulnerable_01.py:8:1:E302expected2blanklines,found1
+9
+"localizedData",
+examples\vulnerable_01.py:11:1:E305expected2blanklines afterclass orfunction definition,found1
+10
+"nonLocalizedData"
+11
+12
+"dotted_quad_file_version":null,
+13
+"download_uri":null,
+14
+"full_description":null,
+15
+"full_name":null,
+16
+"global_message_strings":null,
+
+=== page_13_img_2.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\H0NGPHU0C\Desktop\TH_LTANTT_1511060249\sast-too1>
+python-m sast_tool.main.\examples\vulnerable_02.py
+Analysiscomplete.
+Reportsaved
+to
+report.sarifwith4issues
+PSC:\Users\H0NGPHU0C\Desktop\TH_LTANTT_1511060249\sast-too1>
+
+=== page_13_img_3.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHUOC\Desktop\THLTANTT1511060249>
+gitadd.
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+gitcommit-m"[add]
+sast tool"
+COMMIT BLOCKED byGitSecure:
+-Sensitive info found in sast-tool/examples/vulnerable_01.py:pattern password\s*=\s*['\"][^'\"]{4,}['\"]
+-Sensitive info found in sast-tool/tests/test_vuln_pattern_matcher.py:pattern password\s*=\s*['\"][^'\"]{4,}['\"]
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+
+=== page_13_img_4.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+gitadd
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+git commit-m"[add]sast tool
+GitSecure: All checks passed.
+[main 1632007][add]sasttool
+18 files changed,619 insertions（+)
+create mode 100644 sast-tool/examples/vulnerable_01.py
+create mode100644 sast-too1/examples/vulnerable_02.py
+create mode 100644 sast-tool/report.sarif
+create mode 100644sast-tool/requirements.txt
+create mode 100644 sast-tool/rules/default_rules.json
+create mode 100644 sast-tool/sast_tool/__init__.py
+create mode 100644 sast-tool/sast_tool/ast_analyzer.py
+create mode 100644 sast-tool/sast_tool/code_quality_checker.py
+create mode 100644 sast-tool/sast_tool/main.py
+create mode 100644 sast-tool/sast_tool/sarif_reporter.py
+create mode 100644 sast-tool/sast_tool/security_rule_engine.py
+create mode 100644 sast-tool/sast_tool/vuln_pattern_matcher.py
+create mode 100644 sast-tool/tests/__init__·Py
+
+=== page_14_img_1.jpeg ===
+PSC:\Users\HONGPHU0C\DeSktop\THLTANTT1511060249>
+gitpushoriginmain
+Enumerating objects:25,done.
+Counting objects:100%(25/25),done.
+Deltacompression usingup to8threads
+Compressing objects:1e0%(21/21),done.
+Writing objects:100%(24/24),6.52KiB
+556.00 KiB/s,done.
+Total24（delta1),reused0（delta0),pack-reused0（from0)
+remote:Resolving deltas:100%（1/1),completed with 11ocalobject.
+Tohttps://github.com/phuocntmh/TH_LTANTT_1511060249.git
+eb850a6..1632007
+main->main
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+
+=== page_17_img_1.jpeg ===
+dast-tool>
+=requirements.txt
+1
+psutil
+2
+Flask
+
+=== page_17_img_2.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHU0C\Desktop\THLTANTT1511060249\dast-tool
+pip
+install-r.\requirements.txt
+Requirementalready
+s
+（from-r.require
+Requirement already
+satisfied:Flaskinc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+(from-r.requiren
+Requirement already
+satisfied:Werkzeug>=2.3.7in c:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages
+（fromFla
+Requirement already
+satisfied:Jinja2>=3.1.2inc:\users\hongphuoc\appdata\local\programs\python\python313\1ib\site-packages
+（from Flask
+Requirement already
+satisfied:itsdangerous>=2.1.2inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+(fron
+Requirement already
+/satisfied:click>=8.1.3inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+（from Flask-
+Requirementalready
+satisfied:blinker>=1.6.2inc:\users\hongphuoc\appdata\local\programs\python\python313\lib\site-packages
+（from Flas
+00
+ic+iod：
+fnor
+click
+
+=== page_17_img_3.jpeg ===
+dast-tool>memory_analyzer.py>..
+1
+importgc
+2
+3
+classMemoryAnalyzer:
+4
+def check_memory_leaks(self):
+5
+gc.collect()
+6
+leaks =[obj for obj in gc.garbage if hasattr(obj,_del_'）]
+7
+return leaks
+8
+9
+defcheck_overflow(self,value):
+10
+try:
+11
+if isinstance（value,int)and abs（value）>2**63:
+12
+return True
+13
+except:
+14
+return False
+15
+return False
+16
+
+=== page_17_img_4.jpeg ===
+dast-tool>
+network_traffic_analyzer.py>.
+1
+import psutil
+2
+3
+classNetworkTrafficAnalyzer:
+寸
+def
+get_network_stats(self):
+5
+return psutil.net_io_counters(pernic=True)
+6
+
+=== page_18_img_1.jpeg ===
+dast-tool>runtime_monitor.py>.
+1
+import time
+2
+import psutil
+3
+4
+class RuntimeMonitor:
+5
+def_init_（self,pid):
+6
+self.pid=pid
+7
+self.process = psutil.Process(pid)
+8
+6
+def get_cpu_usage(self):
+10
+return self.process.cpu_percent（interval=1.0)
+11
+12
+def get_memory_usage(self):
+13
+return self.process.memory_info().rss
+14
+15
+def get_open_files(self):
+16
+return self.process.open_files()
+17
+
+=== page_18_img_2.jpeg ===
+dast-tool>security_behavior_checker.py>
+1
+import os
+2
+3
+class SecurityBehaviorChecker:
+4
+def suspicious_calls(self):
+5
+suspicious=[]
+6
+syscalls =["os.system","eval","exec"]
+7
+try:
+8
+with open(file
+r）
+asf:
+9
+content=f.read()
+10
+for call in syscalls:
+11
+if call in content:
+12
+suspicious.append(call)
+13
+except:
+14
+pass
+15
+return suspicious
+16
+
+=== page_19_img_1.jpeg ===
+dast-tool>virtual_sandbox.py>..
+1
+import subprocess
+2
+import tempfile
+3
+importos
+4
+5
+classVirtualSandbox:
+6
+definit_（self):
+7
+self.temp_dir=tempfile.mkdtemp（)
+8
+9
+defrun_isolated（self,command):
+10
+result = subprocess.run（command,cwd=self.temp_dir,
+11
+capture_output=True,shell=True)
+12
+return result.stdout.decode(),result.stderr.decode()
+13
+
+=== page_19_img_2.jpeg ===
+dast-tool>main.py>
+1
+import os
+2
+from runtime_monitor import RuntimeMonitor
+3
+from memory_analyzer import MemoryAnalyzer
+4
+fromnetwork_traffic_analyzer import NetworkTrafficAnalyzer
+5
+from security_behavior_checker import SecurityBehaviorChecker
+6
+from virtual_sandbox import VirtualSandbox
+7
+8
+if
+name
+main_
+9
+pid=os.getpid()
+10
+print("[+] Monitoring current process:",pid)
+11
+12
+rm=RuntimeMonitor(pid)
+13
+print("cPU Usage:",rm.get_cpu_usage())
+14
+15
+print("Open Files:",rm.get_open_files())
+16
+17
+ma = MemoryAnalyzer()
+18
+print("Memory Leaks:",ma.check_memory_leaks())
+19
+print("0verflow Test:",ma.check_overflow(2**64))
+20
+21
+nta =NetworkTrafficAnalyzer()
+22
+print("NetworkStats:",nta.get_network_stats())
+23
+24
+sbc=SecurityBehaviorChecker()
+25
+print("Suspicious Calls:",sbc.suspicious_calls())
+26
+27
+vs =VirtualSandbox()
+28
+out,err = vs.run_isolated("echo Hello Sandbox")
+29
+print("Sandbox stdout:",out)
+30
+print("Sandbox stderr:",err)
+31
+
+=== page_20_img_1.jpeg ===
+dast-tool>app.py>
+1
+from flask import Flask,jsonify,request
+2
+import os
+3
+4
+from runtime_monitor import RuntimeMonitor
+5
+from memory_analyzer import MemoryAnalyzer
+6
+from network_traffic_analyzer import NetworkTrafficAnalyzer
+7
+from security_behavior_checker import SecurityBehaviorChecker
+8
+from virtual_sandbox import VirtualSandbox
+9
+10
+app=Flask(name
+11
+pid = os.getpid()
+12
+13
+@app.route("/api/monitor",methods=["GET"])
+14
+def monitor(）:
+15
+rm= RuntimeMonitor（pid)
+16
+return jsonify({
+17
+"cpu_usage":rm.get_cpu_usage(),
+18
+"memory_usage":rm.get_memory_usage(),
+19
+"open_files":[f.path for f in rm.get_open_files()]
+20
+)
+21
+22
+@app.route("/api/memory",methods=["GET"])
+23
+def memory():
+24
+ma = MemoryAnalyzer()
+25
+return jsonify({
+26
+"memory_leaks":str(ma.check_memory_leaks()),
+27
+"overflow_test":ma.check_overflow(2**64)
+28
+29
+
+=== page_20_img_2.jpeg ===
+30
+@app.route("/api/network",methods=["GET"])
+31
+def network（):
+32
+nta=NetworkTrafficAnalyzer()
+33
+returnjsonify({
+34
+"network_stats":{k:V._asdict() for k,v in nta.get_network_stats().items()}
+35
+})
+36
+37
+@app.route("/api/security",methods=["GET"])
+38
+def security():
+39
+sbc=SecurityBehaviorChecker()
+40
+returnjsonify(t
+41
+"suspicious_calls":sbc.suspicious_calls()
+42
+)
+43
+
+=== page_21_img_1.jpeg ===
+44
+@app.route("/api/sandbox",methods=["PosT"])
+45
+def sandbox():
+46
+data = request.json
+47
+command=data.get（"command")
+48
+vs=VirtualSandbox()
+49
+stdout,stderr = vs.run_isolated（command)
+50
+return jsonify({
+51
+"stdout":stdout,
+52
+"stderr":stderr
+53
+54
+55
+if
+name
+main
+56
+app.run（host="0.0.0.0",port=5000)
+57
+
+=== page_21_img_2.jpeg ===
+dast-tool>tests>test_memory_analyzer.py>
+1
+importunittest
+2
+frommemory_analyzer import MemoryAnalyzer
+3
+class TestMemoryAnalyzer(unittest.TestCase):
+5
+def test_check_overflow(self):
+6
+ma =MemoryAnalyzer()
+7
+self.assertTrue(ma.check_overflow(2**64))
+8
+self.assertFalse(ma.check_overflow(1o0))
+9
+
+=== page_21_img_3.jpeg ===
+dast-tool>tests>test_network_traffic_analyzer.py>
+1
+importunittest
+2
+fromnetwork_traffic_analyzerimport NetworkTrafficAnalyzer
+3
+4
+class TestNetworkTrafficAnalyzer(unittest.TestCase):
+S
+def test_get_network_stats(self):
+6
+nta = NetworkTrafficAnalyzer()
+7
+stats=nta.get_network_stats()
+8
+self.assertIsInstance(stats,dict)
+9
+
+=== page_21_img_4.jpeg ===
+dast-tool>tests>
+test_runtime_monitor.py>
+1
+import
+unittest
+2
+import
+OS
+3
+from
+runtime monitor
+import
+RuntimeMonitor
+4
+
+=== page_22_img_1.jpeg ===
+5
+class
+TestRuntimeMonitor(unittest.TestCase):
+6
+def test_cpu_and_memory(self):
+7
+rm=RuntimeMonitor（os.getpid())
+8
+self.assertIsInstance(rm.get_cpu_usage(),float)
+9
+self.assertGreaterEqual(rm.get_memory_usage(),0)
+10
+
+=== page_22_img_2.jpeg ===
+dast-tool>tests>test_security_behavior_checker.py>..
+1
+importunittest
+2
+from security_behavior_checker import SecurityBehaviorChecker
+3
+4
+classTestSecurityBehaviorChecker(unittest.TestCase):
+def test_suspicious_calls(self):
+6
+sbc=SecurityBehaviorChecker()
+7
+self.assertIsInstance(sbc.suspicious_calls(),list)
+8
+
+=== page_22_img_3.jpeg ===
+dast-tool>tests>test_virtual_sandbox.py>.
+import unittest
+2
+from virtual_sandbox import VirtualSandbox
+3
+4
+class TestVirtualSandbox(unittest.TestCase):
+5
+def test_run_isolated(self):
+6
+vs=VirtualSandbox()
+7
+out,err=vs.run_isolated（"echo test"
+8
+self.assertIn("test",out)
+9
+self.assertEqual(err,
+10
+
+=== page_22_img_4.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+python -m unittest discover-s tests
+Ran5testsin1.040s
+OK
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+
+=== page_23_img_1.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHU0C\Desktop\TH_LTANTT_1511060249\dast-too1>
+python.\main.py
+[+]Monitoringcurrentprocess:2358o
+CPU Usage:0.0
+Memory Usage:17063936
+Open Files:[popenfile(path='C:\\windows\\System32\\en-US\\KernelBase.dll.mui',fd=-1)]
+Memory Leaks:[]
+Overflow Test:True
+NetworkStats:{'Ethernet':snetio（bytes_sent=0,bytes_recv=0,packets_sent=0,packets_recv=0,errin=0,errout=0,dropin=θ,dropout=0)
+packets_recv=θ,errin=0,errout=0,dropin=0,dropout=θ),'LocalArea Connection*2':snetio(bytes_sent=0,bytes_recv=θ,packets_sent=θ
+rVMnet1':snetio（bytes_sent=2100,bytes_recv=0,packets_sent=2100,packets_recv=0,errin=0,errout=0,dropin=0,dropout=0),‘vMware Ne
+packets_recv=0,errin=0,errout=0,dropin=0,dropout=0),‘wi-Fi':snetio（bytes_sent=645655950,bytes_recv=593623497,packets_sent=2942
+ork Connection':snetio(bytes_sent=0,bytes_recv=θ,packets_sent=0,packets_recv=0,errin=0,errout=0,dropin=0,dropout=0),'Loopback
+recv=0,errin=0,errout=0,dropin=0,dropout=0),'vEthernet（DefaultSwitch)':snetio（bytes_sent=3672155,bytes_recv=0,packets_sent=2
+Suspicious Calls:['os.system','eval','exec']
+Sandboxstdout:HelloSandbox
+Sandbox stderr:
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+
+=== page_23_img_2.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+python.\app.py
+Serving Flask app
+app
+Debug mode:off
+WARNING:This isa developmentserver.Donotuse itina production deployment.Usea production WSGI server instead.
+Runningonalladdrresses
+(0.0.0.0)
+Runningonhttp://127.0.0.1:5000
+Runningonhttp://192.168.17.68:5000
+Press CTRL+C toquit
+
+=== page_23_img_3.jpeg ===
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PS C:\Users\HONGPHU0C\Desktop\TH_LTANTT_1511060249\dast-too1>
+gitadd
+PS C:\Users\H0NGPHU0C\Desktop\TH_LTANTT_1511060249\dast-too1>
+git commit-m“[add]dast tool"
+GitSecure:All checks passed.
+[main 65df725][add]dast tool
+14 files changed, 192 insertions(+)
+create mode 100644 dast-tool/__init__.py
+create mode 100644 dast-too1/app.py
+create mode 100644 dast-tool/main.py
+create mode 100644 dast-too1/memory_analyzer.py
+createmode 100644 dast-tool/network_traffic_analyzer.py
+create mode 100644dast-tool/requirements.txt
+create mode 100644 dast-too1/runtime_monitor.py
+Create mode 100644 dast-tool/security_behavior_checker.py
+create mode 1e0644 dast-tool/tests/test_memory_analyzer.py
+create mode 100644 dast-tool/tests/test_network_traffic_analyzer.py
+createmode 100644 dast-tool/tests/test_runtime_monitor.py
+create mode 1e0644 dast-tool/tests/test_security_behavior_checker.py
+createmode 100644 dast-tool/tests/test_virtual_sandbox.py
+create mode 100644 dast-too1/virtual_sandbox.py
+PS C:\Users\HONGPHUOC\Desktop\TH_LTANTT_1511060249\dast-too1>
+git push origin main
+Enumerating objects:19,done.
+Counting objects:100% (19/19),done.
+Delta compression usingup to8 threads
+Compressing objects:100%（16/16),done.
+Writing objects:100%(18/18),3.62KiB |617.00 KiB/s, done.
+Total18（delta 1),reusedθ（deltaθ),pack-reusedθ（from θ)
+remote:Resolving deltas:100%(1/1),completed with 1 local object.
+To https://github.com/phuocntmh/TH_LTANTT_1511060249.git
+1632007..65df725main->main
+PSC:\Users\HONGPHUOC\Desktop\TH_LTANTT_1511060249\dast-too1>
+

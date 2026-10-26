@@ -1,0 +1,18 @@
+sast-tool>sasttool>vuln_pattem_matcher.py>
+1
+import re
+2
+34567
+class VulnPatternMatcher:
+def match（self,code:str）:
+patterns=
+{'pattern':r'password\s*=\s*"*"
+message
+Hardcodedpassworddetected.'},
+8
+['pattern':r'import\s+pickle'
+9
+message':'Usage of pickle module can be unsafe.'}
+10
+
+=

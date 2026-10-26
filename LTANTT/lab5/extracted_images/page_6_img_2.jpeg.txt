@@ -1,0 +1,20 @@
+sast-tool>rules>[]default_rules.json>
+1
+2
+{"type":
+"Useofeval",
+severity":"high"},
+3
+{"type
+"PatternMatch"
+severity":
+medium"},
+4
+{"type":"Lint Issue
+severity":
+："low"}
+5
+一
+6
+
+=

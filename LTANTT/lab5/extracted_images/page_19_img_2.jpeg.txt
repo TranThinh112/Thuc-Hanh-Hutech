@@ -1,0 +1,59 @@
+dast-tool>main.py>
+1
+import os
+2
+from runtime_monitor import RuntimeMonitor
+3
+from memory_analyzer import MemoryAnalyzer
+4
+fromnetwork_traffic_analyzer import NetworkTrafficAnalyzer
+5
+from security_behavior_checker import SecurityBehaviorChecker
+6
+from virtual_sandbox import VirtualSandbox
+7
+8
+if
+name
+main_
+9
+pid=os.getpid()
+10
+print("[+] Monitoring current process:",pid)
+11
+12
+rm=RuntimeMonitor(pid)
+13
+print("cPU Usage:",rm.get_cpu_usage())
+14
+15
+print("Open Files:",rm.get_open_files())
+16
+17
+ma = MemoryAnalyzer()
+18
+print("Memory Leaks:",ma.check_memory_leaks())
+19
+print("0verflow Test:",ma.check_overflow(2**64))
+20
+21
+nta =NetworkTrafficAnalyzer()
+22
+print("NetworkStats:",nta.get_network_stats())
+23
+24
+sbc=SecurityBehaviorChecker()
+25
+print("Suspicious Calls:",sbc.suspicious_calls())
+26
+27
+vs =VirtualSandbox()
+28
+out,err = vs.run_isolated("echo Hello Sandbox")
+29
+print("Sandbox stdout:",out)
+30
+print("Sandbox stderr:",err)
+31
+
+=

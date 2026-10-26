@@ -1,0 +1,35 @@
+dast-tool>security_behavior_checker.py>
+1
+import os
+2
+3
+class SecurityBehaviorChecker:
+4
+def suspicious_calls(self):
+5
+suspicious=[]
+6
+syscalls =["os.system","eval","exec"]
+7
+try:
+8
+with open(file
+r）
+asf:
+9
+content=f.read()
+10
+for call in syscalls:
+11
+if call in content:
+12
+suspicious.append(call)
+13
+except:
+14
+pass
+15
+return suspicious
+16
+
+=

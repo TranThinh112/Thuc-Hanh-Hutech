@@ -1,0 +1,13 @@
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+python -m unittest discover-s tests
+Ran5testsin1.040s
+OK
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+
+=

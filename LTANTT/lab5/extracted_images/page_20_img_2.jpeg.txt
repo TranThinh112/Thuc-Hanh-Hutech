@@ -1,0 +1,28 @@
+30
+@app.route("/api/network",methods=["GET"])
+31
+def network（):
+32
+nta=NetworkTrafficAnalyzer()
+33
+returnjsonify({
+34
+"network_stats":{k:V._asdict() for k,v in nta.get_network_stats().items()}
+35
+})
+36
+37
+@app.route("/api/security",methods=["GET"])
+38
+def security():
+39
+sbc=SecurityBehaviorChecker()
+40
+returnjsonify(t
+41
+"suspicious_calls":sbc.suspicious_calls()
+42
+)
+43
+
+=

@@ -1,0 +1,30 @@
+sast-tool>examples>vulnerable_01.py>.
+1
+password="123456"
+#Hardcoded password
+2
+3
+import pickle #c6the gaynguy hiém
+4
+5
+def unsafe_func（data):
+6
+return eval(data)
+#Rat nguy hiem,eval dung tuy y
+7
+8
+def safe_func():
+9
+print("Hello world!")
+10
+11
+if
+name
+main
+12
+unsafe_func（"2+2")
+13
+safe_func()
+14
+
+=

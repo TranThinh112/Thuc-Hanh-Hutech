@@ -1,0 +1,360 @@
+=== PAGE 1 ===
+BÀI 5:  PHÂN TÍCH VÀ KIỂM THỬ 
+BẢO MẬT 
+Bài thực hành này trang bị cho sinh viên nền tảng vững chắc về hai kỹ thuật trọng 
+yếu: Static Analysis Security Testing (SAST) và Dynamic Analysis Security Testing 
+(DAST). Với SAST, sinh viên học cách phân tích mã nguồn qua cây cú pháp trừu 
+tượng, phát hiện lỗ hổng tiềm ẩn trước khi phần mềm chạy. DAST giúp sinh viên quan 
+sát hành vi ứng dụng khi thực thi, từ giám sát bộ nhớ đến phân tích mạng. Qua các 
+bài thực hành, sinh viên được trải nghiệm toàn diện quy trình kiểm thử bảo mật hiện 
+đại, phát triển tư duy phòng thủ chủ động và nâng cao năng lực phát hiện – khắc 
+phục lỗi bảo mật trong phát triển phần mềm. 
+5.1 STATIC ANALYSIS SECURITY TESTING 
+5.1.1 Cây cú pháp trừu tượng 
+AST (Abstract Syntax Tree – Cây cú pháp trừu tượng)  là biểu diễn dạng cây 
+của cấu trúc cú pháp mã nguồn, trong đó mỗi nút đại diện cho một cấu trúc ngôn ngữ 
+như biểu thức, lệnh gán, hàm, hoặc điều kiện. AST bỏ qua các chi tiết không cần thiết 
+như dấu ngoặc hoặc thụt đầu dòng, chỉ giữ lại cấu trúc logic của chương trình. Trong 
+kiểm thử bảo mật tĩnh (SAST), AST cho phép phân tích cấu trúc mã mà không cần 
+chạy chương trình. Việc duyệt AST giúp xác định: 
+- Các mẫu mã nguy hiểm (gọi eval, thao tác trực tiếp với input người dùng). 
+- Các cấu trúc thiếu an toàn (ví dụ: thiếu kiểm tra xác thực, vòng lặp vô hạn). 
+- Những hành vi tiềm ẩn rủi ro khi mã được triển khai thực tế. 
+Chúng ta có thể sử dụng thư viện ast trong Python để: 
+- Phân tích cây cú pháp của một đoạn mã. 
+- Xây dựng trình kiểm tra lỗ hổng theo rule. 
+
+=== PAGE 2 ===
+- Phát hiện hành vi nguy hiểm hoặc chưa tuân thủ chuẩn bảo mật. 
+Ví dụ: 
+import ast 
+code = "eval(input('Nhập lệnh: '))" 
+tree = ast.parse(code) 
+for node in ast.walk(tree): 
+    if isinstance(node, ast.Call) and getattr(node.func, 'id', '') == 
+'eval': 
+        print("Cảnh báo: Sử dụng eval có thể gây nguy hiểm.") 
+5.1.2 Kỹ thuật Pattern Matching 
+Pattern Matching là kỹ thuật tìm kiếm các cấu trúc mã cụ thể (patterns) thường 
+liên quan đến lỗ hổng bảo mật. Thay vì chỉ tìm từ khóa, pattern matching phân tích 
+ngữ cảnh và cấu trúc để xác định hành vi đáng ngờ như SQL Injection, XSS, hoặc 
+Insecure Deserialization. Việc phát hiện sớm các mẫu mã nguy hiểm giúp: 
+- Ngăn chặn lỗi bảo mật trước khi mã được triển khai. 
+- Xây dựng các rule kiểm tra bảo mật có thể tái sử dụng. 
+- Hiểu được "chân dung" điển hình của các lỗ hổng phổ biến. 
+Phân loại pattern: 
+- Literal pattern: Tìm trực tiếp chuỗi cụ thể (ví dụ: 'os.system', 'eval'). 
+- Structural pattern: Dựa vào cấu trúc mã (dạng biểu thức, cây AST). 
+- Semantic pattern: Dựa vào hành vi tiềm ẩn (ví dụ: nhập người dùng → xử lý → 
+thực thi). 
+Chúng ta có thể viết các pattern rule kiểm tra trong công cụ tự xây dựng bằng 
+cách: 
+- Duyệt qua AST để tìm những call function có rủi ro. 
+- Kiểm tra mối quan hệ giữa các node (input → xử lý → output). 
+- Gắn thẻ các đoạn mã nghi vấn để báo cáo. 
+Ví dụ: 
+
+=== PAGE 3 ===
+import ast 
+class VulnPatternMatcher(ast.NodeVisitor): 
+    def visit_Call(self, node): 
+        if isinstance(node.func, ast.Name) and node.func.id == "eval": 
+            print(f"Cảnh báo: phát hiện 'eval' tại dòng 
+{node.lineno}") 
+        self.generic_visit(node) 
+tree = ast.parse("user_input = input(); eval(user_input)") 
+VulnPatternMatcher().visit(tree) 
+5.1.3 Đánh giá chất lượng mã nguồn 
+Code Quality Metrics là tập hợp các chỉ số dùng để đo lường mức độ “sạch”, “ổn 
+định” và “an toàn” của mã nguồn. Trong ngữ cảnh bảo mật, các chỉ số này giúp xác 
+định liệu mã có dễ bị lỗi, khó bảo trì, hoặc tiềm ẩn lỗ hổng hay không. Một số chỉ số 
+phổ biến: 
+- Cyclomatic Complexity (Độ phức tạp vòng lặp): Số lượng nhánh điều kiện trong 
+một hàm. Độ phức tạp cao → khó kiểm thử → dễ lỗi. 
+- Function Length (Độ dài hàm): Hàm quá dài thường chứa logic chồng chéo, dễ 
+bỏ sót lỗ hổng. 
+- Nested Depth (Độ sâu lồng nhau): Cấu trúc if/else hoặc loop lồng nhiều lớp → 
+làm mờ luồng điều khiển → tăng rủi ro logic sai lệch. 
+- Dependency Count (Số lượng phụ thuộc): Sử dụng nhiều thư viện bên ngoài → 
+tăng bề mặt tấn công. 
+- Security Smell Density: Tần suất xuất hiện của các đoạn mã có “mùi nguy hiểm” 
+như eval(), hardcoded credentials, hoặc os.system. 
+Ý nghĩa với bảo mật: 
+- Cảnh báo sớm các vị trí dễ phát sinh lỗ hổng. 
+- Ưu tiên kiểm thử và audit những phần mã rủi ro cao. 
+- Cải thiện khả năng bảo trì và audit mã trong dài hạn. 
+Ví dụ: 
+def cyclomatic_complexity(func_node): 
+    complexity = 1 
+
+=== PAGE 4 ===
+    for node in ast.walk(func_node): 
+        if isinstance(node, (ast.If, ast.For, ast.While, ast.Try)): 
+            complexity += 1 
+    return complexity 
+5.2 THỰC HÀNH: SAST-TOOL 
+5.2.1 Yêu cầu 
+Xây dựng công cụ phân tích bảo mật tĩnh (SAST) cho mã nguồn Python, bao gồm 
+các thành phần sau: 
+- ASTAnalyzer: Phân tích cây cú pháp trừu tượng của mã Python để phát hiện các 
+vấn đề bảo mật. 
+- VulnPatternMatcher: Ánh xạ và nhận diện lỗ hổng dựa trên mẫu tùy chỉnh. 
+- SecurityRuleEngine: Hệ thống luật bảo mật có thể mở rộng và cài cắm linh hoạt. 
+- CodeQualityChecker: Đánh giá chất lượng mã với trọng tâm là các chỉ số liên quan 
+đến bảo mật. 
+- SarifReporter: Xuất báo cáo kết quả phân tích theo định dạng chuẩn SARIF (Static 
+Analysis Results Interchange Format). 
+5.2.2 Hướng dẫn thực hành 
+- Tạo folder “ sast-tool”. Trong folder này tạo các folder “ examples”, “ rules”, 
+“sast_tool”, “tests” và file “requirements.txt”. 
+- File “requirements.txt”: 
+ 
+- Cài các gói cần thiết bằng lệnh pip: 
+
+
+=== PAGE 5 ===
+ 
+- Code cho file “examples/vulnerable_01.py”: 
+ 
+  
+
+
+=== PAGE 6 ===
+- Code cho file "examples/vulnerable_02.py”: 
+ 
+- Code cho file “rules/default_rules.json”: 
+ 
+- Tạo file “sast_tool/__init__.py”. 
+- Code cho file “sast_tool/ast_analyzer.py”: 
+ 
+- Code cho file “sast_tool/code_quality_checker.py”: 
+
+
+=== PAGE 7 ===
+ 
+- Code cho file "sast_tool/sarif_reporter.py”: 
+ 
+
+
+=== PAGE 8 ===
+ 
+- Code cho file “sast_tool/security_rule_engine.py”: 
+ 
+- Code cho file "sast_tool/vuln_pattern_matcher.py”: 
+ 
+
+
+=== PAGE 9 ===
+ 
+- Code cho file “sast_tool/main.py”: 
+ 
+- Tạo file “tests/__init__.py”. 
+- Code cho file “tests/test_ast_analyzer.py”: 
+
+
+=== PAGE 10 ===
+ 
+- Code cho file "tests/test_code_quality_checker.py”: 
+ 
+- Code cho file "tests/test_sarif_reporter.py”: 
+ 
+
+
+=== PAGE 11 ===
+ 
+- Code cho file "tests/test_security_rule_engine.py”: 
+ 
+- Code cho file "tests/test_vuln_pattern_matcher.py”: 
+
+
+=== PAGE 12 ===
+ 
+- Chạy Unit Test: 
+ 
+- Kiểm tra thử 1 file code không an toàn: 
+ 
+- Vào mục Extensions của Visual Studio Code và cài “SARIF Viewer”. 
+ 
+- Mở file “report.sarif” để kiểm tra kết quả: 
+
+
+=== PAGE 13 ===
+ 
+- Kiểm tra lại với một file code không an toàn khác: 
+ 
+- Commit code, push code lên remote repo: 
+ 
+- Xoá các thông tin nhạy cảm, sau đó commit lại và push code. 
+ 
+
+
+=== PAGE 14 ===
+ 
+5.3 DYNAMIC ANALYSIS SECURITY TESTING 
+5.3.1 Runtime Security Testing 
+Runtime Security Testing (RST)  là quá trình theo dõi và phân tích hành vi của 
+phần mềm trong khi nó đang chạy để phát hiện các hoạt động nguy hiểm, lỗi bảo mật 
+tiềm ẩn hoặc hành vi bất thường. Không giống kiểm thử tĩnh (Static Analysis) vốn làm 
+việc trên mã nguồn, RST cho phép phát hiện các lỗ hổng chỉ xuất hiện trong môi 
+trường thực thi. Mục tiêu của RST: 
+- Giám sát tương tác thời gian thực giữa ứng dụng và hệ điều hành, mạng, bộ nhớ, 
+và tài nguyên hệ thống. 
+- Phát hiện hành vi nguy hiểm như: 
+ Gọi hàm hệ thống nguy hiểm (vd: os.system, eval). 
+ Tấn công injection xảy ra trong runtime (SQLi, RCE, Command Injection). 
+ Lỗi logic chỉ xảy ra khi chạy (race condition, insecure state). 
+- Đánh giá mức độ tuân thủ các chính sách bảo mật đã định nghĩa. 
+Các thành phần chính trong RST Platform: 
+Thành phần Mô tả chức năng 
+RuntimeMonitor Ghi nhận và ghi log các hành vi quan trọng trong suốt quá 
+trình thực thi của ứng dụng như I/O, gọi API, tiến trình 
+con... 
+MemoryAnalyzer Kiểm tra các vùng bộ nhớ cấp phát động nhằm phát hiện 
+rò rỉ bộ nhớ, truy cập sai vùng nhớ hoặc ghi tràn buffer. 
+NetworkTrafficAnalyzer Phân tích lưu lượng mạng của ứng dụng: kết nối mở, dữ 
+liệu gửi/nhận, tên miền truy cập, phát hiện C2 hoặc 
+exfiltration. 
+
+
+=== PAGE 15 ===
+Thành phần Mô tả chức năng 
+SecurityBehaviorChecker So khớp hành vi runtime với các mẫu (rule/heuristic) đã 
+học để phát hiện hành vi nghi ngờ như keylogging, tải 
+shellcode, tự nhân bản. 
+VirtualSandbox Cung cấp môi trường cách ly giúp chạy thử phần mềm độc 
+hại mà không làm ảnh hưởng tới hệ điều hành thật. 
+5.3.2 Phân tích hành vi 
+Behavioral Analysis (Phân tích hành vi)  là kỹ thuật quan sát và đánh giá các 
+hành vi mà một chương trình hoặc tiến trình thể hiện trong suốt quá trình thực thi. 
+Khác với phân tích chữ ký (signature-based), phân tích hành vi không cần biết trước 
+mẫu mã độc mà thay vào đó phát hiện các hành vi bất thường hoặc nguy hiểm thông 
+qua giám sát thời gian thực và đối chiếu với mô hình hành vi hợp lệ. 
+Mục tiêu của Behavioral Analysis: 
+- Phát hiện phần mềm độc hại chưa từng biết (unknown malware). 
+- Nhận diện hành vi gian lận, vượt quyền hoặc tấn công đang diễn ra. 
+- Theo dõi dòng chảy hành vi của ứng dụng để phát hiện sự lệch chuẩn. 
+- Tăng khả năng phát hiện các kỹ thuật né tránh sandbox. 
+Các kỹ thuật phân tích hành vi phổ biến: 
+Kỹ thuật Mô tả 
+Rule-based 
+detection 
+So khớp hành vi runtime với các luật định nghĩa sẵn. Ví dụ: 
+"nếu tiến trình đọc file /etc/passwd và mở socket ra ngoài → 
+cảnh báo." 
+Heuristic Analysis Áp dụng một tập các tiêu chí (heuristics) để đánh giá tính nguy 
+hiểm. Không cần chính xác tuyệt đối nhưng phản ứng nhanh. 
+Anomaly Detection Sử dụng thống kê hoặc AI để xác định các hành vi khác 
+thường so với baseline của hệ thống hoặc người dùng. 
+Machine Learning-
+based detection 
+Trích xuất đặc trưng hành vi (feature extraction) và huấn luyện 
+mô hình học máy để phân biệt "bình thường" và "nghi ngờ." 
+
+=== PAGE 16 ===
+5.3.3 Phân tích trong môi trường hộp cát 
+Sandbox Analysis (Phân tích trong môi trường hộp cát)  là kỹ thuật thực thi 
+phần mềm trong một môi trường ảo hoá hoặc cô lập hoàn toàn nhằm quan sát hành 
+vi mà không gây ảnh hưởng đến hệ thống thật. Sandbox cho phép các công cụ bảo 
+mật phân tích phần mềm (đặc biệt là phần mềm chưa xác định rõ nguồn gốc) một 
+cách an toàn và có kiểm soát. 
+Các loại Sandbox: 
+Loại Mô tả Ví dụ 
+VM-based Dùng máy ảo (VirtualBox, QEMU, VMware) để 
+mô phỏng OS thật 
+Cuckoo 
+Sandbox 
+Container-based Dùng Docker/LXC – nhanh hơn, nhẹ hơn 
+nhưng ít cô lập hơn 
+Firejail, Sysdig 
+Falco 
+Bare-metal Chạy trên máy thật, giám sát bằng phần cứng 
+hoặc hypervisor 
+Joe Sandbox 
+Bare Metal 
+In-
+memory/emulator 
+Dùng trình mô phỏng CPU/memory (QEMU, 
+Unicorn) để quan sát chi tiết cấp thấp 
+PANDA, Intel 
+PIN 
+5.4 THỰC HÀNH: DAST-TOOL 
+5.4.1 Yêu cầu 
+Xây dựng nền tảng phân tích động (Dynamic Analysis Platform). Hệ thống gồm các 
+thành phần sau: 
+- RuntimeMonitor: Giám sát hành vi của ứng dụng trong quá trình thực thi. 
+- MemoryAnalyzer: Phát hiện các vấn đề rò rỉ bộ nhớ (memory leak) và tràn bộ nhớ 
+(overflow) cơ bản. 
+- NetworkTrafficAnalyzer: Phân tích các luồng giao tiếp mạng trong thời gian thực. 
+- SecurityBehaviorChecker: Phát hiện các hành vi bất thường hoặc nghi ngờ có tính 
+độc hại trong quá trình chạy ứng dụng. 
+- VirtualSandbox: Môi trường thực thi cách ly (sandbox) nhằm đảm bảo ứng dụng 
+được kiểm tra không ảnh hưởng đến hệ thống thật. 
+
+=== PAGE 17 ===
+5.4.2 Hướng dẫn thực hành 
+- Tạo folder “dast-tool”. Trong folder này tạo folder “tests” và file “__init__.py”. 
+File “requirements.txt”: 
+ 
+- Cài các gói cần thiết qua lệnh pip: 
+ 
+- Code cho file “memory_analyzer.py”: 
+ 
+- Code cho file “network_traffic_analyzer.py”: 
+ 
+- Code cho file “runtime_monitor.py”: 
+
+
+=== PAGE 18 ===
+ 
+- Code cho file “security_behavior_checker.py”: 
+ 
+- Code cho file “virtual_sandbox.py”: 
+
+
+=== PAGE 19 ===
+ 
+- Code cho file “main.py”: 
+ 
+- Code cho file “app.py”: 
+
+
+=== PAGE 20 ===
+ 
+ 
+
+
+=== PAGE 21 ===
+ 
+- Code cho file “tests/test_memory_analyzer.py”: 
+ 
+- Code cho file "tests/test_network_traffic_analyzer.py”: 
+ 
+- Code cho file "tests/test_runtime_monitor.py”: 
+ 
+
+
+=== PAGE 22 ===
+ 
+- Code cho file "tests/test_security_behavior_checker.py”: 
+ 
+- Code cho file "tests/test_virtual_sandbox.py”: 
+ 
+- Chạy Unit Test: 
+ 
+ 
+ 
+- Chạy file “main.py”: 
+
+
+=== PAGE 23 ===
+ 
+- Giám sát với Flask API: 
+ 
+- Kiểm tra các API (lấy endpoint trong file app.py). 
+- Commit code, push code lên remote repo: 
+ 
+
+
+=== PAGE 24 ===
+ 
+

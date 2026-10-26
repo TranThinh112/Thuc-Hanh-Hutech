@@ -1,0 +1,15 @@
+dast-tool>
+network_traffic_analyzer.py>.
+1
+import psutil
+2
+3
+classNetworkTrafficAnalyzer:
+寸
+def
+get_network_stats(self):
+5
+return psutil.net_io_counters(pernic=True)
+6
+
+=

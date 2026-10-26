@@ -1,0 +1,17 @@
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHUOC\Desktop\THLTANTT1511060249>
+gitadd.
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+gitcommit-m"[add]
+sast tool"
+COMMIT BLOCKED byGitSecure:
+-Sensitive info found in sast-tool/examples/vulnerable_01.py:pattern password\s*=\s*['\"][^'\"]{4,}['\"]
+-Sensitive info found in sast-tool/tests/test_vuln_pattern_matcher.py:pattern password\s*=\s*['\"][^'\"]{4,}['\"]
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+
+=

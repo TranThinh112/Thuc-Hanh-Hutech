@@ -1,0 +1,31 @@
+sast-tool>tests>test_code_quality_checker.py>..
+1
+import unittest
+2
+import tempfile
+3
+from sast_tool.code_quality_checkerimportCodeQualityChecker
+4
+5
+class TestCodeQualityChecker(unittest.TestCase):
+6
+def test_flake8 detection(self):
+7
+with tempfile.NamedTemporaryFile(suffix=".py",
+08
+mode="w",delete=True)as tmp:
+9
+tmp.write（"importos\n\n\n")
+10
+tmp.flush()
+11
+checker =CodeQualityChecker()
+12
+issues=checker.check（tmp.name)
+13
+self.assertTrue（all（i['type']=='Lint Issue'foriin issues)
+14
+orlen（issues)==θ)
+15
+
+=

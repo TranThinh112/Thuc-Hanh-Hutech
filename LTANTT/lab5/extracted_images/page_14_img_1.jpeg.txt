@@ -1,0 +1,16 @@
+PSC:\Users\HONGPHU0C\DeSktop\THLTANTT1511060249>
+gitpushoriginmain
+Enumerating objects:25,done.
+Counting objects:100%(25/25),done.
+Deltacompression usingup to8threads
+Compressing objects:1e0%(21/21),done.
+Writing objects:100%(24/24),6.52KiB
+556.00 KiB/s,done.
+Total24（delta1),reused0（delta0),pack-reused0（from0)
+remote:Resolving deltas:100%（1/1),completed with 11ocalobject.
+Tohttps://github.com/phuocntmh/TH_LTANTT_1511060249.git
+eb850a6..1632007
+main->main
+PSC:\Users\H0NGPHU0C\Desktop\THLTANTT1511060249>
+
+=

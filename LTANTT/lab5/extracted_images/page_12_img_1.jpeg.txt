@@ -1,0 +1,32 @@
+sast-tool>tests>test_vuln_pattern_matcher.py>
+1
+import unittest
+2
+fromsast_tool.vuln_pattern_matcherimportVulnPatternMatcher
+3
+4
+class TestVulnPatternMatcher(unittest.TestCase):
+5
+deftest_hardcoded_password(self):
+6
+code='password="secret"
+7
+matcher=VulnPatternMatcher(）
+8
+issues = matcher.match（code)
+9
+self.assertTrue（any（i['type']=='Pattern Match'for i in issues）)
+10
+11
+deftest_pickle_import(self):
+12
+code='import pickle
+13
+matcher=VulnPatternMatcher()
+14
+issues =matcher.match（code)
+15
+self.assertTrue（any（i['type']=='Pattern Match'for i in issues)）
+16
+
+=

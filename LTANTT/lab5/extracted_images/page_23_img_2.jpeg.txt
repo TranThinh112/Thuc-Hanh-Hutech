@@ -1,0 +1,19 @@
+PROBLEMS
+OUTPUT
+DEBUG CONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHU0C\Desktop\THLTANTT1511060249\dast-tool>
+python.\app.py
+Serving Flask app
+app
+Debug mode:off
+WARNING:This isa developmentserver.Donotuse itina production deployment.Usea production WSGI server instead.
+Runningonalladdrresses
+(0.0.0.0)
+Runningonhttp://127.0.0.1:5000
+Runningonhttp://192.168.17.68:5000
+Press CTRL+C toquit
+
+=

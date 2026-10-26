@@ -1,0 +1,16 @@
+dast-tool>tests>test_security_behavior_checker.py>..
+1
+importunittest
+2
+from security_behavior_checker import SecurityBehaviorChecker
+3
+4
+classTestSecurityBehaviorChecker(unittest.TestCase):
+def test_suspicious_calls(self):
+6
+sbc=SecurityBehaviorChecker()
+7
+self.assertIsInstance(sbc.suspicious_calls(),list)
+8
+
+=

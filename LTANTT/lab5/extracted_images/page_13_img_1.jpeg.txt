@@ -1,0 +1,56 @@
+report.sarif8,U
+8SARIF Results
+sast-tool>{} report.sarif>.
+LOCATIONS
+RULES
+LOGS1
+Filterresults
+白
+B
+1
+2
+"runs":[
+Message
+3
+No Location
+"tool":{
+A
+Use of eval0 is dangerous and shouldbeavoided.
+4
+A
+Hardcodedpassword detected.
+5
+"driver":{
+A
+Usageof picklemodule canbe unsafe.
+6
+"name":"PySAST"
+A
+\examples\vulnerable_01.py:3:1:F401'pickle'importedbutunused
+7
+"associated_component":null,
+\examples\vulnerable_01.py:3:1:E402modulelevelimportnotat topof file
+"contents":[
+A
+examples\vulnerable_01.py:5:1:E302expected2blanklines,found1
+8
+A
+examples\vulnerable_01.py:8:1:E302expected2blanklines,found1
+9
+"localizedData",
+examples\vulnerable_01.py:11:1:E305expected2blanklines afterclass orfunction definition,found1
+10
+"nonLocalizedData"
+11
+12
+"dotted_quad_file_version":null,
+13
+"download_uri":null,
+14
+"full_description":null,
+15
+"full_name":null,
+16
+"global_message_strings":null,
+
+=

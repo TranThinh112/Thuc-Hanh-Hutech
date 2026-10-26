@@ -1,0 +1,16 @@
+PROBLEMS
+OUTPUT
+DEBUGCONSOLE
+TERMINAL
+PORTS
+GITLENS
+PSC:\Users\HONGPHUOC\Desktop\THLTANTT
+1511060249\sast-tool>
+python-m sast_tool.main.\examples\vulnerable_01.py
+Analysiscomplete.
+Reportsaved
+to
+report.sarifwith 8 issues
+PS C:\Users\HONGPHU0C\Desktop\TH_LTANTT_1511060249\sast-tool>
+
+=
