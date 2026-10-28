@@ -1,0 +1,216 @@
+{
+  "title": "3.3 Thiết kế và cài đặt các module phòng chống gian lận",
+  "intro": "Tầng động cơ phòng chống gian lận (Fraud Detection Engine) được xây dựng dựa trên nguyên lý phòng thủ theo chiều sâu (Defense-in-Depth). Mỗi module đảm nhận một nhiệm vụ chuyên biệt, từ việc xác thực tính toàn vẹn vật lý của kết nối, giám sát hành vi thao tác, cho đến việc áp dụng mô hình toán học để chấm điểm rủi ro và đưa ra phán quyết xử lý phù hợp.",
+  "subsections": [
+    {
+      "id": "3.3.1",
+      "title": "3.3.1 Module kiểm tra vận tốc và vị trí địa lý bất thường (Impossible Travel)",
+      "paragraphs": [
+        "Một trong những dấu hiệu gian lận rõ ràng nhất của tội phạm mạng là việc sử dụng thông tin tài khoản bị rò rỉ để thực hiện giao dịch từ một vị trí địa lý cách xa hàng nghìn kilomet so với phiên hoạt động hợp pháp gần nhất của chủ tài khoản, trong một khoảng thời gian ngắn đến mức phi lý về mặt vật lý (Impossible Travel).",
+        "Để phát hiện chính xác hành vi này, module LocationAnalyzer cài đặt thuật toán tính khoảng cách đại vòng tròn Haversine (Haversine Great-Circle Distance) giữa hai tọa độ địa lý trên mặt cầu Trái Đất. Gọi tọa độ của giao dịch trước là (lat1, lon1) và tọa độ của giao dịch hiện tại là (lat2, lon2), công thức tính khoảng cách d (kilomet) được xác định như sau:",
+        "Δφ = rad(lat2 - lat1),   Δλ = rad(lon2 - lon1)",
+        "a = sin²(Δφ / 2) + cos(rad(lat1)) × cos(rad(lat2)) × sin²(Δλ / 2)",
+        "c = 2 × atan2(√a, √(1 - a))",
+        "d = R × c   (với bán kính Trái Đất trung bình R = 6,371.0 km)",
+        "Sau khi xác định được khoảng cách d, hệ thống tính toán khoảng thời gian chênh lệch Δt (tính bằng giờ) giữa dấu thời gian của hai giao dịch liên tiếp. Từ đó, vận tốc di chuyển suy luận v được tính theo công thức:",
+        "v = d / Δt_hours   (km/h)",
+        "Ngưỡng kiểm tra an toàn: Hệ thống thiết lập ngưỡng vận tốc tối đa của máy bay chở khách thương mại là 800.0 km/h (IMPOSSIBLE_TRAVEL_SPEED_KMH = 800.0). Nếu khoảng cách giữa hai giao dịch d > 50 km và vận tốc suy luận v > 800 km/h, module xác định đây là vi phạm quy luật vật lý nghiêm trọng. Luật Impossible Travel lập tức được kích hoạt, ghi nhận cờ impossible_travel = True và cộng 60 điểm vào tổng điểm rủi ro của giao dịch."
+      ]
+    },
+    {
+      "id": "3.3.2",
+      "title": "3.3.2 Module phát hiện tấn công thử thẻ tự động và chống quét Bot (Card Testing)",
+      "paragraphs": [
+        "Tấn công thử thẻ tự động (Card Testing hay Carding Attack) là kỹ thuật mà kẻ tấn công sử dụng các đoạn mã tự động (bot script) để gửi liên tục hàng chục đến hàng trăm yêu cầu thanh toán thử nghiệm với giá trị cực nhỏ (thường dưới 50,000 VNĐ hoặc  - ) nhằm tìm ra các số thẻ tín dụng còn hoạt động từ danh sách dữ liệu thẻ bị lộ lọt (card dumps).",
+        "Module VelocityAnalyzer và các luật chuyên biệt được thiết kế để nhận diện mẫu hành vi này thông qua các chỉ số giám sát cửa sổ trượt (Sliding Window Metrics):",
+        "1. Kiểm tra tần suất giao dịch (Velocity Rules): Hệ thống đếm tổng số giao dịch phát sinh từ cùng một địa chỉ IP hoặc cùng một dấu vân tay thiết bị trong các khung thời gian 1 phút, 5 phút và 15 phút. Nếu số giao dịch trong 1 phút vượt quá 3 lần, hoặc trong 5 phút vượt quá 5 lần, luật VelocityRule lập tức kích hoạt (+40 điểm).",
+        "2. Kiểm tra tỉ lệ thanh toán thất bại (Failed Payment Rate Rule): Các cuộc tấn công thử thẻ thường có tỉ lệ thất bại rất cao do số CVV hoặc ngày hết hạn bị sai. Module theo dõi số lần thanh toán thất bại trong 15 phút gần nhất. Nếu tỉ lệ thất bại vượt quá 50% hoặc có từ 3 lần thất bại liên tiếp trở lên, luật FailedPaymentRateRule được kích hoạt (+35 điểm).",
+        "3. Kiểm tra giá trị giao dịch siêu nhỏ bất thường (Unusual Amount Rule): So sánh giá trị đơn hàng hiện tại với lịch sử chi tiêu trung bình của tài khoản. Các đơn hàng có giá trị thấp bất thường xuất hiện đồng thời với tần suất cao sẽ kích hoạt cảnh báo mẫu hình thử thẻ (SuspiciousPatternRule)."
+      ]
+    },
+    {
+      "id": "3.3.3",
+      "title": "3.3.3 Module kiểm tra dấu vân tay thiết bị và tính toàn vẹn phiên làm việc",
+      "paragraphs": [
+        "Để ngăn chặn các hình thức giả mạo địa chỉ IP thông qua mạng riêng ảo (VPN/Proxy) hoặc trình duyệt ẩn danh, hệ thống tích hợp công nghệ thu thập Dấu vân tay thiết bị (Device Fingerprinting) chuyên sâu ngay tại máy khách (Client-side).",
+        "Quá trình tạo dấu vân tay thiết bị tổng hợp từ nhiều thông số kỹ thuật phần cứng và phần mềm của môi trường duyệt web, bao gồm: chuỗi User-Agent chi tiết, độ phân giải màn hình hiển thị (Screen Resolution & Color Depth), múi giờ địa phương, ngôn ngữ trình duyệt, danh sách phông chữ hệ thống, và đặc biệt là mã băm kết xuất đồ họa HTML5 Canvas & WebGL Rendering. Các thông số này được chuẩn hóa và băm một chiều bằng thuật toán SHA-256 để tạo thành mã định danh thiết bị duy nhất (Device Fingerprint ID).",
+        "Module DeviceAnalyzer thực hiện các kiểm tra an ninh cốt lõi:",
+        "• Kiểm tra thiết bị mới (New Device Rule): So sánh mã thiết bị hiện tại với danh sách các thiết bị tin cậy đã từng giao dịch thành công của người dùng trong bảng user_risk_profiles. Nếu phát hiện thiết bị mới hoàn toàn lần đầu truy cập, luật NewDeviceRule kích hoạt (+25 điểm).",
+        "• Kiểm tra thiết bị dùng chung cho nhiều tài khoản (Multiple Devices / Multi-accounting Rule): Truy vấn bảng device_profiles để kiểm tra số lượng tài khoản người dùng khác nhau từng đăng nhập trên cùng một thiết bị. Nếu một thiết bị liên kết với từ 3 tài khoản trở lên trong thời gian ngắn, đây là dấu hiệu rõ rệt của bot farm hoặc tài khoản mua bán trái phép (+30 điểm).",
+        "• Kiểm tra địa chỉ IP lạ và mạng ẩn danh (New IP & IP Profile Rule): Kiểm tra xem địa chỉ IP có phải là IP mới đối với người dùng hay không (+20 điểm), đồng thời đối soát với bảng ip_profiles để phát hiện các IP thuộc dải máy chủ hosting hoặc có lịch sử gian lận cao."
+      ]
+    },
+    {
+      "id": "3.3.4",
+      "title": "3.3.4 Bộ máy chấm điểm rủi ro và ra quyết định giao dịch",
+      "paragraphs": [
+        "Sau khi toàn bộ các luật độc lập hoàn thành quá trình đánh giá, module ScoreCalculator và DecisionEngine chịu trách nhiệm tổng hợp điểm số và đưa ra phán quyết cuối cùng.",
+        "Thuật toán kết hợp điểm số suy giảm biên độ (Diminishing Marginal Risk Algorithm): Trong thực tế, nếu cộng dồn điểm số của tất cả các luật bị vi phạm một cách tuyến tính, điểm rủi ro sẽ nhanh chóng chạm trần 100 điểm ngay cả khi các vi phạm chỉ ở mức độ nhẹ. Để phản ánh chính xác mức độ nguy hiểm mà không gây bùng nổ điểm số giả (Score Saturation), hệ thống áp dụng mô hình trọng số phi tuyến gồm 4 thành phần tính toán tường minh:",
+        "1. Điểm luật chính nghiêm trọng nhất (Primary Rule Score - S_max): Là điểm số của luật có trọng số cao nhất trong số tất cả các luật bị kích hoạt (chiếm 100% tỷ trọng đóng góp).",
+        "2. Điểm đóng góp từ các luật phụ bổ sung: Toàn bộ các luật vi phạm còn lại sau luật chính được tính tổng và nhân với hệ số suy giảm biên độ 0.5: S_sub = 0.5 × (S_rules - S_max). Cơ chế này đảm bảo nhiều vi phạm nhỏ cùng xảy ra sẽ làm tăng độ nghi vấn nhưng không đẩy điểm số vượt quá mức kiểm soát.",
+        "3. Điểm mẫu hình tấn công phức hợp (Composite Attack Pattern Contribution): Được kích hoạt từ module SuspiciousPatternRule khi phát hiện sự hội tụ đồng thời của nhiều hành vi (ví dụ: Card Testing Attack đòi hỏi đồng thời: số tiền nhỏ + tỷ lệ thất bại cao + đổi nhiều thẻ trong thời gian ngắn). Điểm mẫu hình này được nhân với hệ số khuếch đại 0.7: S_pattern_contrib = 0.7 × S_patterns.",
+        "4. Phép tính điểm kết hợp cuối cùng và chuẩn hóa (Final Score Calculation):",
+        "   Combined_Score = round( S_max + 0.5 × (S_rules - S_max) + 0.7 × S_patterns )",
+        "   Risk_Score = min( 100, max( 0, Combined_Score ) )",
+        "Quy tắc ra phán quyết giao dịch (Decision Logic): Dựa trên điểm Risk_Score và cấp độ rủi ro tương ứng, hệ thống thực thi một trong ba phán quyết tự động tại cổng thanh toán:",
+        "• APPROVE (0 <= Risk_Score < 50): Giao dịch hợp lệ, rủi ro thấp hoặc trung bình, được chuyển thẳng tới cổng thanh toán ngân hàng để trừ tiền.",
+        "• REVIEW (50 <= Risk_Score < 80): Giao dịch thuộc diện nghi vấn rủi ro cao (HIGH), hệ thống tạm giữ giao dịch ở trạng thái review_required và lập tức kích hoạt cơ chế thử thách xác thực bước nâng cao (Step-up Authentication) qua mã Smart OTP 6 chữ số gửi tới SMS của chủ thẻ.",
+        "• BLOCK (80 <= Risk_Score <= 100): Giao dịch vi phạm nghiêm trọng (CRITICAL), hệ thống từ chối thanh toán tức thì ngay tại cổng API, chặn đứng hoàn toàn việc kết nối sang ngân hàng và tự động tạm khóa tài khoản để bảo vệ tài sản."
+      ],
+      "table_rules": {
+        "caption": "Bảng 3.3: Bảng cấu hình và trọng số của bộ luật phòng chống gian lận",
+        "headers": [
+          "Mã luật (Rule ID)",
+          "Tên luật hiển thị",
+          "Điểm cơ sở",
+          "Trọng số",
+          "Mô tả hành vi phát hiện"
+        ],
+        "widths": [
+          1.3,
+          1.3,
+          0.7,
+          0.6,
+          2.1
+        ],
+        "rows": [
+          [
+            "IMPOSSIBLE_TRAVEL",
+            "Di chuyển bất khả thi",
+            "60",
+            "1.0",
+            "Khoảng cách > 50km và vận tốc di chuyển suy luận > 800 km/h giữa 2 giao dịch liên tiếp."
+          ],
+          [
+            "VELOCITY_HIGH",
+            "Tần suất giao dịch cao",
+            "40",
+            "1.0",
+            "Phát sinh vượt quá 3 giao dịch trong 1 phút hoặc 5 giao dịch trong 5 phút từ cùng một IP/thiết bị."
+          ],
+          [
+            "FAILED_RATE_HIGH",
+            "Tỉ lệ thanh toán lỗi cao",
+            "35",
+            "1.0",
+            "Tỉ lệ thất bại vượt quá 50% hoặc có từ 3 lần thanh toán thất bại liên tiếp trong 15 phút."
+          ],
+          [
+            "HIGH_AMOUNT",
+            "Giá trị đơn hàng cực lớn",
+            "30",
+            "1.0",
+            "Số tiền giao dịch vượt quá ngưỡng giá trị tuyệt đối quy định của hệ thống (ví dụ > 50 triệu VNĐ)."
+          ],
+          [
+            "UNUSUAL_AMOUNT",
+            "Giá trị bất thường",
+            "25",
+            "1.0",
+            "Số tiền giao dịch cao gấp hơn 3 lần so với mức chi tiêu trung bình lịch sử của tài khoản."
+          ],
+          [
+            "NEW_DEVICE",
+            "Thiết bị mới chưa định danh",
+            "25",
+            "1.0",
+            "Dấu vân tay thiết bị (Device Fingerprint) chưa từng xuất hiện trong lịch sử của tài khoản."
+          ],
+          [
+            "NEW_IP",
+            "Địa chỉ IP mới",
+            "20",
+            "1.0",
+            "Địa chỉ IP của phiên giao dịch khác biệt hoàn toàn so với các dải IP quen thuộc của người dùng."
+          ],
+          [
+            "MULTIPLE_DEVICES",
+            "Thiết bị liên kết nhiều tài khoản",
+            "30",
+            "1.0",
+            "Cùng một thiết bị được sử dụng để đăng nhập và thanh toán trên từ 3 tài khoản khác nhau."
+          ],
+          [
+            "MULTIPLE_IPS",
+            "Nhiều IP trong thời gian ngắn",
+            "25",
+            "1.0",
+            "Tài khoản xuất hiện giao dịch từ nhiều dải IP phân tán trong vòng dưới 15 phút."
+          ],
+          [
+            "ACCOUNT_AGE",
+            "Tài khoản mới tạo",
+            "15",
+            "1.0",
+            "Tài khoản mới tạo dưới 24 giờ và lập tức phát sinh giao dịch giá trị cao."
+          ],
+          [
+            "LOCATION_CHANGE",
+            "Thay đổi vị trí địa lý",
+            "20",
+            "1.0",
+            "Giao dịch phát sinh tại thành phố hoặc quốc gia khác so với giao dịch trước đó."
+          ],
+          [
+            "PAYMENT_SWITCH",
+            "Thay đổi phương thức thanh toán",
+            "15",
+            "1.0",
+            "Thay đổi liên tục nhiều thẻ thanh toán khác nhau trong các lần thử liên tiếp."
+          ],
+          [
+            "SUSPICIOUS_PATTERN",
+            "Mẫu hình tấn công phức tạp",
+            "50",
+            "1.0",
+            "Hành vi kết hợp giữa thiết bị mới, IP lạ và đơn hàng giá trị cao (dấu hiệu Chiếm đoạt tài khoản ATO)."
+          ]
+        ]
+      },
+      "post_paragraphs": [
+        "Dựa trên Risk Score và cấp độ rủi ro, DecisionEngine đưa ra phán quyết xử lý được quy định tại Bảng 3.4."
+      ],
+      "table_decisions": {
+        "caption": "Bảng 3.4: Bảng phân cấp thang điểm rủi ro và hành động quyết định tương ứng",
+        "headers": [
+          "Thang điểm (Score)",
+          "Cấp độ rủi ro (Risk Level)",
+          "Quyết định (Decision)",
+          "Hành động hệ thống và Trải nghiệm người dùng"
+        ],
+        "widths": [
+          1.1,
+          1.2,
+          1.1,
+          2.6
+        ],
+        "rows": [
+          [
+            "0 - 29 điểm",
+            "LOW (Thấp)",
+            "APPROVE",
+            "Giao dịch tuyệt đối an toàn, người dùng và thiết bị tin cậy. Hệ thống duyệt tự động trong mili-giây, không làm gián đoạn trải nghiệm."
+          ],
+          [
+            "30 - 49 điểm",
+            "MEDIUM (Trung bình)",
+            "APPROVE",
+            "Xuất hiện biến động nhẹ (như IP mới hoặc mua sắm vào khung giờ khuya). Hệ thống cho phép duyệt nhưng tự động ghi nhận nhật ký giám sát tăng cường."
+          ],
+          [
+            "50 - 79 điểm",
+            "HIGH (Cao)",
+            "REVIEW",
+            "Nghi vấn gian lận cao (như Impossible Travel hoặc thay đổi thiết bị kết hợp đơn hàng lớn). Tạm hoãn giao dịch, kích hoạt cơ chế Smart OTP 2FA gửi SMS xác nhận danh tính."
+          ],
+          [
+            "80 - 100 điểm",
+            "CRITICAL (Nguy kịch)",
+            "BLOCK",
+            "Dấu hiệu tấn công rõ rệt (Account Takeover, thử thẻ tự động hàng loạt). Lập tức từ chối giao dịch, gửi cảnh báo an ninh cho Admin và tự động khóa tài khoản tạm thời để bảo vệ khách hàng."
+          ]
+        ]
+      }
+    }
+  ]
+}

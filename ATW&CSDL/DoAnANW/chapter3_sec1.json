@@ -1,0 +1,95 @@
+{
+  "title": "3.1 Khảo sát và phân tích yêu cầu hệ thống",
+  "intro": "Trong bối cảnh thương mại điện tử (TMĐT) bùng nổ mạnh mẽ song hành cùng sự gia tăng tinh vi của các cuộc tấn công gian lận trực tuyến, việc xây dựng một hệ thống website bán hàng tích hợp cơ chế bảo vệ giao dịch thời gian thực đòi hỏi một quy trình khảo sát và phân tích yêu cầu toàn diện. Mục tiêu cốt lõi là vừa bảo đảm trải nghiệm mua sắm mượt mà, tiện lợi cho khách hàng hợp pháp, vừa thiết lập hàng rào phòng thủ đa tầng nhằm phát hiện, ngăn chặn kịp thời các hành vi trục lợi tài chính và đánh cắp dữ liệu.",
+  "subsections": [
+    {
+      "id": "3.1.1",
+      "title": "3.1.1 Yêu cầu nghiệp vụ cho website thương mại điện tử",
+      "paragraphs": [
+        "Một hệ thống TMĐT hoàn chỉnh cần đáp ứng đầy đủ các nghiệp vụ thương mại cốt lõi từ khâu duyệt danh mục sản phẩm, quản lý giỏ hàng cho đến giai đoạn thanh toán và theo dõi vận đơn. Đối với đồ án này, các yêu cầu nghiệp vụ chuyên biệt được phân tích và đặc tả cụ thể như sau:"
+      ],
+      "bullets": [
+        [
+          "Quản lý danh mục và hiển thị sản phẩm (Catalog & Product Browsing)",
+          "Hệ thống cung cấp danh mục sản phẩm công nghệ đa dạng thuộc các ngành hàng chủ lực như Điện thoại di động (Smartphones), Máy tính xách tay (Laptops), Thiết bị âm thanh (Audio Devices) và Phụ kiện thông minh (Smart Accessories). Mỗi sản phẩm được quản lý chặt chẽ với các thuộc tính gồm mã định danh (ID), tên sản phẩm, đơn giá niêm yết theo đồng Việt Nam (VNĐ), mô tả chi tiết, hình ảnh minh họa chất lượng cao và số lượng hàng tồn kho khả dụng."
+        ],
+        [
+          "Quản lý giỏ hàng trực tuyến (Shopping Cart Management)",
+          "Người dùng có khả năng thêm sản phẩm vào giỏ hàng từ trang danh mục, điều chỉnh tăng/giảm số lượng từng mặt hàng, xóa sản phẩm không còn nhu cầu và xem lại tổng giá trị tiền hàng tạm tính. Giỏ hàng phải được duy trì liên tục và đồng bộ theo phiên làm việc (Session) của người dùng nhằm đảm bảo tính liền mạch trong trải nghiệm mua sắm."
+        ],
+        [
+          "Quy trình đặt hàng và thanh toán (Checkout & Payment Processing)",
+          "Cung cấp biểu mẫu thanh toán trực quan để khách hàng nhập thông tin nhận hàng (Họ tên, Số điện thoại, Địa chỉ giao hàng, Tỉnh/Thành phố). Hỗ trợ phương thức thanh toán trực tuyến qua thẻ thanh toán quốc tế (Visa/Mastercard) với đầy đủ thông tin bảo mật chuẩn gồm Số thẻ (Card Number), Tháng/Năm hết hạn (Expiry Date) và Mã bảo mật thẻ (CVV/CVC). Dữ liệu thanh toán được chuyển tiếp an toàn tới cổng xử lý trung gian."
+        ],
+        [
+          "Định danh và quản lý tài khoản người dùng (Authentication & RBAC)",
+          "Hệ thống hỗ trợ cơ chế đăng ký và đăng nhập bảo mật cho khách hàng. Áp dụng mô hình phân quyền dựa trên vai trò (Role-Based Access Control - RBAC) phân tách rõ ràng giữa hai nhóm người dùng: Người dùng thông thường (Customer - chỉ có quyền mua sắm, quản lý hồ sơ và theo dõi đơn hàng của chính mình) và Quản trị viên (Admin - nắm quyền giám sát toàn bộ giao dịch, kiểm soát an ninh, điều chỉnh bộ luật gian lận và can thiệp mở khóa tài khoản)."
+        ],
+        [
+          "Theo dõi lịch sử đơn hàng (Order Tracking)",
+          "Khách hàng có thể tra cứu danh sách các đơn hàng đã đặt trong lịch sử với các trạng thái rõ ràng: Hoàn tất (Completed/Approved), Đang chờ xử lý xác thực (Review Required / OTP Pending), và Bị từ chối do rủi ro an ninh (Blocked)."
+        ]
+      ]
+    },
+    {
+      "id": "3.1.2",
+      "title": "3.1.2 Yêu cầu đối với module phát hiện và phòng chống gian lận",
+      "paragraphs": [
+        "Module phòng chống gian lận đóng vai trò như một bộ não giám sát vô hình hoạt động song song tại tầng ứng dụng, chịu trách nhiệm phân tích mọi tham số của giao dịch phát sinh để đưa ra phán quyết tự động.",
+        "Các yêu cầu kỹ thuật chi tiết đối với module bao gồm: (1) Khả năng trích xuất đặc trưng thời gian thực (Real-time Feature Extraction) trong cửa sổ trượt 1 phút, 5 phút, 15 phút và 24 giờ; (2) Hỗ trợ cấu hình động trọng số các luật phát hiện gian lận mà không cần khởi động lại máy chủ; (3) Hỗ trợ cơ chế phân cấp phán quyết linh hoạt APPROVE, REVIEW, BLOCK dựa trên thang điểm rủi ro chuẩn hóa 0 - 100; (4) Tích hợp liền mạch cơ chế thử thách xác thực nâng cao Step-up Authentication qua Smart OTP 2FA khi phát sinh nghi vấn.",
+        "Lưu ý phân định phạm vi phát hiện gian lận: Hệ thống xác định rõ ranh giới chức năng bảo vệ phía máy chủ thương mại điện tử. Hệ thống không đóng vai trò một công cụ rà soát hay phát hiện trực tiếp các trang web giả mạo (Phishing Checkout Page) bên ngoài không gian mạng Internet (vốn là phạm vi của các giải pháp Threat Intelligence, Web Crawler hoặc DNS/URL Filtering). Thay vào đó, đề tài tập trung giải quyết triệt để hậu quả nguy hiểm nhất do Phishing gây ra đối với cổng thanh toán TMĐT: ngăn chặn các giao dịch gian lận phát sinh từ thông tin tài khoản và thẻ tín dụng bị đánh cắp sau các đợt Phishing thông qua cơ chế phát hiện chiếm đoạt tài khoản (Account Takeover - ATO), kiểm tra dấu vân tay thiết bị (Device Fingerprinting), phát hiện địa chỉ IP bất thường và cơ chế xác thực bước nâng cao Smart OTP."
+      ],
+      "bullets": [
+        [
+          "Đánh giá rủi ro theo thời gian thực (Real-time Fraud Scoring)",
+          "Khi người dùng nhấn nút xác nhận thanh toán, hệ thống phải trích xuất ngay lập tức các thuộc tính giao dịch, kích hoạt toàn bộ các luật kiểm tra và tổng hợp ra điểm số rủi ro (Risk Score từ 0 đến 100 điểm) chỉ trong vài chục mili-giây trước khi phản hồi về máy khách."
+        ],
+        [
+          "Bộ luật phát hiện đa chiều (Multi-factor Rule Engine)",
+          "Động cơ kiểm tra phải bao quát được nhiều khía cạnh bất thường của hành vi gian lận, bao gồm: kiểm tra tần suất giao dịch dồn dập (Velocity Check), kiểm tra giá trị đơn hàng vượt ngưỡng bình thường (High Amount), phát hiện thiết bị mới chưa từng ghi nhận (New Device Fingerprint), địa chỉ IP lạ (New IP Address), và kiểm tra vận tốc di chuyển bất khả thi giữa hai giao dịch liên tiếp (Impossible Travel)."
+        ],
+        [
+          "Phán quyết động ba cấp độ (Three-tier Decision Making)",
+          "Căn cứ trên điểm rủi ro tổng hợp và mức độ nghiêm trọng, hệ thống đưa ra một trong ba quyết định tự động: Duyệt (APPROVE - đối với giao dịch an toàn, điểm rủi ro < 50), Cần xem xét (REVIEW - đối với giao dịch có dấu hiệu nghi vấn, 50 <= điểm < 80, kích hoạt bước thử thách xác thực Smart OTP 2FA), hoặc Chặn (BLOCK - đối với giao dịch rủi ro nghiêm trọng, điểm >= 80, từ chối giao dịch ngay lập tức)."
+        ],
+        [
+          "Cơ chế thử thách xác thực bổ sung (Step-up Authentication / Smart OTP)",
+          "Khi một giao dịch rơi vào trạng thái REVIEW, hệ thống tạm hoãn việc xử lý và tự động sinh mã OTP 6 chữ số ngẫu nhiên gửi tới số điện thoại của chủ tài khoản thông qua dịch vụ tin nhắn SMS ảo. Giao dịch chỉ được phê duyệt khi khách hàng nhập chính xác mã OTP trong thời gian hiệu lực."
+        ],
+        [
+          "Cơ chế khóa tài khoản khẩn cấp (Emergency Account Lockout)",
+          "Khi phát hiện hành vi chiếm đoạt tài khoản (Account Takeover - ATO) hoặc dấu hiệu gian lận đặc biệt nguy hiểm, hệ thống có khả năng tự động khóa tài khoản tạm thời để bảo vệ tài sản người dùng, đồng thời thông báo tới khách hàng và quản trị viên."
+        ],
+        [
+          "Bảng điều khiển quản trị và điều tra pháp chứng (Forensic Investigation Dashboard)",
+          "Cung cấp giao diện trực quan cho quản trị viên theo dõi các chỉ số an ninh thời gian thực (KPIs), tra cứu chi tiết từng giao dịch, giải thích nguyên nhân kích hoạt các luật (Explainable AI/Rules), thay đổi trọng số và bật/tắt các luật mà không cần khởi động lại máy chủ."
+        ]
+      ]
+    },
+    {
+      "id": "3.1.3",
+      "title": "3.1.3 Các yêu cầu phi chức năng",
+      "paragraphs": [
+        "Để hệ thống có thể vận hành ổn định trong môi trường thương mại điện tử thực tế, các yêu cầu phi chức năng cần được tuân thủ nghiêm ngặt:"
+      ],
+      "bullets": [
+        [
+          "Độ trễ xử lý cực thấp (Low Latency)",
+          "Toàn bộ quá trình tiếp nhận giao dịch, trích xuất đặc trưng, đánh giá qua hàng chục quy tắc và tổng hợp điểm rủi ro phải hoàn tất trong thời gian dưới 50ms. Tổng thời gian phản hồi API thanh toán (bao gồm ghi nhận cơ sở dữ liệu) không được vượt quá 150ms để không gây gián đoạn trải nghiệm người dùng."
+        ],
+        [
+          "An toàn và bảo mật dữ liệu (Data Security & PCI-DSS Compliance)",
+          "Hệ thống phải tuân thủ các nguyên tắc cốt lõi của Tiêu chuẩn Bảo mật Dữ liệu Thẻ Thanh toán (PCI-DSS): không bao giờ lưu trữ số định danh cá nhân CVV/CVC dạng thô trong cơ sở dữ liệu; số thẻ tín dụng khi hiển thị hoặc lưu trữ phải được che mờ (chỉ lưu 4 số cuối, ví dụ 4532 **** **** 1092). Mật khẩu người dùng bắt buộc phải được mã hóa một chiều bằng thuật toán Bcrypt với Salt ngẫu nhiên."
+        ],
+        [
+          "Tính toàn vẹn và nhất quán dữ liệu (Data Integrity & ACID Compliance)",
+          "Mọi thao tác thay đổi số dư, trừ hàng tồn kho và ghi nhận trạng thái đơn hàng phải được thực thi trong các phiên Transaction của Cơ sở dữ liệu quan hệ, bảo đảm tính nguyên tử (Atomicity), nhất quán (Consistency), cô lập (Isolation) và bền vững (Durability)."
+        ],
+        [
+          "Khả năng mở rộng và mô-đun hóa (Extensibility & Modularity)",
+          "Hệ thống được thiết kế theo cấu trúc module tách biệt giữa Tầng giao diện người dùng, Tầng dịch vụ API RESTful và Tầng động cơ chấm điểm rủi ro. Các luật phát hiện gian lận tuân theo mẫu thiết kế Plugin Pattern, cho phép mở rộng thêm các thuật toán học máy (Machine Learning) mới mà không làm ảnh hưởng đến mã nguồn hiện tại."
+        ]
+      ]
+    }
+  ]
+}

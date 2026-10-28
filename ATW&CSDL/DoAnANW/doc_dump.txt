@@ -1,0 +1,291 @@
+7|Normal|ĐỒ ÁN MÔN HỌC LẬP TRÌNH AN NINH THÔNG TIN
+11|Normal|ĐỀ TÀI: XÂY DỰNG WEBSITE THƯƠNG MẠI ĐIỆN TỬ TÍCH HỢP CƠ CHẾ PHÁT HIỆN VÀ PHÒNG CHỐNG GIAN LẬN THANH TOÁN
+14|Normal|Giảng viên hướng dẫn: ThS. Đinh Phương Nam
+16|Normal|Sinh viên thực hiện			Lớp		   MSSV
+17|Normal|Trần Tăng Trường Thịnh		23DATA1      2387701939
+18|Normal|Hà Tuấn Anh			23DATA1      2387700002
+19|Normal|Trịnh Thành Đông		           23DATA1      2387700372
+20|Normal|Hoàng Xuân Đạt			23DATA1      2387700013
+22|Normal|TP. Hồ Chí Minh, 2026
+28|Normal|ĐỒ ÁN MÔN HỌC LẬP TRÌNH AN NINH THÔNG TIN
+32|Normal|XÂY DỰNG WEBSITE THƯƠNG MẠI ĐIỆN TỬ TÍCH HỢP CƠ CHẾ PHÁT HIỆN VÀ PHÒNG CHỐNG GIAN LẬN THANH TOÁN
+35|Normal|Giảng viên hướng dẫn: ThS. Đinh Phương Nam
+37|Normal|Sinh viên thực hiện			Lớp		   MSSV
+38|Normal|Trần Tăng Trường Thịnh		23DATA1      2387701939
+39|Normal|Hà Tuấn Anh			23DATA1      2387700002
+40|Normal|Trịnh Thành Đông		           23DATA1      2387700372
+41|Normal|Hoàng Xuân Đạt			23DATA1      2387700013
+45|Normal|TP. Hồ Chí Minh, 2026
+46|Normal|LỜI MỞ ĐẦU
+48|Normal|Trong làn sóng chuyển đổi số mạnh mẽ, Thương mại điện tử (TMĐT) và thanh toán số đã trở thành một phần thiết yếu của đời sống hiện đại, phục vụ nhu cầu mua sắm và giao dịch hàng ngày của hàng triệu người dùng. Sự tiện lợi của thanh toán trực tuyến qua thẻ tín dụng, cổng thanh toán và ví điện tử đã mở ra tiềm năng kinh doanh to lớn cho các doanh nghiệp.
+49|Normal|Song song với sự tiện lợi đó, gian lận thanh toán trực tuyến ngày càng trở nên tinh vi, phức tạp và gây thiệt hại nghiêm trọng cho cả người tiêu dùng lẫn các đơn vị kinh doanh. Kẻ gian sử dụng các thủ đoạn công nghệ cao như đánh cắp dữ liệu thẻ, giả mạo cổng thanh toán (Phishing), sử dụng botnet để thử thẻ tự động (Card Testing Attack) và lợi dụng mạng riêng ảo để thực hiện các giao dịch di chuyển bất khả thi (Impossible Travel) nhằm chiếm đoạt tài chính và rửa tiền.
+50|Normal|Xuất phát từ thực tế đó, nhóm chúng em lựa chọn đề tài: “XÂY DỰNG WEBSITE THƯƠNG MẠI ĐIỆN TỬ TÍCH HỢP CƠ CHẾ PHÁT HIỆN VÀ PHÒNG CHỐNG GIAN LẬN THANH TOÁN” với mục tiêu tìm hiểu toàn diện các hình thức gian lận, phân tích sâu các kịch bản tấn công thực tế và xây dựng hệ thống website TMĐT tích hợp bộ lọc kiểm tra, chấm điểm rủi ro và ngăn chặn gian lận theo thời gian thực.
+51|Normal|Đồ án không chỉ giúp củng cố kiến thức về an toàn web, quản trị cơ sở dữ liệu và an ninh thanh toán mà còn mang ý nghĩa thực tiễn cao trong việc bảo vệ an toàn cho các giao dịch số và nâng cao độ tin cậy của hệ sinh thái thương mại điện tử hiện nay.
+52|Normal|LỜI CẢM ƠN
+54|Normal|Trong quá trình thực hiện đồ án với đề tài “XÂY DỰNG WEBSITE THƯƠNG MẠI ĐIỆN TỬ TÍCH HỢP CƠ CHẾ PHÁT HIỆN VÀ PHÒNG CHỐNG GIAN LẬN THANH TOÁN”, nhóm 16 chúng em đã nhận được rất nhiều sự hỗ trợ, hướng dẫn và động viên quý báu từ quý thầy cô và bạn bè. Đây là nguồn động lực to lớn giúp nhóm hoàn thành đồ án một cách tốt nhất.
+55|Normal|Trước hết, nhóm chúng em xin gửi lời cảm ơn chân thành và sâu sắc đến Thạc sĩ Đinh Phương Nam, người đã trực tiếp hướng dẫn và tận tình chỉ bảo trong suốt quá trình thực hiện đồ án. Thầy đã dành nhiều thời gian để định hướng, góp ý và hỗ trợ nhóm trong việc xây dựng nội dung nghiên cứu, cũng như cung cấp những kiến thức chuyên môn quý báu liên quan đến lĩnh vực an ninh mạng và bảo mật ứng dụng web. Những ý kiến đóng góp và sự hướng dẫn tận tâm của thầy đã giúp nhóm hoàn thiện đề tài một cách khoa học và hiệu quả hơn
+56|Normal|Bên cạnh đó, chúng em cũng xin gửi lời cảm ơn đến các thầy cô trong khoa đã truyền đạt những kiến thức nền tảng và chuyên sâu trong suốt quá trình học tập. Những kiến thức này chính là cơ sở quan trọng giúp chúng em có thể áp dụng vào việc nghiên cứu và triển khai đề tài
+57|Normal|Ngoài ra, nhóm cũng xin cảm ơn bạn bè và các thành viên trong lớp đã luôn hỗ trợ, trao đổi kiến thức và chia sẻ kinh nghiệm trong quá trình thực hiện đồ án
+58|Normal|Mặc dù chúng em đã cố gắng hoàn thành đề tài với tất cả sự nỗ lực của mình, tuy nhiên do hạn chế về thời gian cũng như kinh nghiệm thực tế nên đồ án khó tránh khỏi những thiếu sót. Chúng em rất mong nhận được những ý kiến đóng góp và nhận xét từ thầy cô để đề tài được hoàn thiện hơn trong tương lai.
+59|Normal|Một lần nữa, nhóm 16 chúng em xin chân thành cảm ơn!
+60|Normal|Sinh viên thực hiện: Nhóm 16 chúng em
+64|Normal|NHIỆM VỤ ĐỒ ÁN
+65|Normal|Tên đề tài: Xây dựng website thương mại điện tử tích hợp cơ chế phát hiện và phòng chống gian lận thanh toán
+66|Normal|1. Mục tiêu của đồ án
+67|Normal|Tìm hiểu tổng quan về thương mại điện tử và các rủi ro bảo mật trong thanh toán trực tuyến
+68|Normal|Phân tích các hình thức gian lận thanh toán phổ biến: từ người mua, người bán, tấn công kỹ thuật số và ví điện tử
+69|Normal|Nghiên cứu nguyên lý và các kịch bản gian lận thực tế: Phishing checkout, Card Testing Attack và Impossible Travel
+70|Normal|Xây dựng website thương mại điện tử tích hợp cơ chế phát hiện và phòng chống gian lận thanh toán
+71|Normal|Đánh giá mức độ ảnh hưởng của gian lận và hiệu năng của hệ thống phòng ngừa
+72|Normal|Đề xuất các giải pháp toàn diện cho người dùng, doanh nghiệp và các tổ chức quản lý thanh toán
+73|Normal|2. Nội dung thực hiện
+74|Normal|Nghiên cứu cơ sở lý thuyết về luồng thanh toán trực tuyến, các tiêu chuẩn an toàn (PCI-DSS, 3D-Secure, Tokenization)
+75|Normal|Tìm hiểu các kỹ thuật gian lận như giả mạo trang thanh toán, dùng bot thử thẻ tự động, di chuyển bất khả thi qua VPN/Proxy
+76|Normal|Thiết kế kiến trúc hệ thống website TMĐT và module phát hiện gian lận
+77|Normal|Cài đặt và cấu hình các công cụ kiểm tra rủi ro (GeoIP, Rate Limiting, Device Fingerprinting, Risk Scoring)
+78|Normal|Triển khai thực nghiệm các kịch bản tấn công gian lận trong môi trường lab
+79|Normal|Thu thập, phân tích dữ liệu và đánh giá kết quả thực nghiệm
+80|Normal|Đề xuất các biện pháp bảo mật phù hợp với hệ thống
+81|Normal|3. Phương pháp nghiên cứu
+82|Normal|Phương pháp nghiên cứu lý thuyết: thu thập và phân tích tài liệu liên quan
+83|Normal|Phương pháp thực nghiệm: xây dựng môi trường mô phỏng và tiến hành tấn công thử nghiệm
+84|Normal|Phương pháp phân tích – đánh giá: dựa trên kết quả thu được để đưa ra nhận xét và kết luận
+85|Normal|4. Phạm vi thực hiện
+86|Normal|Đồ án tập trung nghiên cứu các hình thức gian lận thanh toán trong thương mại điện tử và giải pháp phòng chống ở tầng ứng dụng
+87|Normal|Thực nghiệm được triển khai trên website thương mại điện tử và cổng thanh toán giả lập, không áp dụng vào dòng tiền thực tế
+88|Normal|5. Kết quả dự kiến
+89|Normal|Hiểu rõ các hình thức và cơ chế gian lận thanh toán phổ biến
+90|Normal|Xây dựng thành công website TMĐT tích hợp cơ chế phát hiện gian lận
+91|Normal|Minh họa được quá trình phát hiện, chấm điểm rủi ro và ngăn chặn các giao dịch đáng ngờ
+92|Normal|Đề xuất được các giải pháp nâng cao an toàn thanh toán cho hệ thống TMĐT
+93|Normal|NHẬN XÉT CỦA GIẢNG VIÊN
+96|Normal|............................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................
+97|Normal|......................................................................................................................................................................................................................................................................................
+98|Normal|......................................................................................................................................................................................................................................................................................
+99|Normal|......................................................................................................................................................................................................................................................................................
+100|Normal|MỤC LỤC
+103|Normal|DANH MỤC HÌNH ẢNH
+109|Heading 1|CHƯƠNG 1: TỔNG QUAN VỀ ĐỀ TÀI
+110|Heading 2|1.1 Bối cảnh và lý do chọn đề tài
+111|Heading 3|1.1.1 Sự phát triển của thương mại điện tử và thanh toán số hiện đại
+112|Normal|Trong kỷ nguyên bùng nổ của công nghệ thông tin và truyền thông, cuộc Cách mạng Công nghiệp lần thứ tư đã tạo ra những biến chuyển sâu sắc trong mọi mặt đời sống kinh tế - xã hội. Một trong những thành tựu nổi bật nhất chính là sự phát triển vượt bậc của Thương mại điện tử (E-Commerce). Từ các mô hình bán lẻ truyền thống phụ thuộc chặt chẽ vào không gian địa lý và thời gian mở cửa, các doanh nghiệp đã nhanh chóng chuyển đổi số để đưa sản phẩm và dịch vụ lên không gian mạng. Người tiêu dùng hiện nay chỉ cần một thiết bị kết nối Internet như điện thoại thông minh, máy tính bảng hoặc máy tính cá nhân là có thể thực hiện giao dịch mua sắm hàng hóa xuyên biên giới mọi lúc, mọi nơi.
+113|Normal|Song hành cùng sự phát triển mạnh mẽ của các sàn thương mại điện tử là sự tiến hóa thần tốc của hạ tầng thanh toán số. Thói quen sử dụng tiền mặt trong thanh toán (Cash on Delivery - COD) đang dần được thay thế bởi các phương thức thanh toán điện tử không dùng tiền mặt (Cashless Payment), bao gồm thẻ tín dụng/ghi nợ quốc tế (Visa, Mastercard, JCB), thẻ ATM nội địa, chuyển khoản nhanh qua mã QR (VietQR) và các ứng dụng ví điện tử như MoMo, ZaloPay, ShopeePay. Thanh toán số không chỉ mang lại sự tiện lợi tối đa, rút ngắn chu kỳ luân chuyển vốn cho doanh nghiệp mà còn thúc đẩy tính minh bạch và hiện đại hóa nền kinh tế số quốc gia.
+114|Heading 3|1.1.2 Nguy cơ an ninh và tính cấp thiết của bài toán chống gian lận
+115|Normal|Mặc dù mang lại những lợi ích kinh tế vượt trội, sự phổ cập nhanh chóng của thanh toán điện tử cũng đồng thời biến môi trường này trở thành 'mảnh đất màu mỡ' thu hút các tổ chức tội phạm công nghệ cao. Theo các báo cáo an ninh mạng gần đây từ các tổ chức tài chính quốc tế như Nilson Report và Juniper Research, thiệt hại tài chính toàn cầu do gian lận thanh toán trực tuyến đã vượt mốc 40 tỷ USD mỗi năm và tiếp tục có xu hướng gia tăng theo cấp số nhân. Bản chất phi tập trung và ẩn danh tương đối của Internet tạo điều kiện thuận lợi cho kẻ gian tiến hành các hành vi trục lợi mà khó bị truy vết.
+116|Normal|Các hình thức gian lận thanh toán hiện nay không còn mang tính chất nhỏ lẻ, thủ công mà đã chuyển dịch sang các chiến dịch tấn công tự động hóa quy mô lớn với sự trợ giúp của mạng máy tính ma (botnet), các công cụ khai thác dữ liệu thẻ tự động (carding scripts) và các kỹ thuật giả mạo tinh vi (Phishing, Spoofing, Proxy/VPN). Sự xuất hiện của các kịch bản gian lận phức tạp như tấn công thử thẻ hàng loạt (Card Testing Attack), các giao dịch bất thường vi phạm quy luật di chuyển vật lý (Impossible Travel) hay chiếm đoạt tài khoản người dùng (Account Takeover - ATO) đang đặt các doanh nghiệp thương mại điện tử trước những tổn thất kép: vừa mất hàng hóa, vừa phải chịu các khoản phí phạt hoàn tiền gian lận (chargeback fees) rất nặng từ các tổ chức thẻ quốc tế, đồng thời đối mặt với nguy cơ hủy hoại uy tín thương hiệu nghiêm trọng.
+117|Normal|Chính vì vậy, yêu cầu phát triển các hệ thống thương mại điện tử tích hợp sẵn cơ chế phòng vệ chủ động, có khả năng phân tích, chấm điểm rủi ro và ngăn chặn kịp thời các giao dịch gian lận ngay tại thời điểm thanh toán (real-time) là một đòi hỏi vô cùng cấp thiết, mang ý nghĩa sống còn đối với sự tồn tại và phát triển bền vững của doanh nghiệp trong kỷ nguyên số.
+118|Heading 2|1.2 Thực trạng an toàn thông tin trong thanh toán trực tuyến
+119|Heading 3|1.2.1 Cơ chế trao đổi dữ liệu thanh toán trực tuyến
+120|Normal|Trong một giao dịch thương mại điện tử tiêu chuẩn, quy trình thanh toán là một chuỗi tương tác phức tạp liên quan đến nhiều thực thể: Người mua (Client/Cardholder), Hệ thống website bán hàng (Merchant Web Application), Cổng thanh toán trung gian (Payment Gateway), Tổ chức thẻ quốc tế (Card Schemes như Visa/Mastercard) và Ngân hàng phát hành (Issuing Bank) cùng Ngân hàng thanh toán (Acquiring Bank). Khi khách hàng nhấn nút thanh toán trên trình duyệt, thông tin đơn hàng và dữ liệu thẻ (hoặc thông tin ví điện tử) được mã hóa và truyền tải qua mạng Internet để xác thực và ủy quyền trừ tiền.
+121|Normal|Mỗi bước chuyển giao dữ liệu trong chuỗi thanh toán đều tiềm ẩn nguy cơ rò rỉ nếu không được bảo vệ bằng các giao thức mã hóa mạnh như TLS 1.3 và tuân thủ các chuẩn an toàn khắt khe như PCI-DSS (Payment Card Industry Data Security Standard). Bất kỳ một mắt xích nào bị suy yếu – từ máy tính người dùng nhiễm mã độc, đường truyền mạng bị nghe lén (Man-in-the-Middle) cho đến máy chủ website bị lộ lọt khóa bí mật – đều có thể trở thành cửa ngõ cho kẻ tấn công thâm nhập và can thiệp vào luồng thanh toán.
+122|Heading 3|1.2.2 Các điểm mù bảo mật và rủi ro truyền thông dữ liệu
+123|Normal|Thực tế triển khai các website thương mại điện tử hiện nay cho thấy tồn tại nhiều 'điểm mù bảo mật' nguy hiểm mà các biện pháp bảo vệ mạng truyền thống khó lòng bao quát hết được:
+124|Normal|•  Điểm mù 1: Sự thiếu hụt lớp phòng vệ ở tầng logic nghiệp vụ: Tường lửa ứng dụng web (WAF) truyền thống thường chỉ lọc các cuộc tấn công kỹ thuật như SQL Injection, XSS, nhưng lại bất lực trước các giao dịch hợp lệ về mặt cú pháp nhưng bản chất là gian lận (ví dụ: dùng thẻ đánh cắp để mua hàng hợp lệ).
+125|Normal|•  Điểm mù 2: Rủi ro từ các mạng kết nối không an toàn: Người dùng thường xuyên mua sắm qua các mạng Wi-Fi công cộng không có mật khẩu hoặc cấu hình yếu, tạo điều kiện cho các kỹ thuật tấn công trung gian (MITM, Session Hijacking, SSL Stripping) đánh cắp thông tin thẻ và cookie phiên.
+126|Normal|•  Điểm mù 3: Khả năng giả mạo định danh thiết bị và vị trí địa lý: Kẻ gian dễ dàng sử dụng các dịch vụ VPN, proxy dân cư (residential proxy) hoặc mạng ẩn danh Tor để che giấu nguồn gốc thực sự, qua mặt các bộ lọc địa lý đơn giản.
+127|Normal|•  Điểm mù 4: Sự mất cân bằng giữa bảo mật và trải nghiệm người dùng: Nếu doanh nghiệp áp dụng các biện pháp xác thực quá rườm rà (buộc nhập OTP liên tục, CAPTCHA phức tạp) sẽ gây phiền hà, dẫn đến tỷ lệ khách hàng bỏ rơi giỏ hàng (cart abandonment) tăng cao.
+128|Heading 2|1.3 Giới thiệu đề tài nghiên cứu
+129|Normal|Nhận thức rõ những lỗ hổng và rủi ro bảo mật nêu trên, đề tài “Xây dựng website thương mại điện tử tích hợp cơ chế phát hiện và phòng chống gian lận thanh toán” được nhóm chúng em lựa chọn và triển khai nhằm giải quyết bài toán cốt lõi: Làm thế nào để một website thương mại điện tử vừa duy trì trải nghiệm mua sắm mượt mà cho khách hàng hợp pháp, vừa có khả năng tự động nhận diện, phân loại và ngăn chặn kịp thời các hành vi gian lận thanh toán tinh vi?
+130|Normal|Đề tài kết hợp giữa việc xây dựng một hệ thống website thương mại điện tử hoàn chỉnh theo kiến trúc hiện đại với việc tích hợp một động cơ phát hiện gian lận (Fraud Detection Engine). Động cơ này vận hành dựa trên sự phối hợp giữa bộ luật nghiệp vụ (Rule-based), kỹ thuật kiểm tra vận tốc địa lý (GeoIP Velocity Check), chống quét tự động bằng bot (Rate Limiting) và cơ chế chấm điểm rủi ro giao dịch theo thời gian thực (Real-time Risk Scoring).
+131|Heading 2|1.4 Mục tiêu và phạm vi nghiên cứu của đồ án
+132|Heading 3|1.4.1 Mục tiêu nghiên cứu
+133|Normal|Đề tài tập trung hoàn thành các mục tiêu khoa học và kỹ thuật cụ thể sau:
+134|Normal|•  Mục tiêu 1: Hệ thống hóa toàn diện cơ sở lý thuyết về các phương thức gian lận thanh toán trực tuyến trong thương mại điện tử hiện đại.
+135|Normal|•  Mục tiêu 2: Phân tích chuyên sâu diễn biến, bản chất kỹ thuật và tác động của các kịch bản gian lận tiêu biểu: Giả mạo trang thanh toán (Phishing), Tấn công thử thẻ tự động (Card Testing Attack) và Giao dịch di chuyển bất khả thi (Impossible Travel).
+136|Normal|•  Mục tiêu 3: Thiết kế và xây dựng thành công website thương mại điện tử đáp ứng đầy đủ chu trình mua hàng, thanh toán và quản trị.
+137|Normal|•  Mục tiêu 4: Thiết kế và tích hợp module phát hiện gian lận thanh toán có khả năng phân tích dữ liệu ngữ cảnh giao dịch (IP, vị trí địa lý, tần suất đặt đơn, dấu vân tay thiết bị) để phân loại rủi ro: Cho phép (Allow), Kích hoạt thử thách xác thực (Challenge MFA), hoặc Từ chối giao dịch (Block).
+138|Normal|•  Mục tiêu 5: Xây dựng trang quản trị (Admin Dashboard) trực quan hóa các cảnh báo gian lận và nhật ký kiểm định (Audit Logs).
+139|Normal|•  Mục tiêu 6: Đề xuất khung giải pháp phòng vệ toàn diện mang tính ứng dụng cao cho người dùng, doanh nghiệp và các tổ chức tài chính.
+140|Heading 3|1.4.2 Phạm vi nghiên cứu
+141|Normal|Về mặt phạm vi, đồ án giới hạn nghiên cứu và thực nghiệm trong môi trường hệ thống thương mại điện tử độc lập có tích hợp cổng thanh toán giả lập (Sandbox/Mock Payment Gateway) để kiểm thử an toàn các luồng dữ liệu mà không gây thiệt hại tài chính thực tế. Hệ thống tập trung ngăn chặn các hình thức gian lận phổ biến nhất phát sinh tại tầng ứng dụng và tầng giao dịch, không đi sâu vào việc tấn công cơ sở hạ tầng mạng viễn thông hay bẻ khóa thuật toán mã hóa mật mã học.
+142|Heading 2|1.5 Phương pháp nghiên cứu
+143|Normal|Đồ án áp dụng kết hợp đồng bộ các phương pháp nghiên cứu khoa học sau:
+144|Normal|•  Phương pháp nghiên cứu lý thuyết: Thu thập, tổng hợp và phân loại các tài liệu học thuật, tiêu chuẩn an toàn quốc tế (PCI-DSS, OWASP Top 10, NIST, RFC) và các báo cáo tình hình an ninh mạng từ các tập đoàn thanh toán hàng đầu thế giới.
+145|Normal|•  Phương pháp phân tích kịch bản: Khảo sát các trường hợp gian lận thực tế, phân tích các mẫu botnet khai thác thẻ và mô hình hóa đường đi của các gói tin giao dịch.
+146|Normal|•  Phương pháp thực nghiệm phần mềm: Sử dụng các công nghệ lập trình hiện đại để phát triển phần mềm, áp dụng các thuật toán tính khoảng cách địa lý (Haversine formula), thuật toán phân tích tần suất (Sliding-window Rate Limiting) và logic chấm điểm rủi ro ma trận.
+147|Normal|•  Phương pháp đo lường và đánh giá: Xây dựng bộ kịch bản kiểm thử giả lập tấn công (Automated Testing Scripts) để đo lường độ chính xác (Precision/Recall), tỷ lệ cảnh báo sai (False Positive) và độ trễ xử lý (Latency) của hệ thống.
+148|Heading 2|1.6 Bố cục của đồ án
+149|Normal|Báo cáo đồ án được cấu trúc thành 4 chương chính như sau:
+150|Normal|•  Chương 1 - Tổng quan về đề tài: Trình bày bối cảnh, lý do chọn đề tài, thực trạng an toàn thông tin thanh toán, mục tiêu, phạm vi, phương pháp nghiên cứu và bố cục tổng thể.
+151|Normal|•  Chương 2 - Cơ sở lý thuyết và các hình thức gian lận thanh toán: Nghiên cứu sâu sắc bản chất gian lận thanh toán, phân loại 4 nhóm hình thức gian lận chính, phân tích chi tiết 3 kịch bản tấn công thực tế (Phishing checkout, Card testing bot, Impossible travel) và tổng quan các giải pháp kỹ thuật phòng ngừa hiện đại.
+152|Normal|•  Chương 3 - Xây dựng website thương mại điện tử và thực nghiệm hệ thống phát hiện, phòng chống gian lận: Trình bày kiến trúc, thiết kế cơ sở dữ liệu, các module thuật toán chống gian lận, giao diện người dùng và trang quản trị, cùng hệ thống các kịch bản thực nghiệm đo lường hiệu năng.
+153|Normal|•  Chương 4 - Kết luận và giải pháp đề xuất: Đánh giá tổng kết các kết quả đạt được, phân tích ưu điểm và hạn chế, đề xuất hệ thống giải pháp khuyến nghị 3 lớp (Người dùng – Doanh nghiệp – Ngân hàng/Cơ quan quản lý) và định hướng phát triển trong tương lai.
+155|Heading 1|CHƯƠNG 2: CƠ SỞ LÝ THUYẾT VÀ CÁC HÌNH THỨC GIAN LẬN THANH TOÁN
+156|Heading 2|2.1 Bản chất và khái niệm gian lận thanh toán
+157|Heading 3|2.1.1 Định nghĩa gian lận thanh toán trong TMĐT
+158|Normal|Gian lận thanh toán (Payment Fraud) trong môi trường thương mại điện tử được định nghĩa là chuỗi hành vi sử dụng trái phép, bất hợp pháp hoặc giả mạo các thông tin thanh toán, công cụ thanh toán (thẻ ngân hàng, tài khoản ví điện tử, thông tin định danh cá nhân) nhằm mục đích chiếm đoạt tiền, tài sản hoặc trục lợi kinh tế trong các giao dịch điện tử. Không giống như các hành vi trộm cắp truyền thống đòi hỏi sự tiếp xúc vật lý, gian lận thanh toán điện tử được thực hiện hoàn toàn trong không gian số (Cyberspace), nơi kẻ gian lợi dụng khoảng cách địa lý và tính chất phi tiếp xúc (Card-Not-Present - CNP) để che giấu danh tính thực sự của mình.
+159|Heading 3|2.1.2 Ba yếu tố cốt lõi của hành vi gian lận
+160|Normal|Một hành vi gian lận thanh toán hoàn chỉnh trong thương mại điện tử thường được cấu thành từ ba yếu tố cốt lõi có quan hệ chặt chẽ với nhau:
+161|Normal|•  1. Đánh cắp thông tin (Information Theft): Kẻ tấn công sử dụng nhiều kỹ thuật (như Phishing, Spyware, Sniffing hoặc mua bán dữ liệu rò rỉ trên Dark Web) để sở hữu trái phép thông tin thẻ tín dụng (số PAN, ngày hết hạn, mã CVV/CVC), thông tin đăng nhập ngân hàng số hoặc mã xác thực bảo mật.
+162|Normal|•  2. Giao dịch trái phép (Unauthorized Transaction): Sử dụng thông tin phi pháp đã chiếm đoạt được để khởi tạo và thực thi các giao dịch mua hàng, chuyển tiền hoặc thanh toán dịch vụ trực tuyến mà không có sự đồng thuận hay ủy quyền hợp pháp của chủ sở hữu tài khoản thực tế.
+163|Normal|•  3. Thiệt hại tài chính (Financial Loss): Hậu quả tất yếu của hành vi gian lận, gây tổn thất tiền bạc cho chủ thẻ, phát sinh phí phạt và chi phí bồi hoàn cho doanh nghiệp bán lẻ, đồng thời làm tiêu tốn tài nguyên xử lý điều tra của các tổ chức tài chính.
+164|Heading 3|2.1.3 Các đối tượng trong chuỗi giao dịch bị đe dọa
+165|Normal|Hệ quả của gian lận thanh toán không chỉ giới hạn ở một thực thể đơn lẻ mà lan rộng ra toàn bộ chuỗi giá trị tham gia giao dịch:
+166|Normal|•  Người tiêu dùng (Cardholders/Consumers): Là nạn nhân trực tiếp bị lộ lọt dữ liệu nhận dạng cá nhân (PII), mất tiền trong tài khoản ngân hàng hoặc hạn mức thẻ tín dụng, phải chịu tổn hại về tâm lý và mất nhiều thời gian, công sức thực hiện các thủ tục tra soát, khóa thẻ.
+167|Normal|•  Phương thức thanh toán & Cổng thanh toán (Payment Methods & Gateways): Hệ thống thẻ ngân hàng, tài khoản thanh toán và các cổng trung gian thanh toán bị lợi dụng làm công cụ chuyển giao dòng tiền bất chính, gây nguy cơ suy giảm uy tín và vi phạm các quy định an toàn tài chính quốc gia.
+168|Normal|•  Doanh nghiệp bán lẻ (Merchants): Phải đối mặt với việc mất trắng hàng hóa đã bàn giao cho kẻ gian, chịu các khoản tổn thất do quy trình hoàn tiền gian lận (Chargeback) và mất lòng tin từ các đối tác ngân hàng cũng như cộng đồng khách hàng.
+169|Heading 3|2.1.4 Động cơ và mục tiêu gian lận
+170|Normal|Động cơ của tội phạm gian lận thanh toán thường xoay quanh ba mục tiêu chính:
+171|Normal|•  Chiếm đoạt tài chính: Chiếm đoạt tiền trực tiếp từ tài khoản ngân hàng, hạn mức tín dụng hoặc số dư ví điện tử của nạn nhân để chuyển về các tài khoản ẩn danh.
+172|Normal|•  Đánh cắp dữ liệu quy mô lớn: Thu thập khối lượng lớn thông tin thẻ, tài khoản cá nhân, thông tin định danh để tiếp tục mua bán trên thị trường chợ đen hoặc phục vụ cho các đợt tấn công leo thang tiếp theo.
+173|Normal|•  Trục lợi phi pháp và rửa tiền: Mua các sản phẩm giá trị cao (đồ công nghệ, thẻ quà tặng điện tử, voucher số) bằng tiền gian lận sau đó bán lại với giá rẻ để rửa tiền (Money Laundering) thành tiền sạch.
+174|Heading 2|2.2 Phân loại các hình thức gian lận thanh toán phổ biến
+175|Normal|Để có thể xây dựng các cơ chế phòng vệ hiệu quả, việc phân loại chính xác các hình thức gian lận là yêu cầu tiên quyết. Dựa trên nguồn gốc phát sinh và phương thức thực hiện, gian lận thanh toán được chia thành 4 nhóm chính sau:
+176|Heading 3|2.2.1 Gian lận từ phía người mua (Buyer Fraud)
+177|Normal|Đây là nhóm hình thức gian lận phổ biến nhất, trong đó hành vi gian dối xuất phát từ phía người thực hiện thao tác mua sắm:
+178|Normal|•  Sử dụng thông tin thẻ tín dụng bị đánh cắp (Stolen Card Fraud): Kẻ gian sử dụng thông tin thẻ tín dụng của người khác (thu thập từ các vụ rò rỉ dữ liệu hoặc mua trên Dark Web) để mua hàng trực tuyến. Do giao dịch CNP không yêu cầu quẹt thẻ vật lý, kẻ tấn công chỉ cần nhập số thẻ, ngày hết hạn và mã CVV là có thể thanh toán thành công nếu hệ thống không kích hoạt xác thực 3D-Secure.
+179|Normal|•  Gian lận hoàn tiền thân thiện (Friendly Fraud / Chargeback Fraud): Khách hàng mua hàng bằng chính thẻ hợp pháp của mình, đã nhận được hàng hóa/dịch vụ đầy đủ, nhưng sau đó cố tình liên hệ với ngân hàng phát hành khiếu nại rằng mình không thực hiện giao dịch này hoặc chưa nhận được hàng nhằm đòi lại tiền (Chargeback Abuse). Doanh nghiệp bán hàng thường phải chịu toàn bộ tổn thất nếu không có bằng chứng giao vận đầy đủ.
+180|Normal|•  Gian lận đổi trả hàng (Return Fraud): Kẻ gian mua hàng chính hãng đắt tiền, sau khi nhận hàng tiến hành yêu cầu đổi trả với lý do hàng lỗi nhưng gửi lại cho nhà bán hàng hàng giả, hàng đã qua sử dụng bị hỏng hoặc thậm chí chỉ là một chiếc hộp rỗng (Empty Box Fraud) để chiếm đoạt tiền hoàn.
+181|Normal|•  Chiếm đoạt tài khoản khách hàng (Account Takeover - ATO): Kẻ tấn công sử dụng các kỹ thuật dò mật khẩu (Credential Stuffing), lừa đảo hoặc mua lại thông tin đăng nhập bị lộ để chiếm quyền điều khiển tài khoản của khách hàng thân thiết trên website TMĐT. Sau đó, chúng lợi dụng các thẻ tín dụng đã được lưu sẵn (Saved Cards) trong ví của tài khoản để mua hàng và đổi địa chỉ giao nhận.
+182|Heading 3|2.2.2 Gian lận từ phía người bán (Merchant Fraud)
+183|Normal|Không chỉ xuất phát từ người mua, gian lận cũng thường xuyên phát sinh từ phía những nhà bán hàng thiếu minh bạch:
+184|Normal|•  Kinh doanh hàng giả, hàng nhái kém chất lượng: Người bán đăng tải thông tin, hình ảnh của các sản phẩm chính hãng, thương hiệu nổi tiếng nhưng khi khách hàng thanh toán thì giao sản phẩm giả mạo, kém chất lượng hoặc không rõ nguồn gốc xuất xứ.
+185|Normal|•  Thu thêm phí ẩn, đội giá và không thực hiện nghĩa vụ giao hàng: Cố tình che giấu các điều khoản thanh toán để tự động cộng thêm các loại phụ phí bất hợp lý trong giỏ hàng, hoặc tăng giá bán đơn hàng sau khi khách đã nhập thông tin thanh toán, thậm chí nhận tiền nhưng trì hoãn vô thời hạn và không thực hiện giao hàng.
+186|Normal|•  Thiết lập shop ảo nhận cọc rồi biến mất (Ghost Shop): Kẻ gian tạo lập các gian hàng trực tuyến ảo với các mặt hàng giảm giá 'sốc', yêu cầu khách hàng phải chuyển khoản đặt cọc trước một khoản tiền lớn. Ngay sau khi nhận được tiền cọc, kẻ gian lập tức xóa shop, cắt đứt liên lạc và tẩu tán dòng tiền.
+187|Heading 3|2.2.3 Các phương thức tấn công kỹ thuật số (Digital & Cyber Attacks)
+188|Normal|Nhóm hình thức này tận dụng các điểm yếu công nghệ và lỗ hổng tâm lý con người để can thiệp vào quá trình thanh toán:
+189|Normal|•  Mã độc và phần mềm gián điệp (Spyware & Keylogger): Tin tặc phát tán các phần mềm độc hại, trojan gián điệp vào thiết bị cá nhân của nạn nhân qua các tệp tin đính kèm độc hại hoặc trang web giả. Phần mềm gián điệp sẽ tự động ghi lại thao tác bàn phím (Keylogger) khi người dùng nhập số thẻ, mật khẩu và gửi về máy chủ chỉ huy của hacker.
+190|Normal|•  Tấn công phi kỹ thuật (Social Engineering): Kẻ gian gọi điện hoặc nhắn tin mạo danh nhân viên ngân hàng, nhân viên kỹ thuật sàn TMĐT, thông báo tài khoản của nạn nhân đang bị khóa hoặc trúng thưởng lớn, từ đó dẫn dụ nạn nhân tự nguyện chuyển tiền hoặc cung cấp mã OTP xác thực.
+191|Normal|•  Tấn công giả mạo (Phishing): Kẻ tấn công thiết kế các website có giao diện, tên miền gần như giống hệt trang đăng nhập của sàn TMĐT hoặc cổng thanh toán (ví dụ: vnpay-secure-login.com thay vì tên miền chuẩn). Kẻ gian gửi đường link này qua SMS mạo danh thương hiệu (SMS Brandname Spoofing) hoặc email giả mạo để lừa người dùng nhập thông tin bảo mật, số thẻ và mã OTP.
+192|Heading 3|2.2.4 Gian lận liên quan đến Ví điện tử và tiền kỹ thuật số
+193|Normal|Sự phổ biến của ví điện tử và các hình thức tiền số mở ra những mặt trận gian lận mới:
+194|Normal|•  Chiếm đoạt ví điện tử để tẩu tán tài sản: Lợi dụng sơ hở của người dùng trong việc bảo vệ mã PIN hoặc mật khẩu ứng dụng để chiếm đoạt ví điện tử (MoMo, ZaloPay, ShopeePay), từ đó thực hiện rút sạch tiền trong ví hoặc từ tài khoản ngân hàng liên kết.
+195|Normal|•  Lừa đảo đầu tư tài chính qua sàn số giả mạo: Lập ra các nền tảng đầu tư tiền mã hóa ảo, sàn giao dịch quyền chọn nhị phân (BO) mạo danh, cam kết lợi nhuận khổng lồ để dụ dỗ người dùng nạp tiền thông qua các cổng thanh toán điện tử, sau đó khóa quyền rút tiền và đóng sàn.
+196|Heading 2|2.3 Phân tích tác động và hậu quả của gian lận thanh toán
+197|Normal|Gian lận thanh toán gây ra những tác động dây chuyền tàn khốc, phá hủy sự ổn định của toàn bộ nền kinh tế số ở nhiều cấp độ:
+198|Normal|1. Đối với người dùng cá nhân:
+199|Normal|•  Thiệt hại trực tiếp về tài chính: Mất trắng tiền tiết kiệm hoặc bị trừ hạn mức tín dụng mà không nhận được hàng hóa.
+200|Normal|•  Rò rỉ dữ liệu cá nhân nhạy cảm: Thông tin định danh (PII) bị bán trôi nổi trên không gian mạng, dẫn đến nguy cơ bị lợi dụng danh tính để vay nợ trực tuyến bất hợp pháp.
+201|Normal|•  Tổn thất thời gian và gánh nặng tâm lý: Mất nhiều tuần lễ để làm việc với ngân hàng, công an, tiến hành thủ tục hủy thẻ, làm lại thẻ mới và lo lắng về an toàn thông tin cá nhân.
+202|Normal|2. Đối với doanh nghiệp kinh doanh TMĐT:
+203|Normal|•  Thất thoát doanh thu kép: Vừa mất hàng hóa đã giao cho kẻ gian, vừa bị ngân hàng tự động khấu trừ lại số tiền đơn hàng để bồi hoàn cho chủ thẻ thực tế.
+204|Normal|•  Gánh nặng phí phạt Chargeback: Các tổ chức thẻ quốc tế (Visa/Mastercard) áp đặt mức phí phạt từ 15 USD đến 100 USD cho mỗi giao dịch gian lận bị khiếu nại. Nếu tỷ lệ Chargeback vượt ngưỡng 1%, doanh nghiệp có nguy cơ bị phạt hàng chục nghìn USD hoặc bị tước giấy phép thanh toán.
+205|Normal|•  Gia tăng chi phí vận hành: Doanh nghiệp phải tiêu tốn ngân sách lớn để thuê nhân sự rà soát đơn hàng thủ công và xử lý các tranh chấp khiếu nại kéo dài.
+206|Normal|•  Hủy hoại uy tín thương hiệu: Khách hàng mất niềm tin vào mức độ an toàn của website, rời bỏ sang các đối thủ cạnh tranh.
+207|Normal|3. Đối với xã hội và nền kinh tế số:
+208|Normal|•  Làm suy giảm nghiêm trọng niềm tin của công chúng vào tiến trình chuyển đổi số và chủ trương thanh toán không dùng tiền mặt của chính phủ.
+209|Normal|•  Tạo nguồn tài chính bất chính nuôi dưỡng các tổ chức tội phạm công nghệ cao, rửa tiền và tội phạm có tổ chức xuyên quốc gia.
+210|Normal|•  Làm méo mó môi trường cạnh tranh lành mạnh và gây thiệt hại chung cho sự phát triển của ngành thương mại điện tử.
+211|Heading 2|2.4 Phân tích chuyên sâu các kịch bản gian lận thực tế
+212|Normal|Để làm rõ cơ chế khai thác kỹ thuật của tội phạm mạng, phần này tiến hành phân tích sâu 3 kịch bản tấn công thực tế điển hình đã được mô hình hóa trong bài nghiên cứu:
+213|Heading 3|2.4.1 Kịch bản 1: Giả mạo trang thanh toán (Phishing Checkout Page)
+214|Normal|Bản chất và quy trình tấn công:
+215|Normal|•  Bước 1 - Tiếp cận nạn nhân: Kẻ gian phát tán tin nhắn SMS mạo danh thương hiệu sàn TMĐT hoặc gửi email giả mạo với nội dung giật gân (ví dụ: 'Đơn hàng #8921 của bạn đang gặp trục trặc thanh toán, vui lòng xác nhận trong 15 phút để không bị hủy').
+216|Normal|•  Bước 2 - Dẫn dụ truy cập: Tin nhắn đính kèm đường link dẫn tới một website giả mạo do hacker kiểm soát, có giao diện được sao chép hoàn hảo giống 100% trang thanh toán của sàn TMĐT chính thống.
+217|Normal|•  Bước 3 - Thu thập thông tin nhạy cảm: Do mất cảnh giác trước giao diện quen thuộc, nạn nhân nhập đầy đủ thông tin: họ tên, số thẻ tín dụng, ngày hết hạn và mã bí mật CVV/CVC.
+218|Normal|•  Bước 4 - Đánh cắp mã OTP: Ngay khi nạn nhân nhấn xác nhận, mã kịch bản tự động của hacker lập tức chuyển thông tin thẻ sang một cổng thanh toán thực tế khác để thực hiện lệnh rút tiền. Ngân hàng gửi mã OTP về điện thoại nạn nhân. Trang web giả mạo hiển thị thông báo yêu cầu nhập mã OTP xác thực đơn hàng. Nạn nhân nhập mã OTP, hacker thu nhận và hoàn tất lệnh rút tiền hợp lệ trước sự ngỡ ngàng của nạn nhân.
+219|Normal|Hậu quả:
+220|Normal|Nạn nhân bị chiếm đoạt toàn bộ số tiền trong tài khoản chỉ trong vòng vài giây. Website TMĐT chính hãng bị mang tiếng xấu là làm lộ lọt dữ liệu khách hàng, mặc dù hệ thống của họ không hề bị xâm nhập trực tiếp.
+221|Heading 3|2.4.2 Kịch bản 2: Thử thẻ tín dụng tự động bằng Bot (Card Testing Attack)
+222|Normal|Bản chất và quy trình tấn công:
+223|Normal|•  Bước 1 - Thu thập dữ liệu thẻ thô: Hacker mua được một tệp dữ liệu chứa hàng chục nghìn số thẻ tín dụng bị rò rỉ trên Dark Web. Danh sách này thường chỉ có số thẻ và ngày hết hạn, chưa rõ thẻ nào còn hoạt động (active), thẻ nào đã bị chủ thẻ khóa hoặc hết hạn.
+224|Normal|•  Bước 2 - Lập trình Botnet tự động: Hacker sử dụng các kịch bản tự động hóa (Script / Headless Browser / Bot) nhắm vào trang thanh toán của website TMĐT có quy trình thanh toán đơn giản, không áp dụng CAPTCHA.
+225|Normal|•  Bước 3 - Thực hiện giao dịch vi mô: Bot liên tục tạo các tài khoản ảo và đặt các đơn hàng có giá trị cực nhỏ (chỉ vài nghìn đến vài chục nghìn đồng, ví dụ: mua một bài hát số, một ebook giá rẻ).
+226|Normal|•  Bước 4 - Dò và xoay vòng thẻ liên tục: Hệ thống ghi nhận hàng loạt giao dịch bị từ chối liên tiếp (Failed Transactions). Kẻ gian tự động xoay vòng qua hàng loạt đầu số thẻ khác nhau (Visa, Mastercard, JCB, American Express) với tần suất hàng chục giao dịch mỗi giây để kiểm tra phản hồi từ cổng thanh toán.
+227|Normal|•  Bước 5 - Thu hoạch thẻ 'sống': Bất kỳ giao dịch nào thanh toán thành công, bot lập tức lưu lại thông tin thẻ đó vào danh sách 'thẻ còn tiền' để hacker mang đi tẩu tán hoặc mua sắm các món hàng đắt tiền ở các sàn thương mại lớn khác.
+228|Normal|Hậu quả:
+229|Normal|•  Cổng thanh toán và máy chủ website bị quá tải nghiêm trọng, dẫn đến nghẽn mạng và từ chối phục vụ đối với các khách hàng thực tế.
+230|Normal|•  Doanh nghiệp bán lẻ phải chịu các mức phí xử lý giao dịch thất bại và bị các tổ chức thẻ quốc tế phạt tiền rất nặng do để tỷ lệ giao dịch lỗi vượt ngưỡng an toàn.
+231|Normal|•  Website TMĐT vô tình trở thành 'công cụ xác thực thẻ lậu' miễn phí cho các tổ chức tội phạm.
+232|Heading 3|2.4.3 Kịch bản 3: Giao dịch di chuyển bất khả thi (Impossible Travel / Velocity Check)
+233|Normal|Bản chất và quy trình tấn công:
+234|Normal|•  Bước 1 - Giao dịch hợp pháp ban đầu: Người dùng thực hiện một giao dịch mua hàng bình thường tại Việt Nam (ví dụ: tại Hà Nội hoặc TP. Hồ Chí Minh) vào lúc 10:00:00.
+235|Normal|•  Bước 2 - Xuất hiện giao dịch bất thường: Chỉ 5 phút sau (10:05:00), cùng tài khoản hoặc cùng thẻ thanh toán đó lại xuất hiện một giao dịch thanh toán mới có địa chỉ IP xuất phát từ London (Vương quốc Anh) hoặc Tokyo (Nhật Bản).
+236|Normal|•  Bước 3 - Vi phạm quy luật vật lý: Khoảng cách địa lý giữa hai vị trí giao dịch lên tới hàng nghìn kilômét. Để di chuyển giữa hai địa điểm này trong 5 phút, tốc độ di chuyển phải vượt quá hàng nghìn km/h (vượt xa vận tốc máy bay thương mại thông thường ~800 km/h). Đây là bằng chứng rõ ràng cho thấy một trong hai giao dịch là hành vi gian lận.
+237|Normal|•  Bước 4 - Nguyên nhân kỹ thuật: Hành vi này xảy ra khi kẻ gian sử dụng mạng riêng ảo (VPN), máy chủ Proxy hoặc mạng Tor để giả mạo vị trí địa lý, hoặc thông tin phiên làm việc (Session/Cookie) của người dùng đã bị đánh cắp thông qua mã độc và bán cho các đối tượng ở nước ngoài.
+238|Normal|Hậu quả:
+239|Normal|•  Tài khoản người dùng đã bị xâm nhập và đang bị khai thác trái phép.
+240|Normal|•  Hệ thống kiểm soát định danh của doanh nghiệp bị đánh lừa, dẫn đến thất thoát tài chính nghiêm trọng.
+241|Normal|•  Website có nguy cơ trở thành bàn đạp trong đường dây rửa tiền xuyên biên giới của các tổ chức tội phạm quốc tế.
+242|Heading 2|2.5 Các giải pháp và cơ chế kỹ thuật phòng chống gian lận hiện đại
+243|Normal|Để chống lại các kịch bản gian lận ngày càng tinh vi, ngành công nghệ bảo mật đã phát triển các cơ chế phòng vệ nhiều lớp, kết hợp chặt chẽ giữa các thuật toán phân tích hành vi và tiêu chuẩn quốc tế:
+244|Heading 3|2.5.1 Bộ quy tắc kiểm tra giao dịch (Rule-Based Engine) và Blacklist/Whitelist
+245|Normal|Là lớp phòng vệ nền tảng nhưng vô cùng hiệu quả. Hệ thống xây dựng một tập hợp các quy tắc logic nghiệp vụ tĩnh (If-Then rules) để sàng lọc giao dịch. Ví dụ: Nếu giá trị đơn hàng vượt quá ngưỡng trần quy định, hoặc số lần thanh toán thất bại vượt quá 3 lần trong vòng 10 phút, giao dịch sẽ tự động bị chặn. Đồng thời, hệ thống duy trì danh sách đen (Blacklist) các địa chỉ IP độc hại, dải BIN thẻ gian lận và danh sách trắng (Whitelist) các khách hàng uy tín để tối ưu hóa tốc độ xử lý.
+246|Heading 3|2.5.2 Kỹ thuật dấu vân tay thiết bị (Device Fingerprinting) và GeoIP
+247|Normal|Kỹ thuật dấu vân tay thiết bị thu thập hàng chục thông số kỹ thuật từ trình duyệt của người dùng (như User-Agent, độ phân giải màn hình, múi giờ, danh sách font chữ, thông số đồ họa WebGL/Canvas) để tạo ra một chuỗi định danh duy nhất (Device Hash). Ngay cả khi kẻ gian thay đổi địa chỉ IP hoặc xóa cookie, dấu vân tay thiết bị vẫn giúp hệ thống nhận diện đây là cùng một máy tính đang tấn công. Kết hợp với cơ sở dữ liệu định vị địa lý IP (GeoIP) cho phép xác định chính xác quốc gia, thành phố và nhà cung cấp mạng (ISP) của người dùng.
+248|Heading 3|2.5.3 Cơ chế kiểm tra vận tốc giao dịch (Velocity Checking)
+249|Normal|Kiểm tra vận tốc (Velocity Check) là giải pháp đo lường tần suất và tốc độ thay đổi của các tham số giao dịch theo thời gian. Hệ thống theo dõi các chỉ số quan trọng: số lượng giao dịch trên một số thẻ trong một giờ, số đơn hàng tạo từ một địa chỉ IP trong một phút và đặc biệt là vận tốc di chuyển vật lý giữa hai lần giao dịch liên tiếp dựa trên công thức Haversine. Bất kỳ sự gia tăng đột biến nào vượt quá ngưỡng sinh học và vật lý của con người đều bị gắn cờ cảnh báo rủi ro cao.
+250|Heading 3|2.5.4 Xác thực khách hàng nâng cao (3D-Secure 2.0, OTP, MFA)
+251|Normal|Giao thức 3D-Secure 2.0 do tổ chức EMVCo ban hành là bước đột phá trong xác thực thanh toán thẻ. Hệ thống phân tích hơn 100 điểm dữ liệu ngữ cảnh để phân luồng: các giao dịch ít rủi ro sẽ được thông qua mượt mà không cần nhập mật khẩu (Frictionless Flow); chỉ các giao dịch có dấu hiệu nghi vấn mới bị yêu cầu thực hiện xác thực đa yếu tố (Challenge Flow) qua OTP sinh trắc học hoặc thông báo ứng dụng ngân hàng.
+252|Heading 3|2.5.5 Tiêu chuẩn an toàn dữ liệu thanh toán PCI-DSS và Tokenization
+253|Normal|PCI-DSS quy định nghiêm ngặt về việc lưu trữ, xử lý và truyền tải dữ liệu thẻ ngân hàng. Một trong những giải pháp bắt buộc là công nghệ mã hóa thay thế (Tokenization), trong đó số thẻ thực tế của khách hàng được thay thế bằng một chuỗi ký tự ngẫu nhiên (Token). Hệ thống website TMĐT chỉ lưu trữ Token mà không bao giờ lưu trữ số thẻ thực tế hay mã CVV, triệt tiêu hoàn toàn nguy cơ rò rỉ dữ liệu thẻ khi máy chủ bị tấn công.
+254|Heading 3|2.5.6 Ứng dụng Trí tuệ nhân tạo trong chấm điểm rủi ro (Risk Scoring)
+255|Normal|Các mô hình học máy (Machine Learning) như Random Forest, XGBoost và mạng nơ-ron sâu (Deep Learning) có khả năng học hỏi từ hàng triệu dữ liệu giao dịch lịch sử để phát hiện các mối tương quan phi tuyến tính phức tạp mà các bộ luật tĩnh không thể bao quát. Mỗi giao dịch khi phát sinh sẽ được chấm một điểm số rủi ro (Risk Score từ 0 đến 100). Dựa trên thang điểm này, hệ thống sẽ tự động đưa ra quyết định: Cho phép (0 - 30 điểm), Thử thách xác thực (31 - 70 điểm), hoặc Từ chối ngay lập tức (71 - 100 điểm).
+257|Heading 1|CHƯƠNG 3: XÂY DỰNG WEBSITE THƯƠNG MẠI ĐIỆN TỬ VÀ THỰC NGHIỆM HỆ THỐNG PHÁT HIỆN, PHÒNG CHỐNG GIAN LẬN
+259|Heading 2|3.1 Khảo sát và phân tích yêu cầu hệ thống
+260|Heading 3|3.1.1 Yêu cầu nghiệp vụ cho website thương mại điện tử
+262|Heading 3|3.1.2 Yêu cầu đối với module phát hiện và phòng chống gian lận
+264|Heading 3|3.1.3 Các yêu cầu phi chức năng
+266|Heading 2|3.2 Thiết kế kiến trúc hệ thống
+267|Heading 3|3.2.1 Kiến trúc tổng thể phần mềm và luồng tương tác các thành phần
+269|Heading 3|3.2.2 Lựa chọn ngăn xếp công nghệ phát triển
+271|Heading 3|3.2.3 Thiết kế cơ sở dữ liệu quan hệ
+273|Heading 3|3.2.4 Thiết kế luồng xử lý giao dịch thanh toán kèm bộ lọc gian lận
+275|Heading 2|3.3 Thiết kế và cài đặt các module phòng chống gian lận
+276|Heading 3|3.3.1 Module kiểm tra vận tốc và vị trí địa lý bất thường (Impossible Travel)
+278|Heading 3|3.3.2 Module phát hiện tấn công thử thẻ tự động và chống quét Bot (Card Testing)
+280|Heading 3|3.3.3 Module kiểm tra dấu vân tay thiết bị và tính toàn vẹn phiên làm việc
+282|Heading 3|3.3.4 Bộ máy chấm điểm rủi ro và ra quyết định giao dịch
+284|Heading 2|3.4 Hiện thực hóa giao diện hệ thống
+285|Heading 3|3.4.1 Giao diện phía người dùng
+287|Heading 3|3.4.2 Giao diện quản trị hệ thống (Admin Dashboard)
+289|Heading 2|3.5 Triển khai thử nghiệm và đánh giá thực nghiệm các kịch bản gian lận
+290|Heading 3|3.5.1 Môi trường và công cụ triển khai thử nghiệm
+292|Heading 3|3.5.2 Thực nghiệm Kịch bản 1: Kiểm thử phòng chống tấn công thử thẻ tự động (Card Testing Attack)
+294|Heading 3|3.5.3 Thực nghiệm Kịch bản 2: Kiểm thử phòng chống gian lận di chuyển bất khả thi (Impossible Travel)
+296|Heading 3|3.5.4 Thực nghiệm Kịch bản 3: Kiểm thử cơ chế xác thực bổ sung MFA khi phát hiện hành vi nghi vấn
+298|Heading 3|3.5.5 Đánh giá hiệu năng và độ trễ của hệ thống
+301|Heading 1|CHƯƠNG 4: KẾT LUẬN VÀ GIẢI PHÁP ĐỀ XUẤT
+302|Heading 2|4.1 Tổng kết kết quả nghiên cứu và sản phẩm đồ án
+303|Normal|Trải qua quá trình nghiên cứu lý thuyết chuyên sâu và triển khai thực nghiệm phần mềm, đồ án với đề tài “Xây dựng website thương mại điện tử tích hợp cơ chế phát hiện và phòng chống gian lận thanh toán” của nhóm 16 chúng em đã hoàn thành đầy đủ các mục tiêu đề ra ban đầu, đạt được những kết quả cụ thể sau:
+304|Normal|•  1. Về mặt lý thuyết: Hệ thống hóa toàn diện cơ sở khoa học về các phương thức gian lận thanh toán trực tuyến, phân loại rõ ràng 4 nhóm hình thức gian lận (Người mua, Người bán, Tấn công kỹ thuật số và Ví điện tử), đồng thời mô hình hóa chi tiết diễn biến, cơ chế kỹ thuật và tác động của 3 kịch bản tấn công thực tế tiêu biểu: Giả mạo trang thanh toán (Phishing), Thử thẻ tín dụng tự động bằng Bot (Card Testing Attack) và Giao dịch di chuyển bất khả thi (Impossible Travel).
+305|Normal|•  2. Về mặt kỹ thuật và giải pháp: Đã nghiên cứu và tích hợp thành công các cơ chế kỹ thuật phòng vệ hiện đại bao gồm kiểm tra vận tốc địa lý IP (GeoIP Velocity Check), chống quét tự động bằng giới hạn tần suất (Rate Limiting), nhận diện thiết bị (Device Fingerprinting) và cơ chế chấm điểm rủi ro giao dịch theo thời gian thực (Real-time Risk Scoring Engine).
+306|Normal|•  3. Về mặt sản phẩm ứng dụng: Xây dựng hoàn chỉnh website thương mại điện tử phục vụ chu trình mua sắm trực tuyến, tích hợp cổng thanh toán mô phỏng an toàn và bảng điều khiển quản trị (Admin Dashboard) hiển thị trực quan các cảnh báo và nhật ký phát hiện gian lận.
+307|Normal|•  4. Về mặt thực nghiệm: Tiến hành kiểm thử thành công các kịch bản tấn công giả lập, chứng minh hệ thống có khả năng tự động phân loại và ngăn chặn kịp thời các hành vi gian lận với độ trễ thấp, không gây ảnh hưởng tiêu cực đến trải nghiệm của người dùng hợp pháp.
+308|Heading 2|4.2 Đánh giá ưu điểm và hạn chế của đề tài
+309|Heading 3|4.2.1 Các ưu điểm nổi bật đã đạt được
+310|Normal|•  Tính thực tiễn cao: Đề tài giải quyết trực tiếp bài toán an ninh nóng bỏng nhất của nền kinh tế số hiện nay, mang lại giá trị ứng dụng rõ rệt cho các doanh nghiệp bán lẻ trực tuyến.
+311|Normal|•  Cơ chế phòng vệ thông minh: Thay vì chỉ áp dụng các quy tắc cứng nhắc (dễ gây chặn nhầm khách hàng tốt), hệ thống áp dụng cơ chế chấm điểm rủi ro đa biến (Multi-variable Risk Scoring) và phân nhánh hành động linh hoạt (Cho phép, Thử thách xác thực MFA, Từ chối).
+312|Normal|•  Phát hiện kịp thời theo thời gian thực: Quá trình phân tích dữ liệu ngữ cảnh (IP, khoảng cách, tần suất) diễn ra song song trong quá trình thanh toán với độ trễ cực nhỏ, giúp ngăn chặn tổn thất ngay trước khi dòng tiền bị trừ khỏi tài khoản.
+313|Normal|•  Giao diện quản trị trực quan: Trang Admin cung cấp cái nhìn toàn cảnh về tình hình an ninh giao dịch, giúp người quản trị dễ dàng theo dõi các nỗ lực tấn công và tùy biến trọng số luật khi cần thiết.
+314|Heading 3|4.2.2 Những hạn chế cần tiếp tục hoàn thiện
+315|Normal|•  Môi trường thử nghiệm giới hạn: Các kịch bản tấn công mới chỉ được thực hiện trong môi trường mô phỏng (Lab environment) với các cổng thanh toán giả lập, chưa được kiểm chứng trên các luồng giao dịch thực tế quy mô lớn của ngân hàng thương mại.
+316|Normal|•  Độ chính xác của dữ liệu GeoIP: Việc định vị vị trí địa lý dựa vào địa chỉ IP phụ thuộc vào chất lượng của cơ sở dữ liệu bên thứ ba, có thể dẫn đến sai lệch nhỏ đối với các mạng di động 4G/5G chia sẻ dải IP động.
+317|Normal|•  Bộ luật phát hiện còn mang tính tĩnh: Hệ thống chưa tích hợp đầy đủ các mô hình học máy tự động thích ứng (Adaptive Machine Learning) để tự cập nhật các mẫu gian lận hoàn toàn mới mà không cần can thiệp cấu hình thủ công.
+318|Heading 2|4.3 Giải pháp đề xuất toàn diện cho các bên liên quan
+319|Normal|Gian lận thanh toán là một bài toán phức tạp mang tính hệ thống, không thể giải quyết triệt để nếu chỉ dựa vào nỗ lực của một bên đơn lẻ. Dựa trên kết quả nghiên cứu, nhóm chúng em đề xuất khung giải pháp phòng ngừa toàn diện 3 lớp phối hợp chặt chẽ giữa Người tiêu dùng, Doanh nghiệp TMĐT và Các tổ chức tài chính/Cơ quan quản lý nhà nước:
+320|Heading 3|4.3.1 Đối với người tiêu dùng (Khách hàng)
+321|Normal|•  Bảo vệ thông tin bí mật: Nâng cao cảnh giác và bảo mật thông tin cá nhân: Tuyệt đối không chia sẻ mã OTP, mật khẩu ngân hàng, số thẻ và mã CVV/CVC cho bất kỳ ai, kể cả người tự xưng là nhân viên ngân hàng hay nhân viên kỹ thuật sàn TMĐT.
+322|Normal|•  Kiểm tra kỹ website thanh toán: Kiểm tra kỹ lưỡng đường dẫn (URL) trang web trước khi nhập thông tin thanh toán; đảm bảo website sử dụng giao thức an toàn HTTPS (có biểu tượng ổ khóa xanh hợp lệ) và đúng tên miền chính thức của thương hiệu.
+323|Normal|•  Giám sát giao dịch chủ động: Chủ động đăng ký dịch vụ thông báo biến động số dư qua SMS/ứng dụng ngân hàng; thường xuyên rà soát sao kê tài khoản và báo ngay cho ngân hàng phát hành để khóa thẻ khẩn cấp khi phát hiện giao dịch lạ.
+324|Normal|•  Cẩn trọng khi kết nối mạng: Hạn chế tối đa việc thực hiện các giao dịch tài chính nhạy cảm khi đang kết nối vào các mạng Wi-Fi công cộng không có mật khẩu bảo vệ.
+325|Heading 3|4.3.2 Đối với doanh nghiệp kinh doanh TMĐT
+326|Normal|•  Mã hóa và chuẩn hóa an toàn: Triển khai mã hóa toàn trình và tuân thủ chuẩn PCI-DSS: Toàn bộ dữ liệu truyền tải phải được mã hóa bằng TLS 1.3; bắt buộc áp dụng công nghệ Tokenization để không lưu trữ thông tin thẻ thô trên máy chủ website.
+327|Normal|•  Giám sát rủi ro chủ động: Tích hợp cơ chế phát hiện gian lận thời gian thực: Cài đặt các công cụ nhận diện thiết bị (Device Fingerprinting), giới hạn tần suất (Rate Limiting) để chặn bot dò thẻ và kiểm tra vận tốc giao dịch (Velocity Checking) để phát hiện giao dịch bất thường.
+328|Normal|•  Xác thực nhiều lớp linh hoạt: Kích hoạt xác thực tăng cường (3D-Secure 2.0 / MFA): Bắt buộc người dùng xác thực đa yếu tố đối với các đơn hàng có giá trị cao, đơn hàng giao dịch từ IP mới hoặc có sự thay đổi đột ngột về địa chỉ nhận hàng.
+329|Normal|•  Bảo trì và rà soát hệ thống: Thường xuyên kiểm tra bảo mật và vá lỗ hổng: Thực hiện đánh giá định kỳ các lỗ hổng phần mềm, cập nhật các bản vá an ninh cho hệ điều hành và framework ứng dụng web.
+330|Heading 3|4.3.3 Đối với ngân hàng, cổng thanh toán và cơ quan quản lý
+331|Normal|•  Giám sát thời gian thực cấp hệ thống: Tăng cường hệ thống giám sát giao dịch liên ngân hàng: Ứng dụng công nghệ Trí tuệ nhân tạo (AI/ML) phân tích dữ liệu lớn (Big Data) để phát hiện và ngăn chặn dòng tiền bất chính luân chuyển qua các tài khoản ngân hàng ảo.
+332|Normal|•  Hợp tác chia sẻ dữ liệu: Chia sẻ cơ sở dữ liệu gian lận chung (Fraud Database Sharing): Thiết lập mạng lưới chia sẻ thông tin về các địa chỉ IP độc hại, dải thẻ gian lận và tài khoản vi phạm giữa các ngân hàng và tổ chức trung gian thanh toán.
+333|Normal|•  Siết chặt chế tài quản lý: Hoàn thiện hành lang pháp lý và chế tài xử phạt: Tăng cường các chế tài xử lý hình sự nghiêm khắc đối với tội phạm công nghệ cao, hành vi mua bán dữ liệu cá nhân trái phép và lừa đảo chiếm đoạt tài sản trên không gian mạng.
+334|Heading 2|4.4 Thông điệp kết luận về an toàn giao dịch số
+335|Normal|Gian lận thanh toán là một trong những rủi ro thường trực và nguy hiểm nhất đối với sự phát triển của thương mại điện tử. Tuy nhiên, sự đe dọa này không đồng nghĩa với việc chúng ta phải e ngại tiến trình chuyển đổi số. Bằng sự kết hợp hài hòa giữa công nghệ phòng vệ hiện đại, sự tuân thủ nghiêm ngặt của doanh nghiệp và ý thức tự bảo vệ của mỗi cá nhân, chúng ta hoàn toàn có thể kiến tạo nên một môi trường mua sắm trực tuyến an toàn, tin cậy và minh bạch.
+337|Normal|Thông điệp xuyên suốt của đồ án:
+“CẨN TRỌNG KHI GIAO DỊCH – BẢO VỆ THÔNG TIN – CHỦ ĐỘNG PHÒNG NGỪA – THANH TOÁN AN TOÀN”
+338|Heading 2|4.5 Hướng phát triển trong tương lai
+339|Normal|Trong các giai đoạn nghiên cứu tiếp theo, đề tài có thể được mở rộng và nâng cấp theo các hướng trọng tâm sau:
+340|Normal|•  1. Ứng dụng AI/Deep Learning nâng cao: Tích hợp các mô hình Học sâu (Deep Learning) và Mạng đồ thị (Graph Neural Networks - GNN) để tự động phát hiện các mạng lưới tội phạm gian lận có tổ chức và các chiến dịch tấn công liên chuỗi phức tạp.
+341|Normal|•  2. Tích hợp công nghệ Blockchain: Ứng dụng công nghệ chuỗi khối (Blockchain) và hợp đồng thông minh (Smart Contract) trong việc lưu trữ bằng chứng giao dịch và nhật ký vận chuyển không thể sửa đổi, giúp triệt tiêu hoàn toàn nạn gian lận hoàn tiền (Friendly Fraud).
+342|Normal|•  3. Triển khai công nghệ xác thực sinh trắc học không mật khẩu: Ứng dụng chuẩn WebAuthn và công nghệ FIDO2 cho phép người dùng thanh toán trực tiếp qua xác thực sinh trắc học phần cứng (FaceID, Vân tay) mà không cần truyền tải mật khẩu hay mã OTP qua mạng.
+344|Normal|TÀI LIỆU THAM KHẢO
+345|Normal|1. PCI Security Standards Council, 'Payment Card Industry Data Security Standard (PCI DSS) Requirements and Security Assessment Procedures Version 4.0', 2022. https://www.pcisecuritystandards.org/
+346|Normal|2. EMVCo, 'EMV 3-D Secure Protocol and Core Functions Specification v2.3.1.1', EMVCo LLC, 2023.
+347|Normal|3. OWASP Foundation, 'OWASP Top 10:2021 - The Ten Most Critical Web Application Security Risks', 2021. https://owasp.org/Top10/
+348|Normal|4. OWASP Foundation, 'Automated Threats to Web Applications (OAT-007: Credential Stuffing & OAT-010: Carding)', OWASP Project, 2020.
+349|Normal|5. Cloudflare, 'What is a Carding Attack? How Credit Card Testing Bots Work', Cloudflare Learning Center. https://www.cloudflare.com/learning/bots/what-is-carding/
+350|Normal|6. Kaspersky Lab, 'Payment Fraud in E-Commerce: Threats, Impact, and Defense Strategies', Kaspersky Resource Center. https://www.kaspersky.com/resource-center/
+351|Normal|7. Visa Inc., 'Visa Security Sense: Fraud Prevention and Cybersecurity Best Practices for Merchants', Visa Global, 2023.
+352|Normal|8. Mastercard, 'Decision Intelligence: Using Artificial Intelligence for Real-time Fraud Detection', Mastercard Whitepaper, 2022.
+353|Normal|9. RFC 8446, 'The Transport Layer Security (TLS) Protocol Version 1.3', Internet Engineering Task Force (IETF), 2018.
+354|Normal|10. I. Goodfellow, Y. Bengio, and A. Courville, 'Deep Learning and Anomaly Detection in Financial Transactions', MIT Press, 2016.
+355|Normal|11. Hiệp hội Thương mại Điện tử Việt Nam (VECOM), 'Báo cáo Chỉ số Thương mại Điện tử Việt Nam (EBI 2023 - 2024)', NXB Thông tin và Truyền thông, 2024.

@@ -1,0 +1,10 @@
+﻿# -*- coding: utf-8 -*-
+with open("run_full_system_test.py", "r", encoding="utf-8") as f:
+    text = f.read()
+
+text = text.replace("len(res_auth.json()['transactions'])", "len(res_auth.json())")
+
+with open("run_full_system_test.py", "w", encoding="utf-8") as f:
+    f.write(text)
+
+print("Updated run_full_system_test.py")

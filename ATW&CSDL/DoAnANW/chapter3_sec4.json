@@ -1,0 +1,146 @@
+{
+  "title": "3.4 Hiện thực hóa giao diện hệ thống",
+  "intro": "Hệ thống website thương mại điện tử tích hợp cơ chế phòng chống gian lận được thiết kế với giao diện người dùng trực quan, hiện đại, tối ưu hóa trải nghiệm khách hàng đồng thời cung cấp không gian làm việc chuyên nghiệp, toàn diện cho quản trị viên và chuyên viên an ninh mạng. Toàn bộ các giao diện được hiện thực hóa dựa trên ngăn xếp Tailwind CSS kết hợp JavaScript thuần và Chart.js, bảo đảm tính đáp ứng linh hoạt trên nhiều kích thước màn hình.",
+  "subsections": [
+    {
+      "id": "3.4.1",
+      "title": "3.4.1 Giao diện phía người dùng",
+      "intro": "Giao diện phía khách hàng bao gồm toàn bộ chu trình mua sắm từ khám phá sản phẩm, xác thực tài khoản, quản lý giỏ hàng, thực hiện thanh toán an toàn, tiếp nhận phản hồi từ bộ lọc rủi ro (thông báo chặn hoặc bước thử thách xác thực OTP) cho tới theo dõi lịch sử đơn hàng.",
+      "figures": [
+        {
+          "id": "3.1",
+          "title": "Giao diện trang chủ và danh mục sản phẩm công nghệ (Storefront Catalog)",
+          "file": "screenshots/ui_01_store_homepage.png",
+          "commentary": [
+            "Giao diện trang chủ của website thương mại điện tử được thiết kế tinh tế với thanh điều hướng (Navigation Bar) phía trên cùng gồm logo thương hiệu, thanh tìm kiếm sản phẩm thông minh thời gian thực, nút truy cập giỏ hàng trực tuyến hiển thị huy hiệu số lượng động, nút xem lịch sử đơn hàng và menu quản lý tài khoản người dùng.",
+            "Khu vực trung tâm hiển thị bộ lọc phân loại ngành hàng trực quan (Tất cả, Điện thoại di động, Laptop cao cấp, Thiết bị âm thanh, Phụ kiện thông minh) và lưới sản phẩm phong phú gồm 21 mặt hàng công nghệ hàng đầu (như iPhone 15 Pro Max, MacBook Pro M3 Max, Tai nghe Sony WH-1000XM5, Apple AirTag, Pin sạc dự phòng Baseus...). Mỗi thẻ sản phẩm cung cấp hình ảnh sắc nét, tên sản phẩm, đơn giá niêm yết chuẩn VNĐ, tình trạng hàng tồn kho trong cơ sở dữ liệu và nút Thêm vào giỏ hàng tiện lợi."
+          ]
+        },
+        {
+          "id": "3.2",
+          "title": "Giao diện xác thực đăng nhập / đăng ký tài khoản và demo accounts",
+          "file": "screenshots/ui_02_login_view.png",
+          "commentary": [
+            "Giao diện xác thực đăng nhập và đăng ký được thiết kế chuyên dụng với bố cục hai cột hiện đại: một bên là hình ảnh thương hiệu và lời giới thiệu giải pháp phòng chống gian lận, bên còn lại là biểu mẫu nhập thông tin tài khoản (Tên người dùng / Email và Mật khẩu) với cơ chế kiểm tra tính hợp lệ dữ liệu ngay tại máy khách.",
+            "Đặc biệt, nhằm phục vụ công tác kiểm thử, nghiệm thu và chấm điểm đồ án một cách thuận tiện nhất, hệ thống tích hợp sẵn cụm nút Truy cập nhanh cho các tài khoản mẫu (Quick Demo Buttons): thinh, dat, dong, anh, ngoc và admin. Khi người đánh giá nhấp vào tài khoản bất kỳ, hệ thống sẽ tự động điền thông tin và thực hiện xác thực phát hành JWT token mà không cần nhập liệu thủ công."
+          ]
+        },
+        {
+          "id": "3.3",
+          "title": "Giao diện giỏ hàng trực tuyến (Shopping Cart Modal)",
+          "file": "screenshots/ui_03_cart_modal.png",
+          "commentary": [
+            "Hộp thoại giỏ hàng dạng cửa sổ nổi (Modal Dialog) hiển thị danh sách chi tiết các mặt hàng khách hàng đã lựa chọn mua sắm. Khách hàng có thể dễ dàng tăng hoặc giảm số lượng từng sản phẩm thông qua các nút thao tác nhanh (+ / -), hoặc bấm nút biểu tượng thùng rác để xóa sản phẩm khỏi giỏ.",
+            "Phía cuối hộp thoại là khu vực tổng hợp tài chính minh bạch: tính toán giá trị tạm tính (Subtotal), phí vận chuyển ước tính (Shipping Fee) và Tổng số tiền thanh toán cuối cùng bằng VNĐ. Nút \"Tiến hành thanh toán\" nổi bật dẫn trực tiếp người dùng tới quy trình Checkout an toàn."
+          ]
+        },
+        {
+          "id": "3.4",
+          "title": "Giao diện thanh toán Checkout tích hợp giả lập kịch bản gian lận",
+          "file": "screenshots/ui_04_checkout_modal.png",
+          "commentary": [
+            "Giao diện thanh toán (Checkout Modal) được thiết kế chuyên nghiệp gồm 3 phân khu chính: (1) Thông tin nhận hàng (Họ tên, Số điện thoại, Địa chỉ và Thành phố nhận hàng được chọn từ danh sách chuẩn hóa phục vụ kiểm tra tọa độ Geo-IP); (2) Thông tin thẻ thanh toán quốc tế Visa/Mastercard (Số thẻ được che mờ theo chuẩn PCI-DSS, Tháng/Năm hết hạn và Mã bảo mật CVV); (3) Tóm tắt đơn hàng và nút gửi lệnh thanh toán an toàn.",
+            "Điểm nổi bật độc đáo của đồ án là tích hợp sẵn Hộp chọn kịch bản tấn công giả lập (Attack Simulation Presets) ngay trên đầu biểu mẫu thanh toán. Tính năng này cho phép người dùng hoặc người chấm đồ án lựa chọn nhanh các tình huống thực tế: Giao dịch hợp pháp (Legit), Chiếm đoạt tài khoản (ATO Attack), Di chuyển bất khả thi (Impossible Travel), Tấn công tần suất cao (Velocity Attack), Giá trị đơn hàng cực lớn (High Amount) và Thử thẻ tự động (Card Testing) để quan sát tức thì phản ứng của bộ lọc rủi ro."
+          ]
+        },
+        {
+          "id": "3.5",
+          "title": "Giao diện thông báo chặn thanh toán rủi ro cao (Payment Result Blocked)",
+          "file": "screenshots/ui_05_payment_result_blocked.png",
+          "commentary": [
+            "Khi một giao dịch thanh toán bị hệ thống xác định có mức độ rủi ro nghiêm trọng (ví dụ: thực thi kịch bản Chiếm đoạt tài khoản ATO Attack), giao diện kết quả lập tức chuyển sang chế độ cảnh báo khẩn cấp màu đỏ với biểu tượng khiên bảo vệ bị khóa.",
+            "Modal hiển thị rõ ràng thông báo: \"GIAO DỊCH BỊ CHẶN\", đồng thời cung cấp đồng hồ đo điểm số rủi ro chạm ngưỡng tối đa (Risk Score: 100/100, Cấp độ: CRITICAL). Bảng giải thích chi tiết chỉ ra các hành vi vi phạm: Đăng nhập từ thiết bị mới chưa từng ghi nhận, IP truy cập từ vị trí bất thường, mật khẩu bị thay đổi gần đây và đơn hàng phát sinh giá trị lớn. Hệ thống thông báo rõ tài khoản đã được tự động tạm khóa để bảo vệ chủ thẻ khỏi nguy cơ mất mát tài sản."
+          ]
+        },
+        {
+          "id": "3.6",
+          "title": "Giao diện cơ chế thử thách xác thực Smart OTP 2FA (Step-up Authentication)",
+          "file": "screenshots/ui_06_payment_result_otp.png",
+          "commentary": [
+            "Trong trường hợp giao dịch phát sinh dấu hiệu nghi vấn nhưng chưa đủ căn cứ để chặn hoàn toàn (trạng thái REVIEW) - ví dụ trường hợp Di chuyển bất khả thi (Impossible Travel) giữa Hà Nội và London trong 10 phút với khoảng cách 9,200 km, hệ thống áp dụng cơ chế xác thực bước nâng cao (Step-up 2FA) để không làm gián đoạn doanh thu của doanh nghiệp.",
+            "Giao diện hiển thị bảng thông tin phân tích rủi ro (Risk Score: 60/100, Cấp độ: HIGH) kèm giải thích vi phạm quy luật vật lý. Đồng thời, một hộp thoại thử thách yêu cầu khách hàng nhập mã xác thực một lần Smart OTP gồm 6 chữ số vừa được hệ thống sinh ngẫu nhiên và gửi tới số điện thoại di động đăng ký của chủ tài khoản."
+          ]
+        },
+        {
+          "id": "3.7",
+          "title": "Giao diện hộp thư tin nhắn SMS ảo nhận OTP và cảnh báo gian lận",
+          "file": "screenshots/ui_07_sms_modal.png",
+          "commentary": [
+            "Nhằm mô phỏng trọn vẹn luồng gửi nhận tin nhắn viễn thông thực tế mà không phụ thuộc vào cổng SMS Gateway bên thứ ba tốn kém chi phí, hệ thống cài đặt Hộp thư tin nhắn SMS ảo (Virtual SMS Inbox Modal) ngay trên giao diện.",
+            "Hộp thoại mô phỏng giao diện tin nhắn trên điện thoại di động của khách hàng, ghi nhận toàn bộ các tin nhắn bảo mật được hệ thống đẩy xuống theo thời gian thực (real-time). Các tin nhắn bao gồm mã xác thực Smart OTP 6 số để hoàn tất đơn hàng và tin nhắn cảnh báo rủi ro (Security Alert) khi phát hiện đăng nhập lạ từ thiết bị mới, kèm số điện thoại đích, mã đơn hàng và nhãn thời gian chính xác."
+          ]
+        },
+        {
+          "id": "3.8",
+          "title": "Giao diện theo dõi lịch sử đơn hàng của khách hàng (Orders History)",
+          "file": "screenshots/ui_08_user_orders.png",
+          "commentary": [
+            "Giao diện lịch sử đơn hàng cho phép khách hàng tra cứu toàn bộ các giao dịch đã thực hiện trong quá khứ. Bảng điều hướng dạng thẻ (Tabs) giúp phân loại đơn hàng theo trạng thái: Tất cả (All), Chờ xử lý (Pending), Cần xem xét / Chờ OTP (Review Required), Bị từ chối / Bị chặn (Blocked), và Hoàn tất (Completed).",
+            "Mỗi thẻ đơn hàng hiển thị đầy đủ mã định danh giao dịch (Order ID), thời gian tạo, tổng số tiền bằng VNĐ, phương thức thanh toán, danh sách sản phẩm và nhãn trạng thái trực quan với mã màu chuẩn hóa (Xanh lá: Hoàn tất, Vàng cam: Cần xem xét, Đỏ: Bị từ chối do gian lận)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3.4.2",
+      "title": "3.4.2 Giao diện quản trị hệ thống (Admin Dashboard)",
+      "intro": "Giao diện quản trị hệ thống (Admin Console) cung cấp một trung tâm giám sát an ninh (SOC - Security Operations Center) thu nhỏ dành cho các chuyên viên phân tích rủi ro và quản trị viên hệ thống. Khu vực này bao gồm bảng điều khiển KPI, công cụ điều tra pháp chứng giao dịch, phòng giả lập tấn công (Simulation Studio), bảng cấu hình luật động và công cụ đánh giá chuẩn mực hiệu năng (Evaluation Benchmark).",
+      "figures": [
+        {
+          "id": "3.9",
+          "title": "Giao diện tổng quan quản trị hệ thống (Admin Dashboard & KPI Analytics)",
+          "file": "screenshots/ui_09_admin_dashboard_kpi.png",
+          "commentary": [
+            "Bảng điều khiển quản trị trung tâm hiển thị các chỉ số hiệu năng an ninh mạng cốt lõi (KPI Cards) được cập nhật liên tục: Tổng số giao dịch đã xử lý (Total Transactions), Tỉ lệ phê duyệt tự động (Approval Rate - đạt trên 85%), Tỉ lệ chặn gian lận (Block Rate), Tỉ lệ chuyển bước xem xét xác thực Smart OTP (Review Rate) và Tổng giá trị tiền tệ nghi vấn đã bảo vệ thành công (Fraud Volume Prevented).",
+            "Phía dưới là các biểu đồ phân tích trực quan hóa bằng thư viện Chart.js bao gồm: Biểu đồ xu hướng giao dịch theo trục thời gian (Transaction Volume Trend) và Biểu đồ phân bổ tỷ lệ quyết định (Decision Distribution Doughnut Chart), mang lại cái nhìn toàn cảnh về tình hình an ninh thanh toán cho người quản trị."
+          ]
+        },
+        {
+          "id": "3.10",
+          "title": "Bảng điều tra pháp chứng giao dịch gian lận (Forensic Transactions Table)",
+          "file": "screenshots/ui_10_admin_transactions.png",
+          "commentary": [
+            "Bảng nhật ký điều tra chuyên sâu cho phép chuyên viên an ninh tra cứu mọi giao dịch tài chính phát sinh trong toàn bộ hệ thống. Bảng cung cấp bộ lọc thông minh theo cấp độ rủi ro (All, Low, Medium, High, Critical), khoảng thời gian và phán quyết tự động.",
+            "Mỗi hàng bản ghi hiển thị đầy đủ thông tin pháp chứng số: Mã giao dịch, Tên khách hàng, Số tiền thanh toán, Địa chỉ IP, Dấu vân tay thiết bị (Fingerprint ID), Tọa độ địa lý (Thành phố/Quốc gia), Điểm rủi ro (Risk Score kèm mã màu trực quan), Phán quyết (APPROVE / REVIEW / BLOCK) và các huy hiệu quy tắc đã kích hoạt (Rule Trigger Badges). Ngoài ra, hệ thống cung cấp các nút thao tác can thiệp thủ công (Manual Override: Duyệt đơn hoặc Khóa chặn) cho phép quản trị viên xử lý ngoại lệ."
+          ]
+        },
+        {
+          "id": "3.11",
+          "title": "Giả lập kịch bản tấn công chiếm đoạt tài khoản (Admin Simulation Studio - ATO)",
+          "file": "screenshots/ui_11_admin_simulation_ato.png",
+          "commentary": [
+            "Phòng giả lập tấn công (Admin Simulation Studio) là công cụ thực nghiệm mạnh mẽ phục vụ kiểm thử và diễn tập an ninh. Quản trị viên có thể lựa chọn kịch bản \"Account Takeover (ATO Attack)\" và nhấn nút Kích hoạt mô phỏng.",
+            "Hệ thống tái lập chuỗi hành vi của kẻ tấn công: đăng nhập từ một thiết bị mới hoàn toàn tại địa chỉ IP nước ngoài, thay đổi mật khẩu và tức thì đặt đơn hàng giá trị cao. Kết quả phân tích hiển thị ngay lập tức với đồng hồ đo điểm rủi ro chạm trần 100/100 (Cấp độ: CRITICAL), phán quyết tự động BLOCK và danh sách các luật bị kích hoạt gồm: NEW_DEVICE, NEW_IP, HIGH_AMOUNT và SUSPICIOUS_PATTERN."
+          ]
+        },
+        {
+          "id": "3.12",
+          "title": "Giả lập kịch bản di chuyển bất khả thi (Admin Simulation Studio - Impossible Travel)",
+          "file": "screenshots/ui_12_admin_simulation_travel.png",
+          "commentary": [
+            "Kiểm thử kịch bản gian lận di chuyển bất khả thi (Impossible Travel) trong Studio giả lập. Hệ thống mô phỏng việc tài khoản vừa thực hiện giao dịch tại Hà Nội, chỉ sau 10 phút lại phát sinh yêu cầu thanh toán từ London.",
+            "Giao diện giả lập chỉ rõ kết quả tính toán của thuật toán Haversine: Khoảng cách giữa 2 phiên là 9,200 km, thời gian chênh lệch là 600 giây, vận tốc suy luận đạt tới 55,200 km/h (vượt xa ngưỡng hàng không 800 km/h). Hệ thống chấm 60 điểm rủi ro, xác định cấp độ HIGH và đưa ra phán quyết REVIEW chuyển sang luồng Smart OTP 2FA."
+          ]
+        },
+        {
+          "id": "3.13",
+          "title": "Quản lý và cấu hình tham số các luật phát hiện gian lận (Rule Engine Config)",
+          "file": "screenshots/ui_13_admin_rules.png",
+          "commentary": [
+            "Giao diện quản lý cấu hình các quy tắc phòng chống gian lận (Rule Configuration Table) cho phép quản trị viên theo dõi và điều chỉnh toàn bộ 13 luật phòng vệ độc lập của hệ thống.",
+            "Mỗi luật có các thuộc tính có thể tùy biến trực tiếp: Mã luật (Rule ID), Tên hiển thị, Điểm số cơ sở (Base Score), Trọng số nhân (Weight), Mô tả nghiệp vụ và Công tắc bật/tắt kích hoạt (Toggle Active Switch). Tính năng này mang lại sự linh hoạt tối đa, cho phép doanh nghiệp nhanh chóng tinh chỉnh chính sách phòng thủ trước các đợt tấn công mới mà không cần chỉnh sửa mã nguồn backend hay gián đoạn dịch vụ."
+          ]
+        },
+        {
+          "id": "3.14",
+          "title": "Đánh giá hiệu năng và ma trận nhầm lẫn hệ thống (Evaluation & Benchmark)",
+          "file": "screenshots/ui_14_admin_evaluation.png",
+          "commentary": [
+            "Bảng điều khiển đánh giá chuẩn mực hiệu năng (System Evaluation & Benchmark Studio). Khi quản trị viên kích hoạt tiến trình đánh giá, module EvaluationEngine sẽ tự động sinh và kiểm thử 200 mẫu giao dịch tổng hợp bao gồm cả giao dịch bình thường và các kịch bản tấn công gian lận tinh vi.",
+            "Giao diện hiển thị trực quan Ma trận nhầm lẫn (Confusion Matrix) với các thông số: True Positive (TP = 98), True Negative (TN = 96), False Positive (FP = 4) và False Negative (FN = 2). Đồng thời hệ thống tính toán tức thì các chỉ số chuẩn mực quốc tế: Độ chính xác (Accuracy: 97.0%), Độ chuẩn xác (Precision: 96.08%), Độ nhạy (Recall: 98.0%) và Điểm F1-Score đạt 97.03%, chứng minh khả năng phát hiện vượt trội và độ tin cậy cao của giải pháp."
+          ]
+        }
+      ]
+    }
+  ]
+}

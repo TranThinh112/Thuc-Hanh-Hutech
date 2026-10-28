@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore - Website TMĐT Tích Hợp Phát Hiện Gian Lận Thanh Toán</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .tab-btn.active { border-bottom: 3px solid #3b82f6; color: #60a5fa; font-weight: 600; }
+        .risk-badge-LOW { background-color: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .risk-badge-MEDIUM { background-color: rgba(234, 179, 8, 0.2); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .risk-badge-HIGH { background-color: rgba(249, 115, 22, 0.2); color: #fb923c; border: 1px solid rgba(249, 115, 22, 0.3); }
+        .risk-badge-CRITICAL { background-color: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .decision-APPROVE, .decision-APPROVED { background-color: #166534; color: #86efac; }
+        .decision-REVIEW { background-color: #854d0e; color: #fef08a; }
+        .decision-BLOCK, .decision-BLOCKED { background-color: #991b1b; color: #fca5a5; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Top Navigation Header -->
+    <header class="glass-card sticky top-0 z-50 px-6 py-3 border-b border-slate-700/50 shadow-lg">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <!-- Logo -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showView('store')">
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 p-2.5 rounded-xl shadow-md text-white">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white tracking-wide">TechStore <span class="text-xs font-normal text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded border border-blue-800">TMĐT AN TOÀN</span></h1>
+                    <p class="text-[11px] text-slate-400">Website Bán Hàng Tích Hợp Kiểm Soát Gian Lận Thanh Toán</p>
+                </div>
+            </div>
+            <!-- Search & Actions -->
+            <div class="flex items-center space-x-4">
+                <div class="relative hidden sm:block w-64">
+                    <input id="store-search" type="text" placeholder="Tìm sản phẩm..." oninput="filterProducts()" class="w-full bg-slate-800 border border-slate-700 pl-9 pr-4 py-1.5 rounded-lg text-xs text-white focus:outline-none focus:border-blue-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                </div>
+                <!-- User Profile & Auth Capsule -->
+                <!-- Login Button for Guest Browsing -->
+                <button id="nav-login-btn" onclick="showView('login'); switchAuthTab('login');" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-xs px-4 py-2 rounded-xl transition shadow flex items-center space-x-1.5 border border-blue-400/30">
+                    <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                    <span>Đăng Nhập</span>
+                </button>
+                <button id="nav-register-btn" onclick="showRegisterView()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-user-plus text-xs text-blue-400"></i>
+                    <span>Đăng Ký</span>
+                </button>
+
+                <!-- User Profile & Auth Capsule when Logged in -->
+                <div id="user-auth-capsule" class="hidden flex items-center space-x-2 bg-slate-800/90 border border-slate-700 p-1.5 pl-3 rounded-xl text-xs">
+                    <div class="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition" onclick="openLoginModal()" title="Bấm vào để đổi tài khoản đăng nhập">
+                        <div class="w-7 h-7 rounded-full bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-400 font-bold">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div class="leading-tight">
+                            <div class="flex items-center space-x-1.5">
+                                <span id="nav-user-name" class="font-bold text-white">Thịnh</span>
+                                <span id="nav-user-role" class="text-[10px] px-1.5 py-0.2 rounded font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">USER</span>
+                            </div>
+                            <span id="nav-user-phone" class="text-[10px] text-slate-400 font-mono">0972445090</span>
+                        </div>
+                    </div>
+                    <button onclick="openLoginModal()" title="Mở bảng Đăng Nhập / Đổi Tài Khoản" class="px-2.5 py-1.5 bg-blue-600/80 hover:bg-blue-600 text-white rounded-lg text-xs font-semibold transition flex items-center space-x-1 shadow">
+                        <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                        <span>Đổi Tài Khoản</span>
+                    </button>
+                    <button onclick="openTokenModal()" title="Xem Access Token & Refresh Token JWT" class="p-1.5 bg-slate-700/80 hover:bg-slate-700 text-yellow-400 rounded-lg text-xs transition" title="Token JWT">
+                        <i class="fa-solid fa-key"></i>
+                    </button>
+                    <button onclick="logout()" title="Đăng xuất" class="p-1.5 bg-slate-700/80 hover:bg-red-900/60 text-red-400 rounded-lg text-xs transition">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </button>
+                </div>
+
+                <button id="nav-sms-btn" onclick="openSmsInboxModal()" class="relative bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg text-slate-200 border border-slate-700 transition flex items-center space-x-1.5" title="Mở Hộp Thư Tin Nhắn SMS Của Điện Thoại">
+                    <i class="fa-solid fa-comment-sms text-blue-400 text-sm"></i>
+                    <span class="text-xs font-semibold hidden md:inline">Tin Nhắn SMS</span>
+                    <span id="sms-unread-badge" class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">0</span>
+                </button>
+                <button id="nav-cart-btn" onclick="toggleCartModal()"   class="relative bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg text-slate-200 border border-slate-700 transition">
+                    <i class="fa-solid fa-cart-shopping mr-1"></i> Giỏ hàng
+                    <span id="cart-count" class="bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full ml-1">0</span>
+                </button>
+                <button id="nav-orders-btn" onclick="showView('orders')" class="relative bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg text-slate-200 border border-slate-700 transition flex items-center space-x-1.5" title="Xem danh sách đơn hàng đã thanh toán đang chờ giao hàng">
+                    <i class="fa-solid fa-truck-fast text-emerald-400 text-sm"></i>
+                    <span class="text-xs font-semibold hidden md:inline">Chờ Giao Hàng</span>
+                    <span id="orders-count-badge" class="bg-emerald-600 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">0</span>
+                </button>
+                <button id="nav-store-btn" onclick="showView('store')" class="hidden bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition border border-slate-700">
+                    <i class="fa-solid fa-store mr-1.5 text-blue-400"></i> Xem Cửa Hàng
+                </button>
+                <button id="nav-admin-btn" onclick="showView('admin')"  class="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-semibold text-xs px-3.5 py-2 rounded-lg transition shadow">
+                    <i class="fa-solid fa-shield-halved mr-1.5"></i> Bảng Quản Trị Gian Lận
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- Main Body Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+        <!-- VIEW 1: E-COMMERCE STOREFRONT (DEFAULT HOME PAGE) -->
+        <div id="view-store" class="space-y-6">
+            <!-- Account Locked Warning Banner -->
+            <div id="account-locked-banner" class="hidden glass-card rounded-2xl p-5 bg-gradient-to-r from-red-950/90 via-red-900/60 to-slate-900 border-2 border-red-500 shadow-2xl relative overflow-hidden animate-pulse">
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-red-600/30 border border-red-500/50 flex items-center justify-center text-red-400 text-2xl flex-shrink-0">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <div class="space-y-1.5 flex-1">
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-base font-bold text-red-200">TÀI KHOẢN ĐANG BỊ TẠM KHÓA GIAO DỊCH</h3>
+                            <span id="account-lock-countdown-badge" class="bg-red-500 text-white font-mono font-bold text-xs px-2.5 py-0.5 rounded-full">Còn 15 phút</span>
+                        </div>
+                        <p class="text-xs text-red-200/90 leading-relaxed">
+                            Hệ thống bảo mật tự động đã kích hoạt cơ chế tự động tạm khóa tài khoản do phát hiện <strong>5 lần giao dịch vi phạm chính sách an toàn liên tiếp</strong>. Toàn bộ các nút <em>"Mua ngay"</em> và chức năng thanh toán tạm thời bị vô hiệu hóa để bảo vệ tài sản của bạn.
+                        </p>
+                        <div class="pt-1 flex flex-wrap items-center gap-3 text-xs text-slate-300">
+                            <span><i class="fa-solid fa-headset text-blue-400 mr-1"></i>Hotline CSKH: <strong class="text-white font-mono">1900-8888</strong></span>
+                            <span><i class="fa-solid fa-clock-rotate-left text-amber-400 mr-1"></i>Tự động mở khóa sau thời gian chờ</span>
+                            <button type="button" onclick="quickUnlockAccount()" class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition shadow">
+                                <i class="fa-solid fa-unlock-keyhole mr-1"></i>
+                                <span>Mở Khóa Nhanh Tài Khoản (Demo)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Hero Banner -->
+            <div class="glass-card rounded-2xl p-6 md:p-8 bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-500/20 shadow-xl relative overflow-hidden">
+                <div class="max-w-2xl space-y-3 z-10 relative">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-950/80 px-3 py-1 rounded-full border border-blue-800">Thanh Toán Trực Tín An Toàn</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white leading-tight">Mua Sắm Thiết Bị Công Nghệ Mới Nhất</h2>
+                    <p class="text-xs md:text-sm text-slate-300">Tích hợp hệ thống kiểm soát rủi ro & ngăn chặn gian lận tự động theo thời gian thực (Real-time Payment Fraud Prevention Engine).</p>
+                </div>
+            </div>
+            <!-- Category Filter Tabs -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-2 border-b border-slate-800">
+                <button data-cat="ALL" onclick="filterCategory('ALL')" class="cat-btn bg-blue-600 text-white text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5 shadow">
+                    <span>Tất cả sản phẩm</span>
+                    <span id="badge-count-ALL" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-white/20 text-white">...</span>
+                </button>
+                <button data-cat="UNDER_1M" onclick="filterCategory('UNDER_1M')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/40 text-xs font-semibold px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-tags text-emerald-400"></i>
+                    <span>Giá rẻ (≤ 1 triệu)</span>
+                    <span id="badge-count-UNDER_1M" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">...</span>
+                </button>
+                <button data-cat="Smartphones" onclick="filterCategory('Smartphones')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <span>Smartphones</span>
+                    <span id="badge-count-Smartphones" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">...</span>
+                </button>
+                <button data-cat="Laptops" onclick="filterCategory('Laptops')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <span>Laptops</span>
+                    <span id="badge-count-Laptops" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">...</span>
+                </button>
+                <button data-cat="Audio" onclick="filterCategory('Audio')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <span>Thiết bị Âm thanh</span>
+                    <span id="badge-count-Audio" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">...</span>
+                </button>
+                <button data-cat="Wearables" onclick="filterCategory('Wearables')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <span>Đồng hồ thông minh</span>
+                    <span id="badge-count-Wearables" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">...</span>
+                </button>
+                <button data-cat="Accessories" onclick="filterCategory('Accessories')" class="cat-btn bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <span>Phụ kiện</span>
+                    <span id="badge-count-Accessories" class="cat-badge ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-700 text-slate-300">...</span>
+                </button>
+            </div>
+
+            <!-- Category Active Header & Live Product Counter -->
+            <div class="flex flex-wrap items-center justify-between bg-slate-800/40 border border-slate-700/60 px-4 py-2.5 rounded-xl text-xs">
+                <div class="flex items-center space-x-2">
+                    <span class="text-slate-400 flex items-center space-x-1.5">
+                        <i class="fa-solid fa-layer-group text-blue-400"></i>
+                        <span>Danh mục:</span>
+                    </span>
+                    <span id="selected-cat-title" class="font-bold text-white text-sm">Tất cả sản phẩm</span>
+                    <span class="text-slate-600">|</span>
+                    <span class="text-slate-400">Số lượng:</span>
+                    <span id="category-product-count" class="bg-blue-600/30 text-blue-300 font-mono font-bold px-2.5 py-0.5 rounded-full border border-blue-500/40 text-xs">Đang tải...</span>
+                </div>
+                <div class="text-[11px] text-slate-400 hidden sm:flex items-center space-x-1.5">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                    <span>Bảo hành chính hãng & Kiểm soát gian lận tự động</span>
+                </div>
+            </div>
+            
+            <!-- Product Catalog Grid -->
+            <div id="store-product-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <div class="text-slate-500 text-sm p-6 glass-card rounded-xl">Đang tải danh sách sản phẩm...</div>
+            </div>
+        </div>
+        <!-- VIEW 2: ADMIN FRAUD DASHBOARD & INSPECTOR MODE -->
+        <div id="view-admin" class="hidden space-y-6">
+            <!-- Admin Navigation Sub-Bar -->
+            <div class="glass-card p-4 rounded-xl flex justify-between items-center flex-wrap gap-3">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold uppercase tracking-wider text-purple-400 bg-purple-950/80 px-2.5 py-1 rounded border border-purple-800">QUẢN TRỊ VIÊN</span>
+                    <h3 class="text-base font-bold text-white">Hệ Thống Kiểm Soát Gian Lận Thanh Toán</h3>
+                </div>
+                <div class="flex space-x-2 text-xs">
+                    <button onclick="switchAdminTab('dashboard')" id="adm-tab-dashboard" class="px-3 py-1.5 rounded bg-blue-600 font-semibold text-white">Thống Kê</button>
+                    <button onclick="switchAdminTab('simulation')" id="adm-tab-simulation" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300">Giả Lập Tấn Công</button>
+                    <button onclick="switchAdminTab('transactions')" id="adm-tab-transactions" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300">Kiểm Toán Giao Dịch</button>
+                    <button onclick="switchAdminTab('rules')" id="adm-tab-rules" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300">Cấu Hình Quy Tắc</button>
+                    <button onclick="switchAdminTab('evaluation')" id="adm-tab-evaluation" class="px-3 py-1.5 rounded bg-slate-800 text-slate-300">Đánh Giá Mô Hình</button>
+                </div>
+            </div>
+            <!-- Dashboard Content Section -->
+            <div id="adm-sec-dashboard" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+                    <div class="glass-card p-4 rounded-xl">
+                        <p class="text-xs text-slate-400 font-medium">Tổng giao dịch</p>
+                        <h3 id="stat-total" class="text-2xl font-bold mt-1 text-white">0</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-emerald-500">
+                        <p class="text-xs text-slate-400 font-medium">Đã phê duyệt</p>
+                        <h3 id="stat-approved" class="text-2xl font-bold mt-1 text-emerald-400">0</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-yellow-500">
+                        <p class="text-xs text-slate-400 font-medium">Cần duyệt tay</p>
+                        <h3 id="stat-review" class="text-2xl font-bold mt-1 text-yellow-400">0</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-red-500">
+                        <p class="text-xs text-slate-400 font-medium">Đã chặn gian lận</p>
+                        <h3 id="stat-blocked" class="text-2xl font-bold mt-1 text-red-400">0</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <p class="text-xs text-slate-400 font-medium">Điểm rủi ro TB</p>
+                        <h3 id="stat-avgscore" class="text-2xl font-bold mt-1 text-blue-400">0</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl">
+                        <p class="text-xs text-slate-400 font-medium">Tỷ lệ rủi ro</p>
+                        <h3 id="stat-fraudrate" class="text-2xl font-bold mt-1 text-purple-400">0%</h3>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="glass-card p-5 rounded-xl space-y-3">
+                        <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-chart-pie text-blue-400 mr-2"></i>Phân bố mức độ rủi ro (Risk Level)</h3>
+                        <div class="h-64 flex justify-center"><canvas id="chartRiskDist"></canvas></div>
+                    </div>
+                    <div class="glass-card p-5 rounded-xl space-y-3">
+                        <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-chart-bar text-emerald-400 mr-2"></i>Quyết định tự động (Automated Decisions)</h3>
+                        <div class="h-64 flex justify-center"><canvas id="chartDecision"></canvas></div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-xl space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-triangle-exclamation text-yellow-400 mr-2"></i>Cảnh báo gian lận gần đây</h3>
+                        <button onclick="loadDashboard()" class="text-xs text-blue-400 hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i>Làm mới</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-slate-300">
+                            <thead class="text-xs text-slate-400 uppercase bg-slate-800/60 border-b border-slate-700">
+                                <tr>
+                                    <th class="p-3">Mã cảnh báo</th>
+                                    <th class="p-3">Mã giao dịch</th>
+                                    <th class="p-3">Mức độ rủi ro</th>
+                                    <th class="p-3">Khách hàng</th>
+                                    <th class="p-3 whitespace-nowrap">Ngày giờ</th>
+                                    <th class="p-3">Trạng thái</th>
+                                    <th class="p-3 text-center">Hành động</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alerts-tbody"><tr><td colspan="7" class="text-center p-4 text-slate-500">Đang tải...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Simulator Section -->
+            <div id="adm-sec-simulation" class="hidden space-y-6">
+                <div class="glass-card p-6 rounded-xl space-y-4">
+                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-flask text-yellow-400 mr-2"></i>Chạy Giả Lập Kịch Bản Tấn Công Gian Lận</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+                        <button onclick="runSimulation('ACCOUNT_TAKEOVER')" class="p-3 bg-red-950/40 hover:bg-red-900/60 border border-red-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-red-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-skull mr-1 text-[11px]"></i>Chiếm Đoạt (ATO)</div>
+                            <div class="text-[11px] text-slate-400">IP/Thiết bị lạ + 45Tr</div>
+                        </button>
+                        <button onclick="runSimulation('CARD_TESTING')" class="p-3 bg-orange-950/40 hover:bg-orange-900/60 border border-orange-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-orange-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-credit-card mr-1 text-[11px]"></i>Thử Thẻ Tự Động</div>
+                            <div class="text-[11px] text-slate-400">Thử thẻ dồn dập</div>
+                        </button>
+                        <button onclick="runSimulation('VELOCITY_BURST')" class="p-3 bg-yellow-950/40 hover:bg-yellow-900/60 border border-yellow-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-yellow-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-bolt mr-1 text-[11px]"></i>Bùng Nổ Tần Suất</div>
+                            <div class="text-[11px] text-slate-400">8 đơn / 5 phút</div>
+                        </button>
+                        <button onclick="runSimulation('IMPOSSIBLE_TRAVEL')" class="p-3 bg-purple-950/40 hover:bg-purple-900/60 border border-purple-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-purple-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-plane-slash mr-1 text-[11px]"></i>Di Chuyển Bất Khả Thi</div>
+                            <div class="text-[11px] text-slate-400">TP.HCM -> Tokyo 5p</div>
+                        </button>
+                        <button onclick="runSimulation('UNUSUAL_HIGH_AMOUNT')" class="p-3 bg-blue-950/40 hover:bg-blue-900/60 border border-blue-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-blue-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-sack-dollar mr-1 text-[11px]"></i>Đột Biến Giá Trị</div>
+                            <div class="text-[11px] text-slate-400">30Tr VND (Gấp 50x)</div>
+                        </button>
+                        <button onclick="runSimulation('NORMAL')" class="p-3 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-700/50 rounded-lg text-left transition space-y-1">
+                            <div class="text-emerald-400 font-semibold text-xs flex items-center"><i class="fa-solid fa-check-circle mr-1 text-[11px]"></i>Hợp Lệ An Toàn</div>
+                            <div class="text-[11px] text-slate-400">Giao dịch chuẩn 500k</div>
+                        </button>
+                    </div>
+                </div>
+                <div id="sim-output-container" class="hidden space-y-6">
+                    <div class="glass-card p-6 rounded-xl space-y-6">
+                        <div class="flex flex-wrap justify-between items-center pb-4 border-b border-slate-700/60">
+                            <div>
+                                <h4 id="sim-title" class="text-lg font-bold text-white">Kết quả giả lập</h4>
+                                <p id="sim-desc" class="text-xs text-slate-400">Chi tiết</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span id="sim-decision-badge" class="px-4 py-1.5 rounded-full font-bold text-sm">APPROVE</span>
+                                <span id="sim-risklevel-badge" class="px-3 py-1 rounded-md text-xs font-semibold">LOW</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400 font-medium">Điểm rủi ro:</span>
+                                <span id="sim-risk-score" class="font-bold text-blue-400">0 / 100</span>
+                            </div>
+                            <div class="w-full bg-slate-800 h-3 rounded-full overflow-hidden">
+                                <div id="sim-score-bar" class="bg-blue-500 h-full transition-all duration-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-3">
+                                <h5 class="text-sm font-semibold text-slate-200"><i class="fa-solid fa-list-check text-blue-400 mr-2"></i>Quy tắc bị kích hoạt</h5>
+                                <div id="sim-triggered-rules" class="space-y-2 text-xs"></div>
+                            </div>
+                            <div class="space-y-3">
+                                <h5 class="text-sm font-semibold text-slate-200"><i class="fa-solid fa-diagram-project text-purple-400 mr-2"></i>Mẫu gian lận phức hợp</h5>
+                                <div id="sim-composite-patterns" class="space-y-2 text-xs"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Transactions Section -->
+            <div id="adm-sec-transactions" class="hidden glass-card p-5 rounded-xl space-y-4">
+                <div class="flex justify-between items-center gap-3">
+                    <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-table-list text-blue-400 mr-2"></i>Nhật ký kiểm toán giao dịch (Audit Trail)</h3>
+                    <div class="flex items-center space-x-2 flex-wrap gap-y-2">
+                        <input id="tx-search" type="text" placeholder="Tìm ID / Người dùng / IP..." oninput="loadTransactions(true)" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500">
+                        <select id="tx-filter-decision" onchange="loadTransactions(true)" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-white font-medium focus:outline-none focus:border-blue-500 cursor-pointer">
+                            <option value="">-- Tất cả trạng thái --</option>
+                            <option value="REVIEW">⏳ Chờ duyệt (REVIEW)</option>
+                            <option value="APPROVED">✓ Đã phê duyệt (APPROVED)</option>
+                            <option value="BLOCKED">🔒 Đã chặn (BLOCKED)</option>
+                        </select>
+                        <select id="tx-sort-order" onchange="loadTransactions(true)" class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg text-xs text-white font-medium focus:outline-none focus:border-blue-500 cursor-pointer">
+                            <option value="NEWEST">Mới nhất trước</option>
+                            <option value="OLDEST">Cũ nhất trước</option>
+                            <option value="AMOUNT_DESC">Số tiền (Cao → Thấp)</option>
+                            <option value="AMOUNT_ASC">Số tiền (Thấp → Cao)</option>
+                            <option value="RISK_DESC">Điểm rủi ro (Cao → Thấp)</option>
+                            <option value="RISK_ASC">Điểm rủi ro (Thấp → Cao)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="text-xs text-slate-400 uppercase bg-slate-800/60 border-b border-slate-700">
+                            <tr>
+                                <th class="p-3">Mã giao dịch</th>
+                                <th class="p-3">Khách hàng</th>
+                                <th class="p-3">Số tiền & Mua sắm</th>
+                                <th class="p-3">Trạng thái & Rủi ro</th>
+                                <th class="p-3">Lý do vi phạm & Phân tích rủi ro</th>
+                                <th class="p-3 text-center">Thao tác Admin</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-tbody"><tr><td colspan="6" class="text-center p-4 text-slate-500">Đang tải...</td></tr></tbody>
+                    </table>
+                </div>
+                <!-- Pagination Controls for Transactions -->
+                <div id="tx-pagination-container" class="flex flex-wrap justify-between items-center gap-3 pt-3 border-t border-slate-700/60 text-xs">
+                    <div class="text-slate-400">
+                        Hiển thị <span id="tx-page-range" class="font-bold text-white">0 - 0</span> trên <span id="tx-page-total" class="font-bold text-blue-400">0</span> giao dịch <span class="text-[11px] text-slate-500">(10 đơn/trang • Tìm kiếm toàn bộ)</span>
+                    </div>
+                    <div id="tx-pagination-buttons" class="flex items-center space-x-1.5 flex-wrap"></div>
+                </div>
+            </div>
+            <!-- Rules Section -->
+            <div id="adm-sec-rules" class="hidden glass-card p-6 rounded-xl space-y-4">
+                <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-sliders text-blue-400 mr-2"></i>Danh sách quy tắc kiểm soát gian lận (13 Rules Engine)</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="text-xs text-slate-400 uppercase bg-slate-800/60 border-b border-slate-700">
+                            <tr>
+                                <th class="p-3">Tên quy tắc</th>
+                                <th class="p-3">Phân loại</th>
+                                <th class="p-3">Trọng số (+Score)</th>
+                                <th class="p-3">Mô tả</th>
+                                <th class="p-3">Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rules-tbody"><tr><td colspan="5" class="text-center p-4 text-slate-500">Đang tải...</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- Evaluation Section -->
+            <div id="adm-sec-evaluation" class="hidden glass-card p-6 rounded-xl space-y-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="text-base font-semibold text-slate-200"><i class="fa-solid fa-bullseye text-emerald-400 mr-2"></i>Đánh Giá Hiệu Năng Mô Hình (Confusion Matrix Benchmark)</h3>
+                        <p class="text-xs text-slate-400">Kiểm thử đo lường Accuracy, Precision, Recall và F1 Score trên mẫu dữ liệu 100 giao dịch.</p>
+                    </div>
+                    <button onclick="runBenchmark()" class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-xs font-bold text-white">Chạy 100-Sample Benchmark</button>
+                </div>
+                <div id="benchmark-results" class="hidden grid grid-cols-1 md:grid-cols-4 gap-4 pt-4">
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-blue-500">
+                        <p class="text-xs text-slate-400 font-medium">Accuracy (Độ chính xác)</p>
+                        <h3 id="bm-accuracy" class="text-2xl font-bold mt-1 text-blue-400">--%</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-emerald-500">
+                        <p class="text-xs text-slate-400 font-medium">Precision</p>
+                        <h3 id="bm-precision" class="text-2xl font-bold mt-1 text-emerald-400">--%</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-purple-500">
+                        <p class="text-xs text-slate-400 font-medium">Recall</p>
+                        <h3 id="bm-recall" class="text-2xl font-bold mt-1 text-purple-400">--%</h3>
+                    </div>
+                    <div class="glass-card p-4 rounded-xl border-l-4 border-yellow-500">
+                        <p class="text-xs text-slate-400 font-medium">F1 Score</p>
+                        <h3 id="bm-f1" class="text-2xl font-bold mt-1 text-yellow-400">--%</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- ================================================================= -->
+        <!-- VIEW 3: DEDICATED LOGIN PAGE (TRANG ĐĂNG NHẬP RIÊNG BIỆT) -->
+        <!-- ================================================================= -->
+        <div id="view-login" class="hidden max-w-lg mx-auto py-4 space-y-4">
+            <!-- Back button to Storefront -->
+            <button onclick="showView('store')" class="text-xs text-slate-400 hover:text-white flex items-center space-x-1.5 transition">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Quay lại Cửa Hàng (Tiếp tục lướt xem sản phẩm)</span>
+            </button>
+
+            <!-- Main Login Card -->
+            <div class="glass-card bg-slate-900 rounded-3xl border border-slate-700/80 shadow-2xl p-7 space-y-6">
+                <!-- Header of Auth Card -->
+                <div class="text-center space-y-2">
+                    <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 border border-blue-400/40 flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-600/30">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h2 id="auth-view-title" class="text-xl font-extrabold text-white tracking-wide">Đăng Nhập Khách Hàng</h2>
+                    <p id="auth-view-desc" class="text-xs text-slate-400">Đăng nhập hoặc đăng ký tài khoản để mua sắm an toàn</p>
+                </div>
+
+                <!-- Tab Switcher: Đăng Nhập / Đăng Ký -->
+                <div class="flex items-center p-1 bg-slate-950/80 rounded-xl border border-slate-800">
+                    <button type="button" id="auth-tab-btn-login" onclick="switchAuthTab('login')" class="flex-1 py-2 text-xs font-bold rounded-lg bg-blue-600 text-white transition flex items-center justify-center space-x-1.5 shadow">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Đăng Nhập</span>
+                    </button>
+                    <button type="button" id="auth-tab-btn-register" onclick="switchAuthTab('register')" class="flex-1 py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Đăng Ký Tài Khoản</span>
+                    </button>
+                </div>
+
+                <!-- LOGIN SECTION -->
+                <div id="auth-sec-login" class="space-y-4">
+                <!-- Alert box when redirected from checkout -->
+                <div id="login-checkout-alert" class="hidden p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-center space-x-2">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400 text-sm flex-shrink-0"></i>
+                    <span><strong>Lưu ý:</strong> Quý khách cần đăng nhập tài khoản để tiến hành thanh toán đơn hàng an toàn.</span>
+                </div>
+
+                <!-- Manual Login Form (Name & Password) -->
+                <form onsubmit="handleDedicatedLogin(event)" class="space-y-4 text-xs">
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1.5 flex items-center justify-between">
+                            <span><i class="fa-solid fa-user text-blue-400 mr-1.5"></i>Tên Đăng Nhập hoặc Số Điện Thoại</span>
+                            <span class="text-[10px] text-slate-400 font-normal">thinh / 0972445090</span>
+                        </label>
+                        <input id="dedicated-login-username" type="text" placeholder="Nhập tên đăng nhập hoặc số điện thoại..." required class="w-full bg-slate-950 border border-slate-700 p-3 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 font-mono transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-300 font-semibold mb-1.5 flex items-center justify-between">
+                            <span><i class="fa-solid fa-key text-blue-400 mr-1.5"></i>Mật Khẩu</span>
+                            <span class="text-[10px] text-slate-400 font-normal">Mặc định: 123</span>
+                        </label>
+                        <input id="dedicated-login-password" type="password" value="123" placeholder="Nhập mật khẩu..." required class="w-full bg-slate-950 border border-slate-700 p-3 rounded-xl text-white text-sm focus:outline-none focus:border-blue-500 font-mono transition">
+                    </div>
+
+                    <div id="dedicated-login-error" class="hidden text-red-400 text-xs bg-red-950/60 border border-red-800/60 p-2.5 rounded-xl flex items-center space-x-2">
+                        <i class="fa-solid fa-circle-exclamation text-red-400"></i>
+                        <span id="dedicated-login-error-text"></span>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-bold py-3.5 rounded-xl text-white text-sm transition shadow-lg shadow-blue-600/30 flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Đăng Nhập Vào Hệ Thống</span>
+                    </button>
+                </form>
+
+                <!-- 1-Click Quick Demo Login Section -->
+                <div class="pt-4 border-t border-slate-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-blue-400 uppercase tracking-wider flex items-center">
+                            <i class="fa-solid fa-bolt mr-1.5 text-yellow-400"></i>Đăng Nhập Nhanh 1 Chạm (Demo):
+                        </span>
+                        <span class="text-[10px] text-slate-500">Mật khẩu: 123</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button type="button" onclick="quickLoginDedicated('thinh')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-white group-hover:text-blue-300">Thịnh</span>
+                                <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 font-mono mt-1">SĐT: 0972445090</div>
+                        </button>
+
+                        <button type="button" onclick="quickLoginDedicated('dat')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-white group-hover:text-blue-300">Đạt</span>
+                                <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 font-mono mt-1">SĐT: 0981234567</div>
+                        </button>
+
+                        <button type="button" onclick="quickLoginDedicated('dong')" class="p-3 rounded-xl bg-slate-800/80 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-white group-hover:text-blue-300">Đông</span>
+                                <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 font-mono mt-1">SĐT: 0977654321</div>
+                        </button>
+
+                        <button type="button" onclick="quickLoginDedicated('admin')" class="p-3 rounded-xl bg-gradient-to-r from-purple-950/50 to-blue-950/50 hover:from-purple-900/60 hover:to-blue-900/60 border border-purple-600/50 text-left transition group">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-purple-300">Quản Trị Viên</span>
+                                <span class="text-[9px] bg-purple-500/30 text-purple-300 px-1.5 py-0.2 rounded font-bold">ADMIN</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400 font-mono mt-1">admin (Toàn quyền)</div>
+                        </button>
+                    </div>
+                </div>
+                </div>
+
+                <!-- REGISTER SECTION -->
+                <div id="auth-sec-register" class="hidden space-y-4">
+                    <form onsubmit="handleRegister(event)" class="space-y-3.5 text-xs">
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1">
+                                <i class="fa-solid fa-user text-emerald-400 mr-1.5"></i>Tên Đăng Nhập <span class="text-red-400">*</span>
+                            </label>
+                            <input id="reg-username" type="text" placeholder="Nhập tên đăng nhập (ví dụ: hoanganh)..." required class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 font-mono transition">
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1">
+                                <i class="fa-solid fa-signature text-emerald-400 mr-1.5"></i>Họ và Tên Khách Hàng <span class="text-red-400">*</span>
+                            </label>
+                            <input id="reg-name" type="text" placeholder="Nhập họ và tên (ví dụ: Nguyễn Hoàng Anh)..." required class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 transition">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">
+                                    <i class="fa-solid fa-phone text-emerald-400 mr-1.5"></i>Số Điện Thoại <span class="text-red-400">*</span>
+                                </label>
+                                <input id="reg-phone" type="tel" placeholder="Ví dụ: 0912345678" required class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 font-mono transition">
+                            </div>
+
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">
+                                    <i class="fa-solid fa-key text-emerald-400 mr-1.5"></i>Mật Khẩu <span class="text-red-400">*</span>
+                                </label>
+                                <input id="reg-password" type="password" placeholder="Tối thiểu 3 ký tự..." required class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 font-mono transition">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1 flex items-center justify-between">
+                                <span><i class="fa-solid fa-envelope text-emerald-400 mr-1.5"></i>Địa Chỉ Email</span>
+                                <span class="text-[10px] text-slate-500 font-normal">Không bắt buộc</span>
+                            </label>
+                            <input id="reg-email" type="email" placeholder="Ví dụ: hoanganh@gmail.com" class="w-full bg-slate-950 border border-slate-700 p-2.5 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500 font-mono transition">
+                        </div>
+
+                        <div id="reg-error" class="hidden text-red-400 text-xs bg-red-950/60 border border-red-800/60 p-2.5 rounded-xl flex items-center space-x-2">
+                            <i class="fa-solid fa-circle-exclamation text-red-400 flex-shrink-0"></i>
+                            <span id="reg-error-text"></span>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 font-bold py-3.5 rounded-xl text-white text-sm transition shadow-lg shadow-emerald-600/30 flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Tạo Tài Khoản & Mua Sắm Ngay</span>
+                        </button>
+
+                        <div class="text-center pt-2">
+                            <span class="text-[11px] text-slate-400">Đã có tài khoản? </span>
+                            <button type="button" onclick="switchAuthTab('login')" class="text-[11px] text-blue-400 hover:text-blue-300 font-bold underline underline-offset-2">Đăng nhập tại đây</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- VIEW 4: PENDING DELIVERIES & ORDERS TRACKING -->
+        <div id="view-orders" class="hidden space-y-6">
+            <!-- Header Banner -->
+            <div class="glass-card rounded-2xl p-6 bg-gradient-to-r from-slate-900 via-emerald-950/40 to-slate-900 border border-emerald-500/30 shadow-xl flex justify-between items-center flex-wrap gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded border border-emerald-800">
+                            <i class="fa-solid fa-truck-fast mr-1"></i> Theo Dõi Vận Chuyển Đơn Hàng
+                        </span>
+                    </div>
+                    <h2 class="text-2xl font-extrabold text-white">Đơn Hàng Đang Chờ Giao Hàng</h2>
+                    <p class="text-xs text-slate-300">Danh sách các sản phẩm và đơn hàng đã thanh toán thành công, được hệ thống phê duyệt an toàn và đang trong quy trình đóng gói & giao tận tay bạn.</p>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button onclick="loadPendingOrders()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition border border-slate-700 flex items-center space-x-1.5 shadow">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Làm mới</span>
+                    </button>
+                    <button onclick="showView('store')" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-semibold transition shadow-lg shadow-emerald-600/30 flex items-center space-x-1.5">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span>Mua thêm sản phẩm</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center space-x-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-400">Đơn hàng đang chờ giao</p>
+                        <h4 id="stat-pending-orders-count" class="text-xl font-bold text-white">0 đơn</h4>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center space-x-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-400">Đơn vị vận chuyển</p>
+                        <h4 class="text-sm font-bold text-white">GHN / VNPost Express</h4>
+                    </div>
+                </div>
+                <div class="glass-card p-4 rounded-xl border border-slate-800 flex items-center space-x-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-shield-check"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] text-slate-400">Kiểm định gian lận tự động</p>
+                        <h4 class="text-sm font-bold text-emerald-400">100% Đã Phê Duyệt An Toàn</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Filter Tabs -->
+            <div class="flex items-center space-x-2 border-b border-slate-800 pb-2 flex-wrap gap-y-2">
+                <button onclick="filterOrdersTab('PENDING')" id="ord-tab-pending" class="ord-tab bg-emerald-600 text-white text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-1.5 shadow">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>Đang chờ giao (<span id="count-pending-orders">0</span>)</span>
+                </button>
+                <button onclick="filterOrdersTab('REVIEW')" id="ord-tab-review" class="ord-tab bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-hourglass-half text-amber-400"></i>
+                    <span>Chờ duyệt (<span id="count-review-orders">0</span>)</span>
+                </button>
+                <button onclick="filterOrdersTab('BLOCKED')" id="ord-tab-blocked" class="ord-tab bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-ban text-red-400"></i>
+                    <span>Từ chối (<span id="count-blocked-orders">0</span>)</span>
+                </button>
+                <button onclick="filterOrdersTab('ALL')" id="ord-tab-all" class="ord-tab bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-1.5">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>Tất cả lịch sử đơn (<span id="count-all-orders">0</span>)</span>
+                </button>
+            </div>
+
+            <!-- Orders List Container -->
+            <div id="orders-list-container" class="space-y-4">
+                <div class="text-center py-12 text-slate-500 text-xs glass-card rounded-2xl">
+                    <i class="fa-solid fa-spinner fa-spin text-xl mb-2 text-blue-400"></i>
+                    <p>Đang tải danh sách đơn hàng chờ giao...</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!-- SHOPPING CART SLIDE-OVER MODAL -->
+    <div id="cart-modal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex justify-end">
+        <div class="bg-slate-900 w-full max-w-md h-full p-6 flex flex-col justify-between border-l border-slate-700 shadow-2xl space-y-4 overflow-y-auto">
+            <div>
+                <div class="flex justify-between items-center pb-4 border-b border-slate-800">
+                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-cart-shopping text-blue-400 mr-2"></i>Giỏ hàng mua sắm</h3>
+                    <button onclick="toggleCartModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+                </div>
+                <div id="cart-items" class="py-4 space-y-3">
+                    <p class="text-xs text-slate-500 text-center">Giỏ hàng của bạn đang trống.</p>
+                </div>
+            </div>
+            <div class="pt-4 border-t border-slate-800 space-y-3">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-400">Tổng tiền thanh toán:</span>
+                    <span id="cart-total" class="font-bold text-emerald-400 text-base">0 VND</span>
+                </div>
+                <button onclick="openCheckoutModal()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl transition text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Tiến hành Thanh Toán (Kiểm Tra Gian Lận)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- CHECKOUT & FRAUD EVALUATION MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 hidden bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card bg-slate-900 w-full max-w-2xl rounded-2xl border border-slate-700 shadow-2xl p-6 space-y-5 relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                <div>
+                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-lock text-emerald-400 mr-2"></i>Cổng Thanh Toán Tích Hợp Kiểm Soát Rủi Ro</h3>
+                    <p class="text-xs text-slate-400">Hệ thống sẽ phân tích điểm rủi ro thời gian thực trước khi phê duyệt giao dịch.</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <form id="checkout-form" onsubmit="submitPayment(event)" class="space-y-4 text-xs">
+                <!-- Customer Information Section -->
+                <div class="p-3 bg-slate-800/90 rounded-xl border border-slate-700/80 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="font-bold text-white"><i class="fa-solid fa-address-card mr-1.5 text-blue-400"></i>Thông Tin Khách Hàng & Giao Hàng</span>
+                        <span id="chk-user-badge" class="text-[10px] bg-blue-500/20 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded font-mono">Tự động nhận diện</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-slate-300 mb-1">Họ và tên người nhận</label>
+                            <input id="chk-cust-name" type="text" value="Thịnh" required class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">Số điện thoại nhận tin nhắn SMS</label>
+                            <input id="chk-cust-phone" type="text" value="0972445090" required class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white font-mono focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-slate-300 mb-1">Tỉnh / Thành Phố giao hàng (Vị trí)</label>
+                            <select id="chk-city" onchange="syncLocationFromCity()" class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white focus:outline-none focus:border-blue-500 font-semibold text-xs">
+                                <option value="Hà Nội" selected>Hà Nội (Việt Nam)</option>
+                                <option value="Hồ Chí Minh">TP. Hồ Chí Minh (Việt Nam)</option>
+                                <option value="Đà Nẵng">Đà Nẵng (Việt Nam)</option>
+                                <option value="Tokyo">Tokyo (Nhật Bản - Cách 4,300 km)</option>
+                                <option value="London">London (Anh Quốc - Cách 9,200 km)</option>
+                                <option value="New York">New York (Hoa Kỳ - Cách 13,000 km)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 mb-1">Địa chỉ nhận hàng chi tiết</label>
+                            <input id="chk-cust-address" type="text" value="Số 15 Cầu Giấy, Hà Nội" required class="w-full bg-slate-900 border border-slate-700 p-2 rounded text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-slate-300 font-medium mb-1">Số tiền giao dịch (VND)</label>
+                        <input id="chk-amount" type="number" readonly class="w-full bg-slate-800 border border-slate-700 p-2.5 rounded-lg text-emerald-400 font-bold text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-slate-300 font-medium mb-1">Phương thức thanh toán</label>
+                        <select id="chk-pm" class="w-full bg-slate-800 border border-slate-700 p-2.5 rounded-lg text-white">
+                            <option value="VISA">Thẻ Quốc Tế VISA Credit</option>
+                            <option value="MASTERCARD">Thẻ MasterCard</option>
+                            <option value="MOMO">Ví Điện Tử MoMo</option>
+                            <option value="COD">Thanh Toán Khi Nhận Hàng (COD)</option>
+                        </select>
+                    </div>
+                </div>
+
+                                <!-- Live Client Info Badge -->
+                <div id="detected-client-badge" class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 bg-slate-900/90 border border-blue-500/40 rounded-xl text-xs text-slate-300 gap-2 mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>IP Mạng Thực: <strong id="live-client-ip" class="text-blue-400 font-mono">127.0.0.1</strong></span>
+                        <span class="text-slate-600">|</span>
+                        <span>Thiết bị: <strong id="live-client-device" class="text-indigo-300">Tự động</strong></span>
+                    </div>
+                    <span id="live-client-loc" class="text-[11px] px-2.5 py-0.5 rounded-full bg-blue-950 text-blue-300 border border-blue-800 font-medium">Tự động nhận diện</span>
+                </div>
+
+                <!-- Accordion for Fraud Simulation Override (Hidden by default for realistic UX) -->
+                <div class="border border-slate-700/80 rounded-xl overflow-hidden bg-slate-800/40">
+                    <button type="button" onclick="toggleSimAccordion()" class="w-full px-3 py-2.5 flex items-center justify-between text-left bg-slate-800/80 hover:bg-slate-800 transition text-slate-300 font-semibold text-xs">
+                        <span class="flex items-center text-amber-400">
+                            <i class="fa-solid fa-flask mr-2 text-amber-400"></i>Tùy chọn giả lập IP & Thiết bị (Dành cho Thử nghiệm & Demo Gian Lận)
+                        </span>
+                        <i id="sim-acc-icon" class="fa-solid fa-chevron-down text-slate-400 text-xs transition-transform"></i>
+                    </button>
+                    <div id="sim-acc-body" class=" p-3 space-y-3 bg-slate-900/70 border-t border-slate-800">
+                        <p class="text-[11px] text-slate-400">
+                            💡 <em>Trong môi trường thực tế, IP và Thiết bị được hệ thống tự động băm (hash) và nhận diện ngầm. Các ô dưới đây dùng để bạn chủ động đổi IP/Thiết bị nhằm kích hoạt các kịch bản phát hiện gian lận.</em>
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <div>
+                                <label class="block text-slate-400 mb-1">Địa chỉ IP</label>
+                                <input id="chk-ip" type="text" value="113.161.44.12" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-slate-200 font-mono text-[11px]">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1">Mã Thiết Bị (Device ID)</label>
+                                <input id="chk-device" type="text" value="device_thinh_iphone" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-slate-200 font-mono text-[11px]">
+                            </div>
+                            <div>
+                                <label class="block text-slate-400 mb-1">Thành Phố / Quốc Gia</label>
+                                <input id="chk-city-sim" type="text" value="Hà Nội" class="w-full bg-slate-950 border border-slate-700 p-2 rounded text-slate-200 text-[11px]">
+                            </div>
+                        </div>
+                        <div class="space-y-1.5 pt-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[11px] text-amber-400 font-semibold"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Bộ phím tắt kịch bản gian lận:</span>
+                                <span id="chk-preset-status" class="text-[11px] text-slate-400 italic">Chọn kịch bản bất kỳ...</span>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+                                <button type="button" onclick="setPreset('legit')" class="p-2 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-600/50 text-emerald-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-check-circle mr-1 text-emerald-400"></i>Hợp Lệ (Normal)</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Hà Nội, IP Quen, 500k</div>
+                                </button>
+                                <button type="button" onclick="setPreset('ato')" class="p-2 bg-red-950/60 hover:bg-red-900/80 border border-red-600/50 text-red-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-skull mr-1 text-red-400"></i>Chiếm Đoạt (ATO)</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Tokyo, Máy Hacker, 45Tr</div>
+                                </button>
+                                <button type="button" onclick="setPreset('travel')" class="p-2 bg-purple-950/60 hover:bg-purple-900/80 border border-purple-600/50 text-purple-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-plane mr-1 text-purple-400"></i>Di Chuyển Bất Khả Thi</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">London (Cách VN 9,000km)</div>
+                                </button>
+                                <button type="button" onclick="setPreset('high_amount')" class="p-2 bg-blue-950/60 hover:bg-blue-900/80 border border-blue-600/50 text-blue-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-sack-dollar mr-1 text-blue-400"></i>Đột Biến Giá Trị</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Hà Nội, 68 Triệu VND</div>
+                                </button>
+                                <button type="button" onclick="setPreset('card_testing')" class="p-2 bg-orange-950/60 hover:bg-orange-900/80 border border-orange-600/50 text-orange-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-credit-card mr-1 text-orange-400"></i>Thử Thẻ Tự Động</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">99k, Máy Bot Tester</div>
+                                </button>
+                                <button type="button" onclick="setPreset('velocity')" class="p-2 bg-yellow-950/60 hover:bg-yellow-900/80 border border-yellow-600/50 text-yellow-300 rounded-lg text-left text-xs transition">
+                                    <div class="font-bold flex items-center"><i class="fa-solid fa-bolt mr-1 text-yellow-400"></i>Spam Tần Suất Cao</div>
+                                    <div class="text-[10px] text-slate-400 mt-0.5">Bấm gửi liên tiếp 5 lần</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 font-bold py-3 rounded-xl text-white text-sm transition shadow-lg">
+                    Xác Nhận Thanh Toán & Thẩm Định Rủi Ro
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- PAYMENT RESULT DIALOG & ACTIVE USER PREVENTION -->
+    <div id="result-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card bg-slate-900 w-full max-w-2xl rounded-2xl border border-slate-700 shadow-2xl p-6 space-y-4 max-h-[95vh] overflow-y-auto">
+            <!-- Header Result -->
+            <div class="flex items-center space-x-3 pb-3 border-b border-slate-800">
+                <div id="res-icon" class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"></div>
+                <div class="flex-1">
+                    <h3 id="res-title" class="text-lg font-bold text-white"></h3>
+                    <p id="res-subtitle" class="text-xs text-slate-400 mt-0.5"></p>
+                </div>
+                <button onclick="closeResultModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Detailed Explanation Box for Customer -->
+            <div id="res-explanation-box" class="p-3.5 rounded-xl border space-y-2 text-xs">
+                <div class="flex justify-between items-center font-bold">
+                    <span id="res-status-label" class="flex items-center"></span>
+                    <span id="res-score-badge" class="px-2 py-0.5 rounded text-[11px] font-mono"></span>
+                </div>
+                <p id="res-explanation-text" class="text-slate-200 leading-relaxed"></p>
+            </div>
+
+            <!-- ACTIVE PREVENTION SECTION 1: STEP-UP 2FA / SMART OTP CHALLENGE (WHEN REVIEW) -->
+            <div id="res-otp-section" class="hidden p-4 rounded-xl border border-amber-500/50 bg-gradient-to-br from-amber-950/60 via-slate-900 to-amber-950/40 shadow-xl space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-amber-500/30">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span>
+                        <h4 class="text-xs font-bold text-amber-300 uppercase tracking-wide flex items-center">
+                            <i class="fa-solid fa-key mr-1.5 text-amber-400"></i> Xác Thực Bước Nhảy Bảo Mật 2 Lớp (Step-Up 2FA / Smart OTP)
+                        </h4>
+                    </div>
+                    <span class="text-[10px] text-amber-400/90 font-mono"><i class="fa-solid fa-stopwatch mr-1"></i>Hiệu lực: 5 phút</span>
+                </div>
+
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    Hệ thống kiểm soát rủi ro phát hiện giá trị đơn hàng hoặc tần suất có dấu hiệu bất thường. Một mã <strong>Smart OTP gồm 6 chữ số</strong> đã được gửi tới số điện thoại của bạn qua tin nhắn SMS để xác thực chính chủ và bảo vệ tài khoản.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center gap-2 pt-1">
+                    <div class="relative w-full sm:w-48">
+                        <input id="res-otp-input" type="text" maxlength="6" placeholder="------" class="w-full bg-slate-950 border-2 border-amber-500/70 focus:border-amber-400 p-2.5 rounded-xl text-center text-lg font-mono font-bold tracking-widest text-amber-300 placeholder-slate-600 focus:outline-none">
+                    </div>
+                    <button type="button" id="btn-fill-otp" onclick="fillOtpFromSms()" class="w-full sm:w-auto px-3.5 py-2.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/50 text-amber-300 font-bold text-xs transition flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-bolt text-amber-400"></i>
+                        <span>Điền nhanh từ SMS (Demo)</span>
+                    </button>
+                    <button type="button" id="btn-submit-otp" onclick="submitOtpVerification()" class="w-full sm:flex-1 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white font-bold text-xs transition shadow-lg shadow-amber-600/30 flex items-center justify-center space-x-1.5">
+                        <i class="fa-solid fa-shield-check"></i>
+                        <span>Xác Nhận OTP & Duyệt Đơn</span>
+                    </button>
+                </div>
+                <div id="res-otp-feedback" class="text-[11px] font-medium hidden"></div>
+            </div>
+
+            <!-- ACTIVE PREVENTION SECTION 2: EMERGENCY KILL-SWITCH & REMEDIATION (WHEN BLOCKED) -->
+            <div id="res-emergency-section" class="hidden p-4 rounded-xl border border-red-500/60 bg-gradient-to-br from-red-950/70 via-slate-900 to-red-950/50 shadow-xl space-y-3">
+                <div class="flex items-center justify-between pb-2 border-b border-red-500/30">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping"></span>
+                        <h4 class="text-xs font-bold text-red-300 uppercase tracking-wide flex items-center">
+                            <i class="fa-solid fa-shield-halved mr-1.5 text-red-400"></i> Biện Pháp Phòng Vệ & Cứu Hộ Tài Sản Khẩn Cấp
+                        </h4>
+                    </div>
+                    <span class="text-[10px] bg-red-500/20 text-red-300 px-2 py-0.5 rounded font-mono font-bold">Phòng vệ chủ động</span>
+                </div>
+
+                <p class="text-xs text-red-200/90 leading-relaxed">
+                    ⚠️ <strong>Cảnh báo an toàn:</strong> Nếu bạn <u>KHÔNG</u> thực hiện thanh toán này, rất có thể tài khoản hoặc thông tin thanh toán của bạn đang bị kẻ xấu lợi dụng! Hãy kích hoạt ngay biện pháp phòng hộ:
+                </p>
+
+                <!-- Kill Switch Button -->
+                <button type="button" id="btn-emergency-lock" onclick="triggerEmergencyLock()" class="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 font-bold py-2.5 rounded-xl text-white text-xs transition shadow-lg shadow-red-600/40 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-lock text-sm"></i>
+                    <span>🚨 ĐÂY KHÔNG PHẢI TÔI! KHÓA KHẨN CẤP TÀI KHOẢN NGAY (KILL-SWITCH)</span>
+                </button>
+
+                <!-- 3-Step Recommendations Box -->
+                <div class="bg-slate-950/80 p-3 rounded-lg border border-red-900/50 space-y-1.5 text-[11px] text-slate-300">
+                    <div class="font-bold text-slate-200 flex items-center">
+                        <i class="fa-solid fa-list-check mr-1.5 text-blue-400"></i> 3 Bước khuyến nghị bảo vệ tài khoản ngay lúc này:
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold">1.</span>
+                        <span>Bấm nút đỏ bên trên để <strong>Đóng băng tài khoản trong 30 phút</strong>, cô lập tức thì phiên truy cập của kẻ gian.</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold">2.</span>
+                        <span>Truy cập App ngân hàng để <strong>Tạm khóa thẻ thanh toán quốc tế</strong> vừa sử dụng.</span>
+                    </div>
+                    <div class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold">3.</span>
+                        <span>Đổi mật khẩu tài khoản và gọi Hotline CSKH an ninh bảo mật: <strong class="text-blue-400 font-mono">1900-8888</strong>.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smartphone SMS Notification Mockup -->
+            <div class="border border-slate-700/80 rounded-2xl overflow-hidden bg-slate-950 p-4 shadow-xl">
+                <div class="flex items-center justify-between text-[11px] text-slate-400 pb-2 border-b border-slate-800">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-mobile-screen text-blue-400"></i>
+                        <span class="font-semibold text-slate-300">Tin nhắn SMS xác thực gửi đến điện thoại</span>
+                    </div>
+                    <div class="flex items-center space-x-2 font-mono text-[10px]">
+                        <span id="sms-phone-target" class="text-blue-400 font-bold">0972445090</span>
+                        <span><i class="fa-solid fa-signal mr-1"></i>5G</span>
+                    </div>
+                </div>
+
+                <!-- Phone SMS Screen Body -->
+                <div class="pt-3 space-y-2">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-7 h-7 rounded-full bg-blue-600/30 border border-blue-500/50 flex items-center justify-center text-blue-400 text-xs">
+                            <i class="fa-solid fa-comment-sms"></i>
+                        </div>
+                        <div>
+                            <span class="font-bold text-white text-xs">SECURE-PAY</span>
+                            <span class="text-[10px] text-slate-400 ml-1.5 font-mono" id="sms-time">Vừa xong</span>
+                        </div>
+                    </div>
+                    <div id="sms-bubble" class="p-3 rounded-2xl text-xs font-sans leading-relaxed border shadow-md">
+                        <!-- SMS Content will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="flex items-center space-x-3 pt-2">
+                <button id="btn-view-pending-order" onclick="closeResultModal(); showView('orders');" class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 font-bold py-2.5 rounded-xl text-white text-xs transition shadow-lg shadow-emerald-500/20 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <span>Xem Đơn Hàng Đang Chờ Giao</span>
+                </button>
+                <button id="btn-close-result-modal" onclick="closeResultModal()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 font-bold rounded-xl text-slate-300 text-xs transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+<footer class="border-t border-slate-800 p-4 text-center text-xs text-slate-500">
+        Website TMĐT Tích Hợp Động Cơ Phát Hiện Gian Lận Thanh Toán &copy; 2026. Powered by Python 3.11 & FastAPI.
+    </footer>
+    
+    <!-- ================================================================= -->
+    <!-- AUTHENTICATION & LOGIN MODAL -->
+    <!-- ================================================================= -->
+    <div id="login-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card bg-slate-900 w-full max-w-md rounded-2xl border border-slate-700 shadow-2xl p-6 space-y-5">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-blue-600/30 border border-blue-500/40 flex items-center justify-center text-blue-400 text-lg">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Đăng Nhập Hệ Thống</h3>
+                        <p class="text-[11px] text-slate-400">Website TMĐT & Kiểm Soát Gian Lận Thanh Toán</p>
+                    </div>
+                </div>
+                <button onclick="closeLoginModal()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <!-- Quick 1-Click Demo Login -->
+            <div class="space-y-2">
+                <label class="block text-[11px] font-semibold text-blue-400 uppercase tracking-wider">
+                    <i class="fa-solid fa-bolt mr-1"></i>Chọn nhanh tài khoản mẫu (1-Click Login):
+                </label>
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="quickLogin('thinh')" class="p-2.5 rounded-xl bg-slate-800/90 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-white group-hover:text-blue-300">Thịnh</span>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-mono mt-0.5">0972445090</div>
+                    </button>
+                    <button type="button" onclick="quickLogin('dat')" class="p-2.5 rounded-xl bg-slate-800/90 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-white group-hover:text-blue-300">Đạt</span>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-mono mt-0.5">0981234567</div>
+                    </button>
+                    <button type="button" onclick="quickLogin('dong')" class="p-2.5 rounded-xl bg-slate-800/90 hover:bg-blue-950/60 border border-slate-700 hover:border-blue-500 text-left transition group">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-white group-hover:text-blue-300">Đông</span>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.2 rounded font-bold">USER</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-mono mt-0.5">0977654321</div>
+                    </button>
+                    <button type="button" onclick="quickLogin('admin')" class="p-2.5 rounded-xl bg-gradient-to-r from-purple-950/50 to-blue-950/50 hover:from-purple-900/60 hover:to-blue-900/60 border border-purple-600/50 text-left transition group">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-purple-300">Quản Trị Viên</span>
+                            <span class="text-[9px] bg-purple-500/30 text-purple-300 px-1.5 py-0.2 rounded font-bold">ADMIN</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 font-mono mt-0.5">admin (Toàn quyền)</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative flex py-1 items-center">
+                <div class="flex-grow border-t border-slate-800"></div>
+                <span class="flex-shrink mx-3 text-[10px] text-slate-500 uppercase">Hoặc đăng nhập thủ công</span>
+                <div class="flex-grow border-t border-slate-800"></div>
+            </div>
+
+            <!-- Manual Form -->
+            <form onsubmit="handleManualLogin(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-300 mb-1">Tên đăng nhập hoặc Số điện thoại</label>
+                    <input id="login-username" type="text" placeholder="thinh / 0972445090 / admin" required class="w-full bg-slate-800 border border-slate-700 p-2.5 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div>
+                    <label class="block text-slate-300 mb-1">Mật khẩu (mặc định: 123)</label>
+                    <input id="login-password" type="password" value="123" required class="w-full bg-slate-800 border border-slate-700 p-2.5 rounded-lg text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div id="login-error" class="hidden text-red-400 text-[11px] bg-red-950/50 border border-red-800/50 p-2 rounded-lg"></div>
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 font-bold py-2.5 rounded-xl text-white text-xs transition shadow-lg">
+                    <i class="fa-solid fa-right-to-bracket mr-1.5"></i>Đăng Nhập
+                </button>
+                <div class="text-center pt-1.5 border-t border-slate-800">
+                    <button type="button" onclick="closeLoginModal(); showRegisterView();" class="text-xs text-blue-400 hover:text-blue-300 font-semibold transition flex items-center justify-center w-full">
+                        <i class="fa-solid fa-user-plus mr-1.5"></i>Chưa có tài khoản? Bấm để Đăng Ký
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- JWT TOKEN DETAILS VIEWER MODAL -->
+    <!-- ================================================================= -->
+    <div id="token-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card bg-slate-900 w-full max-w-xl rounded-2xl border border-slate-700 shadow-2xl p-6 space-y-4">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-key text-yellow-400 text-lg"></i>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Chứng Thực Danh Tính Hai Lớp (JWT Tokens)</h3>
+                        <p class="text-[11px] text-slate-400">Access Token (24h) & Refresh Token (7 ngày)</p>
+                    </div>
+                </div>
+                <button onclick="closeTokenModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-blue-400">1. Access Token (Bearer Token):</span>
+                        <span class="text-[10px] text-slate-400">Dùng gửi Header Authorization</span>
+                    </div>
+                    <textarea id="modal-access-token" readonly rows="3" class="w-full bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-300 p-2.5 rounded-lg select-all"></textarea>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-purple-400">2. Refresh Token:</span>
+                        <span class="text-[10px] text-slate-400">Dùng cấp mới Access Token khi hết hạn</span>
+                    </div>
+                    <textarea id="modal-refresh-token" readonly rows="3" class="w-full bg-slate-950 border border-slate-800 font-mono text-[10px] text-slate-300 p-2.5 rounded-lg select-all"></textarea>
+                </div>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="text-[11px] text-slate-400">Kiểm thử API cấp mới token:</span>
+                    <button onclick="testRefreshToken()" class="px-3 py-1.5 bg-purple-700 hover:bg-purple-600 text-white rounded-lg text-xs font-semibold transition">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i>Thử Refresh Token Ngay
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script src="/static/app.js?v=5.5"></script>
+
+    <!-- ================================================================= -->
+    <!-- FLOATING QUICK ACCESS BUTTON FOR SMARTPHONE SMS -->
+    <!-- ================================================================= -->
+    <div id="sms-floating-fab" class="fixed bottom-6 right-6 z-40">
+        <button onclick="openSmsInboxModal()" class="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold px-4 py-3 rounded-full shadow-2xl border border-blue-400/40 transition transform hover:scale-105 shadow-blue-500/30">
+            <i class="fa-solid fa-mobile-screen-button text-lg text-white"></i>
+            <span class="text-xs font-semibold">Xem Hộp Thư SMS</span>
+            <span id="sms-floating-count" class="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">...</span>
+        </button>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- FLOATING PUSH NOTIFICATION TOAST (IOS/ANDROID STYLE) -->
+    <!-- ================================================================= -->
+    <div id="ios-sms-toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-300 max-w-md w-full px-4">
+        <div class="glass-card bg-slate-900/95 border border-blue-500/60 rounded-2xl p-4 shadow-2xl flex items-start space-x-3 backdrop-blur-xl">
+            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg flex-shrink-0 shadow-lg shadow-blue-600/40">
+                <i class="fa-solid fa-comment-sms"></i>
+            </div>
+            <div class="flex-1 text-xs">
+                <div class="flex justify-between items-center text-slate-400 text-[10px] pb-1">
+                    <span class="font-bold text-white uppercase tracking-wider">TIN NHẮN SMS MỚI TỪ SECURE-PAY</span>
+                    <span>Vừa xong</span>
+                </div>
+                <div class="font-semibold text-blue-300 font-mono text-[11px]" id="toast-phone">0972445090</div>
+                <p class="text-slate-200 mt-1 leading-relaxed" id="toast-content"></p>
+            </div>
+            <button onclick="closeSmsToast()" class="text-slate-400 hover:text-white text-sm"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- SMARTPHONE SMS INBOX MODAL (SIMULATING A REAL SMARTPHONE) -->
+    <!-- ================================================================= -->
+    <div id="sms-inbox-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card bg-slate-900 w-full max-w-sm rounded-[36px] border-4 border-slate-700 shadow-2xl overflow-hidden flex flex-col h-[650px] relative">
+            <!-- Phone Speaker & Notch -->
+            <div class="h-7 bg-slate-950 flex items-center justify-between px-6 pt-1">
+                <span class="text-[10px] text-slate-300 font-bold" id="phone-clock">14:30</span>
+                <div class="w-16 h-3 bg-slate-800 rounded-full"></div>
+                <div class="flex items-center space-x-1 text-[10px] text-slate-300">
+                    <i class="fa-solid fa-signal"></i>
+                    <i class="fa-solid fa-wifi"></i>
+                    <i class="fa-solid fa-battery-full"></i>
+                </div>
+            </div>
+
+            <!-- Phone Top Header -->
+            <div class="bg-slate-950/95 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold shadow">
+                        SP
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-bold text-white">SECURE-PAY BRANDNAME</h4>
+                        <p class="text-[10px] text-blue-400 font-mono font-semibold" id="phone-inbox-owner">SĐT: 0972445090</p>
+                    </div>
+                </div>
+                <button onclick="closeSmsInboxModal()" class="w-7 h-7 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:text-white text-xs">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Phone Messages Scrollable Body -->
+            <div id="phone-sms-list" class="flex-1 p-3 overflow-y-auto space-y-3 bg-slate-900/90 text-xs">
+                <p class="text-center text-slate-500 py-6">Đang tải tin nhắn SMS...</p>
+            </div>
+
+            <!-- Phone Home Indicator Bar -->
+            <div class="h-5 bg-slate-950 flex items-center justify-center">
+                <div class="w-28 h-1 bg-slate-600 rounded-full"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- UNIVERSAL CUSTOM POPUP MODAL (REPLACING ALL BROWSER ALERTS) -->
+    <div id="custom-popup-modal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="glass-card max-w-md w-full rounded-2xl border border-slate-700 bg-slate-900/95 p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-3">
+                    <div id="custom-popup-icon-box" class="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 bg-amber-500/20 text-amber-400 border border-amber-500/40">
+                        <i id="custom-popup-icon" class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <h3 id="custom-popup-title" class="text-base font-bold text-white">THÔNG BÁO HỆ THỐNG</h3>
+                        <p id="custom-popup-subtitle" class="text-[11px] text-slate-400">Secure Payment Fraud Detection Engine</p>
+                    </div>
+                </div>
+                <button onclick="closeCustomPopup(false)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center text-xs transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div id="custom-popup-body" class="p-4 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200 leading-relaxed max-h-64 overflow-y-auto whitespace-pre-line space-y-2 font-sans">
+            </div>
+
+            <!-- Modal Buttons -->
+            <div class="flex items-center justify-end space-x-2 pt-2">
+                <button id="custom-popup-cancel-btn" onclick="closeCustomPopup(false)" class="hidden px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition border border-slate-700">
+                    Hủy bỏ
+                </button>
+                <button id="custom-popup-ok-btn" onclick="closeCustomPopup(true)" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold transition shadow-lg shadow-blue-500/20 flex items-center space-x-1.5">
+                    <span>Đã hiểu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

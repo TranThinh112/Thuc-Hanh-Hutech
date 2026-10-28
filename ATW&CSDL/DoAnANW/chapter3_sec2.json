@@ -1,0 +1,203 @@
+{
+  "title": "3.2 Thiết kế kiến trúc hệ thống",
+  "intro": "Để đáp ứng các yêu cầu khắt khe về thời gian thực, tính sẵn sàng và khả năng bảo mật cao, hệ thống được thiết kế theo mô hình kiến trúc phân lớp hướng dịch vụ (Service-Oriented Layered Architecture). Kiến trúc này giúp tách biệt rõ ràng giữa tầng giao diện hiển thị, tầng xử lý nghiệp vụ, tầng động cơ phòng chống gian lận và tầng lưu trữ dữ liệu bền vững.",
+  "subsections": [
+    {
+      "id": "3.2.1",
+      "title": "3.2.1 Kiến trúc tổng thể phần mềm và luồng tương tác các thành phần",
+      "paragraphs": [
+        "Kiến trúc tổng thể của hệ thống bao gồm 5 tầng thành phần liên kết chặt chẽ với nhau thông qua các giao thức truyền thông tiêu chuẩn:"
+      ],
+      "bullets": [
+        [
+          "1. Tầng Trình bày (Presentation Layer - Frontend Client)",
+          "Được xây dựng dưới dạng ứng dụng đơn trang (Single Page Application - SPA) sử dụng HTML5 chuẩn hóa, Tailwind CSS để xây dựng giao diện người dùng hiện đại, responsive và tối ưu hóa trải nghiệm trên mọi thiết bị. JavaScript thuần (Vanilla JS) đảm nhận việc điều khiển luồng hiển thị, tương tác API bất đồng bộ (Fetch API), thu thập dấu vân tay thiết bị (Fingerprinting) và tích hợp thư viện Chart.js để biểu diễn trực quan các biểu đồ thống kê an ninh trong trang quản trị."
+        ],
+        [
+          "2. Tầng Cổng giao tiếp & Xác thực (API Gateway & Middleware Layer)",
+          "Sử dụng FastAPI framework hiệu năng cao trên nền tảng Python 3.11 và máy chủ ASGI Uvicorn. Tầng này chịu trách nhiệm định tuyến các yêu cầu HTTP/HTTPS, kiểm soát chia sẻ tài nguyên nguồn gốc chéo (CORS Middleware), xác thực mã định danh JSON Web Token (JWT Bearer Authentication) và kiểm soát tốc độ truy cập (Rate Limiting)."
+        ],
+        [
+          "3. Tầng Nghiệp vụ Chống gian lận (Fraud Detection Business Core)",
+          "Đây là trái tim của hệ thống phòng vệ, bao gồm 5 phân hệ chuyên trách: (1) Feature Extractor: phân tích ngữ cảnh và trích xuất vector đặc trưng giao dịch từ cơ sở dữ liệu; (2) Rule Engine: nạp động và thực thi song song các luật kiểm tra độc lập kế thừa từ BaseRule; (3) Scoring Engine: tổng hợp điểm số rủi ro theo thuật toán phi tuyến tính; (4) Decision Engine: so khớp điểm số với ngưỡng phân cấp để đưa ra phán quyết nghiệp vụ; (5) Simulation Engine: giả lập các kịch bản tấn công tổng hợp nhằm phục vụ mục đích kiểm thử và đánh giá mô hình."
+        ],
+        [
+          "4. Tầng Truy xuất Dữ liệu (Data Access Layer - ORM)",
+          "Sử dụng SQLAlchemy 2.0 ORM để quản lý các phiên làm việc (Session Management), xây dựng các truy vấn hướng đối tượng an toàn, loại bỏ triệt để nguy cơ tấn công SQL Injection và cung cấp cơ chế Transaction Rollback tự động khi phát sinh sự cố trong quá trình giao dịch."
+        ],
+        [
+          "5. Tầng Lưu trữ Bền vững (Persistence Layer - Database)",
+          "Hệ quản trị cơ sở dữ liệu quan hệ SQLite tích hợp (dễ dàng cấu hình chuyển sang PostgreSQL trong môi trường phân tán lớn), lưu trữ toàn bộ dữ liệu người dùng, danh mục hàng hóa, nhật ký giao dịch, vector đặc trưng kỹ thuật số và các cảnh báo an ninh."
+        ]
+      ]
+    },
+    {
+      "id": "3.2.2",
+      "title": "3.2.2 Lựa chọn ngăn xếp công nghệ phát triển",
+      "paragraphs": [
+        "Ngăn xếp công nghệ (Technology Stack) được lựa chọn kỹ lưỡng dựa trên các tiêu chí về tốc độ xử lý, tính mở rộng, mức độ hỗ trợ của cộng đồng và tính bảo mật theo chuẩn doanh nghiệp. Bảng 3.1 dưới đây tổng hợp các công nghệ được sử dụng trong hệ thống cùng lý do lựa chọn."
+      ],
+      "table": {
+        "caption": "Bảng 3.1: So sánh và lựa chọn công nghệ phát triển hệ thống",
+        "headers": [
+          "Thành phần",
+          "Công nghệ lựa chọn",
+          "Đặc tính kỹ thuật",
+          "Lý do lựa chọn giải pháp"
+        ],
+        "widths": [
+          1.1,
+          1.3,
+          1.8,
+          1.8
+        ],
+        "rows": [
+          [
+            "Backend Framework",
+            "Python 3.11 + FastAPI",
+            "Bất đồng bộ ASGI native, kiểm tra kiểu dữ liệu với Pydantic",
+            "Tốc độ thực thi cực nhanh ngang ngửa Go/Node.js, tự sinh tài liệu Swagger UI chuẩn OpenAPI, thuận tiện mở rộng AI"
+          ],
+          [
+            "Database & ORM",
+            "SQLite + SQLAlchemy 2.0",
+            "CSDL quan hệ nhúng, hỗ trợ đầy đủ ACID và ORM hướng đối tượng",
+            "Không yêu cầu cấu hình server phức tạp trong môi trường thử nghiệm, dễ chuyển đổi sang PostgreSQL khi nâng cấp"
+          ],
+          [
+            "Bảo mật & Xác thực",
+            "Passlib (Bcrypt) + PyJWT",
+            "Hàm băm một chiều với Salt ngẫu nhiên, Access/Refresh Token JWT",
+            "Tuân thủ tiêu chuẩn mật khẩu hiện đại, bảo đảm phiên làm việc phi trạng thái (stateless), an toàn trước tấn công dò mật khẩu"
+          ],
+          [
+            "Frontend UI",
+            "Tailwind CSS + Vanilla JS",
+            "Utility-first CSS Framework, JavaScript ES6+ tối ưu hóa",
+            "Tốc độ tải trang cực nhanh, giao diện hiện đại, dễ dàng nhúng script thu thập thông tin phần cứng và Canvas Fingerprint"
+          ],
+          [
+            "Trực quan hóa dữ liệu",
+            "Chart.js v4.4",
+            "Thư viện vẽ đồ thị trên thẻ HTML5 Canvas",
+            "Nhẹ, vẽ biểu đồ rủi ro và xu hướng giao dịch thời gian thực mượt mà trên bảng điều khiển quản trị"
+          ],
+          [
+            "Kiểm thử & Tự động",
+            "Playwright + Pytest",
+            "Headless Browser Automation, bộ công cụ kiểm thử đơn vị Pytest",
+            "Mô phỏng chính xác hành vi người dùng trên trình duyệt, tự động hóa chụp ảnh giao diện và kiểm thử luồng thanh toán"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "3.2.3",
+      "title": "3.2.3 Thiết kế cơ sở dữ liệu quan hệ",
+      "paragraphs": [
+        "Cơ sở dữ liệu của hệ thống được chuẩn hóa theo dạng chuẩn 3NF (Third Normal Form) nhằm đảm bảo tính toàn vẹn dữ liệu, loại bỏ dư thừa và tối ưu hóa tốc độ truy vấn cho các phép tính tổng hợp đặc trưng gian lận. Hệ thống bao gồm 12 bảng thực thể liên kết chặt chẽ với nhau, được mô tả chi tiết trong Bảng 3.2 dưới đây."
+      ],
+      "table": {
+        "caption": "Bảng 3.2: Danh mục và đặc tả các thực thể bảng trong Cơ sở dữ liệu",
+        "headers": [
+          "STT",
+          "Tên bảng",
+          "Khóa chính / Ngoại",
+          "Chức năng và ý nghĩa nghiệp vụ"
+        ],
+        "widths": [
+          0.5,
+          1.6,
+          1.5,
+          2.4
+        ],
+        "rows": [
+          [
+            "1",
+            "users",
+            "PK: id",
+            "Lưu trữ thông tin tài khoản người dùng: username, email, mật khẩu băm (password_hash), vai trò (role: customer/admin), cờ khóa tài khoản (is_locked) và lý do khóa (lock_reason)."
+          ],
+          [
+            "2",
+            "products",
+            "PK: id",
+            "Quản lý danh mục sản phẩm kinh doanh: tên sản phẩm, giá bán (price), mô tả, phân loại ngành hàng (category), hình ảnh minh họa (image_url) và số lượng tồn kho (stock)."
+          ],
+          [
+            "3",
+            "transactions",
+            "PK: id\nFK: user_id",
+            "Ghi nhận toàn bộ giao dịch thanh toán: mã người dùng, số tiền (amount), đơn vị tiền tệ, phương thức thanh toán, 4 số cuối của thẻ (card_last4), địa chỉ IP, mã thiết bị và trạng thái đơn hàng."
+          ],
+          [
+            "4",
+            "transaction_features",
+            "PK: id\nFK: transaction_id",
+            "Vector đặc trưng kỹ thuật số phục vụ phòng chống gian lận: tỉ lệ giá trị đơn hàng, số giao dịch trong 1m/5m/15m, số lần thanh toán thất bại, khoảng cách địa lý và vận tốc di chuyển (speed_kmh)."
+          ],
+          [
+            "5",
+            "fraud_analyses",
+            "PK: id\nFK: transaction_id",
+            "Bản ghi kết quả phân tích gian lận tổng thể: điểm rủi ro tổng hợp (risk_score), cấp độ rủi ro (risk_level: LOW/MEDIUM/HIGH/CRITICAL), phán quyết (decision) và văn bản giải thích."
+          ],
+          [
+            "6",
+            "fraud_rule_results",
+            "PK: id\nFK: fraud_analysis_id",
+            "Kết quả đánh giá chi tiết của từng luật độc lập: mã luật (rule_id), tên luật (rule_name), cờ kích hoạt (triggered), điểm số đóng góp (score), trọng số áp dụng và chi tiết vi phạm."
+          ],
+          [
+            "7",
+            "fraud_alerts",
+            "PK: id\nFK: transaction_id",
+            "Cảnh báo an ninh gửi tới bảng điều khiển quản trị viên khi giao dịch có rủi ro cao: tiêu đề cảnh báo, mô tả chi tiết, cấp độ đe dọa, trạng thái xử lý (is_resolved)."
+          ],
+          [
+            "8",
+            "sms_notifications",
+            "PK: id\nFK: user_id",
+            "Hộp thư tin nhắn SMS ảo phục vụ xác thực và cảnh báo: số điện thoại nhận, loại tin nhắn (OTP_CHALLENGE / SECURITY_ALERT), nội dung thông điệp, mã OTP xác thực và thời điểm gửi."
+          ],
+          [
+            "9",
+            "user_risk_profiles",
+            "PK: id\nFK: user_id",
+            "Hồ sơ rủi ro tích lũy của khách hàng: tuổi thọ tài khoản (account_age_days), tổng số giao dịch, giá trị mua trung bình, tỉ lệ thất bại trong quá khứ, số lượng thiết bị và IP từng sử dụng."
+          ],
+          [
+            "10",
+            "device_profiles",
+            "PK: id\nUK: device_id",
+            "Hồ sơ theo dõi dấu vân tay thiết bị: số lượng tài khoản liên kết, tổng số giao dịch từ thiết bị, số giao dịch thất bại, điểm rủi ro trung bình và cờ đưa vào danh sách đen (is_blacklisted)."
+          ],
+          [
+            "11",
+            "ip_profiles",
+            "PK: id\nUK: ip_address",
+            "Hồ sơ theo dõi địa chỉ IP: quốc gia xuất xứ, thành phố, số lượng tài khoản sử dụng IP, phát hiện proxy/VPN/Tor và cờ đưa vào danh sách đen (is_blacklisted)."
+          ],
+          [
+            "12",
+            "fraud_rule_configs",
+            "PK: id\nUK: rule_id",
+            "Bảng tham số cấu hình động cho các luật phát hiện gian lận: mã định danh luật, tên luật hiển thị, trọng số (weight), trạng thái kích hoạt (enabled) và cấu hình ngưỡng json (threshold_json)."
+          ]
+        ]
+      }
+    },
+    {
+      "id": "3.2.4",
+      "title": "3.2.4 Thiết kế luồng xử lý giao dịch thanh toán kèm bộ lọc gian lận",
+      "paragraphs": [
+        "Quy trình xử lý một giao dịch thanh toán trực tuyến từ lúc khách hàng khởi tạo lệnh cho đến khi hoàn tất được bảo vệ chặt chẽ bởi bộ lọc gian lận thời gian thực qua các bước tuần tự như sau:",
+        "Bước 1: Tiếp nhận giao dịch và xác thực danh tính. Khách hàng hoàn tất lựa chọn sản phẩm và bấm Xác nhận thanh toán trên giao diện Checkout. Ứng dụng Frontend tự động thu thập các tham số môi trường (Device Fingerprint, địa chỉ IP, thông tin giỏ hàng, thẻ thanh toán) và đóng gói thành yêu cầu HTTP POST gửi tới endpoint /api/transactions. FastAPI Middleware tiến hành giải mã JWT Token để xác thực danh tính người dùng.",
+        "Bước 2: Khởi tạo phiên giao dịch và trích xuất vector đặc trưng. Hệ thống ghi nhận một bản ghi giao dịch mới vào bảng transactions ở trạng thái pending. Đồng thời, module Feature Extractor kích hoạt truy vấn cơ sở dữ liệu để tổng hợp các thông số lịch sử: số giao dịch trong 1 phút, 5 phút, 15 phút gần nhất; số lần thất bại; vị trí địa lý của giao dịch gần nhất; khoảng cách không gian (km) và thời gian chênh lệch (giây) để suy luận vận tốc di chuyển.",
+        "Bước 3: Đánh giá song song qua Rule Engine. Danh sách tất cả các luật gian lận đang được kích hoạt (enabled=True) trong bảng fraud_rule_configs được nạp vào bộ nhớ. Mỗi luật độc lập (như VelocityRule, HighAmountRule, ImpossibleTravelRule, NewDeviceRule...) tiến hành kiểm tra trên vector đặc trưng và trả về kết quả kèm điểm số đóng góp riêng biệt.",
+        "Bước 4: Tổng hợp điểm rủi ro và ra phán quyết tự động. Module Score Calculator tiếp nhận danh sách các luật bị vi phạm và áp dụng thuật toán kết hợp suy giảm phi tuyến để tính ra Risk Score chung (0 - 100). Sau đó, Decision Engine đối chiếu điểm số với ngưỡng rủi ro mặc định (hoặc cấu hình tùy chỉnh) để đưa ra 1 trong 3 phán quyết: APPROVE, REVIEW, hoặc BLOCK.",
+        "Bước 5: Phân luồng xử lý theo phán quyết. (a) Nếu kết quả là APPROVE: Trạng thái giao dịch chuyển sang completed, trừ tồn kho hàng hóa và phản hồi thông báo thành công cho khách hàng; (b) Nếu kết quả là REVIEW: Trạng thái giao dịch chuyển sang review_required, hệ thống phát sinh mã Smart OTP ngẫu nhiên 6 chữ số, lưu vào sms_notifications và trả về yêu cầu người dùng xác thực OTP; (c) Nếu kết quả là BLOCK: Giao dịch chuyển sang trạng thái blocked, phát sinh bản ghi fraud_alerts gửi tới quản trị viên. Nếu vi phạm kịch bản nghiêm trọng như ATO, tài khoản người dùng sẽ bị khóa tạm thời (is_locked=True) và hệ thống trả thông báo từ chối thanh toán bảo vệ tài sản."
+      ]
+    }
+  ]
+}

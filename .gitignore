@@ -21,3 +21,23 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 .DS_Store
+
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# .NET / C# build artifacts
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+
+# Video media files exceeding size limit
+*.mp4
+*.avi
+*.mov
+*.mkv
+
