@@ -1,0 +1,85 @@
+{# Hiển thị chi tiết 1 kết quả quét. Biến đầu vào: result #}
+<section class="card result-head">
+  <div class="big-grade grade g{{ result.grade|replace('+','p') }}">{{ result.grade }}</div>
+  <div class="grow">
+    <h2>{{ result.host }}:{{ result.port }} <span class="pill {{ result.status }}">{{ STATUS_VI[result.status] }}</span></h2>
+    <div class="muted">IP {{ result.ip }} · quét lúc {{ result.scanned_at|vntime('%d/%m/%Y %H:%M:%S') }} ·
+      {{ result.negotiated.version }} · {{ result.negotiated.cipher }}</div>
+    <div class="kv-inline">
+      <span>Hết hạn: <b>{{ result.leaf.not_after|vntime('%d/%m/%Y') }}</b></span>
+      <span>Còn lại: <b class="{{ 'neg' if result.days_left < 0 else ('warn' if result.days_left <= 30 else '') }}">{{ result.days_left|days }}</b></span>
+      <span>Cấp bởi: <b>{{ result.leaf.issuer_cn or result.leaf.issuer }}</b></span>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Kết quả phân tích</h2>
+  {% if result.findings %}
+  <ul class="findings">
+    {% for f in result.findings %}
+    <li class="sev-{{ f.severity }}"><span class="sev">{{ SEV_VI[f.severity] }}</span>{{ f.message }}
+      {% if f.cap %}<span class="muted small">(điểm tối đa {{ f.cap }})</span>{% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p class="okmsg">✓ Không phát hiện vấn đề nào.</p>
+  {% endif %}
+</section>
+
+<div class="grid2">
+  <section class="card">
+    <h2>Chứng thư máy chủ</h2>
+    <dl class="kv">
+      <dt>Subject</dt><dd>{{ result.leaf.subject }}</dd>
+      <dt>Tên miền (SAN)</dt><dd>{{ result.leaf.san|join(', ') or '—' }}</dd>
+      <dt>Nhà cấp (Issuer)</dt><dd>{{ result.leaf.issuer }}</dd>
+      <dt>Hiệu lực</dt><dd>{{ result.leaf.not_before|vntime }} → {{ result.leaf.not_after|vntime }}</dd>
+      <dt>Số serial</dt><dd class="mono">{{ result.leaf.serial }}</dd>
+      <dt>Khóa công khai</dt><dd>{{ result.leaf.key_algo }} {{ result.leaf.key_bits }} bit</dd>
+      <dt>Thuật toán ký</dt><dd>{{ result.leaf.sig_algo }}</dd>
+      <dt>SHA-256</dt><dd class="mono small">{{ result.leaf.sha256 }}</dd>
+    </dl>
+  </section>
+  <section class="card">
+    <h2>Cấu hình TLS</h2>
+    <table class="tbl compact">
+      {% for name, ok in result.protocols.items() %}
+      {% set bad = name in ('TLS 1.0', 'TLS 1.1') %}
+      <tr><td>{{ name }}</td><td>
+        {% if ok %}<span class="{{ 'neg' if bad else 'pos' }}">{{ 'Bật (không an toàn)' if bad else 'Bật' }}</span>
+        {% else %}<span class="muted">{{ 'Tắt ✓' if bad else 'Tắt' }}</span>{% endif %}</td></tr>
+      {% endfor %}
+      <tr><td>Cipher yếu (3DES/RC4/NULL)</td><td>{% if result.weak_cipher %}<span class="neg">Chấp nhận</span>{% else %}<span class="pos">Từ chối</span>{% endif %}</td></tr>
+      <tr><td>Forward Secrecy</td><td>{% if result.no_pfs %}<span class="warn">Không bắt buộc</span>{% else %}<span class="pos">Bắt buộc</span>{% endif %}</td></tr>
+      <tr><td>HSTS</td><td>{% if result.hsts %}<span class="pos">{{ result.hsts }}</span>{% else %}<span class="warn">Không có</span>{% endif %}</td></tr>
+      <tr><td>Thu hồi ({{ result.revocation.method or 'N/A' }})</td><td>
+        <span class="{{ {'good':'pos','revoked':'neg'}.get(result.revocation.status, 'muted') }}">{{ result.revocation.detail }}</span></td></tr>
+    </table>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Chuỗi chứng thư <span class="muted small">(máy chủ gửi {{ result.certs_sent }} chứng thư)</span></h2>
+  <ol class="chain">
+    {% for c in result.chain %}
+    <li class="role-{{ c.role }}">
+      <div class="chain-role">{{ {'leaf':'Máy chủ','intermediate':'Trung gian','root':'Root CA','extra':'Thừa'}[c.role] }}
+        {% if c.from_store %}<span class="tag">từ kho tin cậy</span>{% endif %}
+        {% if c.self_signed %}<span class="tag">tự ký</span>{% endif %}</div>
+      <div><b>{{ c.cn or c.subject }}</b></div>
+      <div class="muted small">Cấp bởi: {{ c.issuer_cn or c.issuer }} · {{ c.key_algo }} {{ c.key_bits }} · hết hạn {{ c.not_after|vntime('%d/%m/%Y') }}</div>
+    </li>
+    {% endfor %}
+  </ol>
+  <p class="small">Neo tin cậy:
+    {% if result.chain_info.anchor %}<b>{{ result.chain_info.anchor }}</b>{% else %}<span class="neg">không tìm thấy</span>{% endif %}
+    · Bộ xác thực X.509: {% if result.chain_info.trusted %}<span class="pos">hợp lệ</span>{% else %}<span class="neg">{{ result.chain_info.verifier_error }}</span>{% endif %}</p>
+</section>
+
+<section class="card">
+  <h2>Đối chứng độc lập</h2>
+  <p class="muted small">Chạy lệnh dưới đây trên máy bất kỳ để tự kiểm tra lại bằng OpenSSL — kết quả phải trùng với CertGuard.</p>
+  <div class="codebox"><code>{{ result.verify_cmd }}</code><button class="btn small" data-copy="{{ result.verify_cmd }}">Sao chép</button></div>
+  <details><summary>Xem chứng thư dạng PEM</summary><pre class="pem">{{ result.leaf.pem }}</pre></details>
+</section>

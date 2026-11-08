@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Cài đặt{% endblock %}
+{% block content %}
+<div class="pagehead"><h1>Cài đặt hệ thống</h1></div>
+<div class="grid2">
+<section class="card">
+  <h2>Ngưỡng cảnh báo &amp; lịch quét</h2>
+  <form method="post">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="save">
+    <label>Cảnh báo khi còn ≤ (ngày)<input type="number" name="warn_days" value="{{ s.warn_days }}" min="1" max="365"></label>
+    <label>Mức nghiêm trọng khi còn ≤ (ngày)<input type="number" name="critical_days" value="{{ s.critical_days }}" min="1" max="365"></label>
+    <label>Quét định kỳ mỗi (phút) <span class="muted small">— 1440 = 1 ngày; khi demo đặt 2–5 phút</span>
+      <input type="number" name="scan_interval_minutes" value="{{ s.scan_interval_minutes }}" min="1"></label>
+    <label>Không gửi lặp cảnh báo giống nhau trong (phút)<input type="number" name="alert_cooldown_minutes" value="{{ s.alert_cooldown_minutes }}" min="0"></label>
+    <label>Danh sách cho phép quét địa chỉ nội bộ <span class="muted small">(mỗi dòng 1 mẫu, vd *.certguard.webservers)</span>
+      <textarea name="allowlist" rows="3">{{ s.allowlist }}</textarea></label>
+    <p class="muted small">Mặc định mọi tên miền trỏ về IP nội bộ (127.x, 10.x, 192.168.x, 169.254.x…) đều bị chặn để chống tấn công SSRF.</p>
+    <button class="btn primary">Lưu</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Kênh cảnh báo</h2>
+  <p>Telegram: {% if tg %}<span class="pos">đã cấu hình</span>{% else %}<span class="warn">chưa cấu hình</span>{% endif %}</p>
+  <p>Email: {% if mail %}<span class="pos">đã cấu hình</span>{% else %}<span class="muted">chưa cấu hình</span>{% endif %}</p>
+  <p class="muted small">Token và mật khẩu được khai báo trong file <code>.env</code> (không lưu trong CSDL). Xem <code>.env.example</code>.</p>
+  <form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="test_alert">
+    <button class="btn">Gửi tin nhắn thử</button></form>
+
+  <h2 class="mt">Root CA tin cậy bổ sung</h2>
+  <p class="muted small">Ngoài kho CA của Mozilla, CertGuard tin thêm các Root CA dưới đây (vd: Root CA nội bộ của tổ chức).</p>
+  <ul class="plain">
+    {% for r in roots %}
+    <li><b>{{ r.name }}</b><div class="muted small">{{ r.subject }} · hết hạn {{ r.not_after|vntime('%d/%m/%Y') }}</div>
+      <form method="post" data-confirm="Bỏ tin cậy {{ r.name }}?"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+        <input type="hidden" name="action" value="del_root"><input type="hidden" name="name" value="{{ r.name }}">
+        <button class="link danger">Xóa</button></form></li>
+    {% else %}<li class="muted">Chưa có.</li>{% endfor %}
+  </ul>
+  <form method="post" enctype="multipart/form-data" class="inline">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="add_root">
+    <input type="file" name="rootfile" accept=".pem,.crt" required><button class="btn">Thêm</button>
+  </form>
+</section>
+</div>
+{% endblock %}

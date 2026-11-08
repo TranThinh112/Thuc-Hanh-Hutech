@@ -44,7 +44,8 @@ Thuc-Hanh-Hutech/
 │   ├── 📁 lab1/                              # Lab 1: Python cơ bản & Mã hóa cổ điển (Caesar, Vigenère)
 │   ├── 📁 lab2/                              # Lab 2: Socket TCP Client-Server & Băm mật mã (SHA-256)
 │   ├── 📁 lab 3/                             # Lab 3: Mô hình hóa đe dọa & Khai thác SMB MS17-010
-│   └── 📁 lab5/                              # Lab 5: Tấn công & Phòng thủ Web nâng cao (SQLi, XSS, IDOR)
+│   ├── 📁 Thuyet Trinh/                      # Chuyên đề: Phát hiện đăng nhập bất thường dựa trên hành vi (UBA)
+│   └── 📁 đồ án cuối kỳ LTANTT/              # Đồ án cuối kỳ: CertGuard - Quản lý và kiểm tra SSL/TLS
 │
 ├── 📁 TH_AnToanWeb&CSDL/                     # Thực hành An toàn Web & Cơ sở dữ liệu
 │   ├── 📄 Bai 1 - 5 (PDF)/                   # Tài liệu & Báo cáo chi tiết các bài thực hành 1 đến 5
@@ -89,3 +90,4 @@ cd Thuc-Hanh-Hutech
 
 ---
 *© 2026 Trần Tăng Trường Thịnh - HUTECH. Mọi tài liệu và mã nguồn phục vụ mục đích học tập và nghiên cứu khoa học.*
+

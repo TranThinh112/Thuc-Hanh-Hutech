@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Người dùng{% endblock %}
+{% block content %}
+<div class="pagehead"><h1>Quản lý người dùng</h1></div>
+<section class="card">
+  <table class="tbl">
+    <thead><tr><th>Tên</th><th>Vai trò</th><th>Trạng thái</th><th>Tạo lúc</th><th></th></tr></thead>
+    <tbody>
+    {% for u in rows %}
+    {% set locked = u.locked_until and u.locked_until > now %}
+    <tr><td><b>{{ u.username }}</b></td><td>{{ u.role }}</td>
+      <td>{% if locked %}<span class="pill error">Bị khóa đến {{ u.locked_until|vntime('%H:%M') }}</span>
+          {% elif u.failed_attempts %}<span class="warn">Sai {{ u.failed_attempts }} lần</span>{% else %}<span class="pos">Bình thường</span>{% endif %}</td>
+      <td class="muted">{{ u.created_at|vntime }}</td>
+      <td class="actions">
+        {% if locked or u.failed_attempts %}
+        <form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="unlock"><input type="hidden" name="uid" value="{{ u.id }}"><button class="link">Mở khóa</button></form>{% endif %}
+        {% if u.id != g.user.id %}
+        <form method="post" data-confirm="Xóa tài khoản {{ u.username }}?"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="delete"><input type="hidden" name="uid" value="{{ u.id }}"><button class="link danger">Xóa</button></form>{% endif %}
+      </td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+<section class="card">
+  <h2>Tạo tài khoản</h2>
+  <form method="post" class="inline">
+    <input type="hidden" name="_csrf" value="{{ csrf_token() }}"><input type="hidden" name="action" value="create">
+    <input name="username" placeholder="Tên đăng nhập" required maxlength="32">
+    <input name="password" type="password" placeholder="Mật khẩu (≥ 8 ký tự, có chữ và số)" required autocomplete="new-password">
+    <select name="role"><option value="user">user</option><option value="admin">admin</option></select>
+    <button class="btn primary">Tạo</button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Nhật ký{% endblock %}
+{% block content %}
+<div class="pagehead"><h1>Nhật ký kiểm toán</h1></div>
+<section class="card">
+  <table class="tbl compact">
+    <thead><tr><th>Thời gian</th><th>Người dùng</th><th>IP</th><th>Hành động</th><th>Chi tiết</th></tr></thead>
+    <tbody>
+    {% for r in rows %}
+    <tr class="{{ 'hl' if r.action in ('login_failed','account_locked','ssrf_blocked') }}">
+      <td class="muted">{{ r.ts|vntime('%d/%m %H:%M:%S') }}</td><td>{{ r.username or '—' }}</td>
+      <td class="mono small">{{ r.ip }}</td><td><span class="tag">{{ r.action }}</span></td><td>{{ r.detail }}</td></tr>
+    {% else %}<tr><td colspan="5" class="muted">Chưa có.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}
