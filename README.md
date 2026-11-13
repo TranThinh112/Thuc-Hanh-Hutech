@@ -15,7 +15,7 @@ Kho lưu trữ toàn diện mã nguồn, tài liệu hướng dẫn, đề tài 
 
 ## 📂 Danh Mục Học Phần & Cấu Trúc Repository
 
-`	ext
+```text
 Thuc-Hanh-Hutech/
 │
 ├── 📁 ATW&CSDL/                              # Môn An Toàn Web & Cơ Sở Dữ Liệu
@@ -70,7 +70,7 @@ Thuc-Hanh-Hutech/
     ├── 📁 Buoi 4_14_10_26/                   # Buổi 4: Dò quét WebVulnScanner & API Gateway bảo mật JWT
     ├── 📁 Buoi5_21_10_26/                    # Buổi 5: Phát triển bộ công cụ kiểm thử bảo mật SAST & DAST
     └── 📁 Buoi6_28_10_26/                    # Buổi 6: Thiết lập CI/CD Pipeline & Kiểm thử bảo mật tự động
-`
+```
 
 ---
 
@@ -92,10 +92,10 @@ Thuc-Hanh-Hutech/
 
 ## 📌 Hướng Dẫn Clone & Khởi Chạy
 Để tải toàn bộ tài liệu và mã nguồn về máy cục bộ:
-`ash
+```bash
 git clone https://github.com/TranThinh112/Thuc-Hanh-Hutech.git
 cd Thuc-Hanh-Hutech
-`
+```
 
 ---
 *© 2026 Trần Tăng Trường Thịnh - HUTECH. Mọi tài liệu và mã nguồn phục vụ mục đích học tập và nghiên cứu khoa học.*
