@@ -15,7 +15,7 @@ Kho lưu trữ toàn diện mã nguồn, tài liệu hướng dẫn, đề tài 
 
 ## 📂 Danh Mục Học Phần & Cấu Trúc Repository
 
-```text
+`	ext
 Thuc-Hanh-Hutech/
 │
 ├── 📁 ATW&CSDL/                              # Môn An Toàn Web & Cơ Sở Dữ Liệu
@@ -56,13 +56,21 @@ Thuc-Hanh-Hutech/
 │   ├── 📁 Buoi_5_10_6/                       # Buổi 5: Triển khai Splunk Enterprise SIEM & Forwarder
 │   └── 📁 Buoi_6_16_6/                       # Buổi 6: Thiết kế SOC Security Dashboard & SPL Visualizations
 │
-└── 📁 TH_Lap_Trinh_Web/                      # Thực hành Lập trình Web (Source code trên lớp)
-    ├── 📁 2387701939-TruongThinh-TH1-16_5/   # TH1: Thiết kế giao diện Responsive Bootstrap 5
-    ├── 📁 2387701939-TranTangTruongThinh-TH2/# TH2: Mô hình MVC, Mock Repository & File Upload
-    ├── 📁 2387701939-TruongThinh-TH4-6_6/    # TH4: Kết nối SQL Server EF Core & Admin Area
-    ├── 📁 2387701939-TruongThinh-TH5-14_6/   # TH5: Giỏ hàng (Shopping Cart) Session & Checkout
-    └── 📁 2387701939-TruongThinh-TH6-20_6/   # TH6: Dịch vụ RESTful Web API (CRUD JSON)
-```
+├── 📁 TH_Lap_Trinh_Web/                      # Thực hành Lập trình Web (Source code trên lớp)
+│   ├── 📁 2387701939-TruongThinh-TH1-16_5/   # TH1: Thiết kế giao diện Responsive Bootstrap 5
+│   ├── 📁 2387701939-TranTangTruongThinh-TH2/# TH2: Mô hình MVC, Mock Repository & File Upload
+│   ├── 📁 2387701939-TruongThinh-TH4-6_6/    # TH4: Kết nối SQL Server EF Core & Admin Area
+│   ├── 📁 2387701939-TruongThinh-TH5-14_6/   # TH5: Giỏ hàng (Shopping Cart) Session & Checkout
+│   └── 📁 2387701939-TruongThinh-TH6-20_6/   # TH6: Dịch vụ RESTful Web API (CRUD JSON)
+│
+└── 📁 TH_LTANTT_2387701939/                  # Thực hành Lập trình An toàn Thông tin (Python Security)
+    ├── 📁 Buoi1_23_9_26/                     # Buổi 1: Thẩm định dữ liệu (Input Validation) & Quản lý Log
+    ├── 📁 Buoi2_30_9_26/                     # Buổi 2: Mật mã hiện đại (AES/RSA/ECC) & Xây dựng Mini-CA
+    ├── 📁 Buoi3_7_10_26/                     # Buổi 3: Quét trinh sát mạng NetRecon & Ứng dụng Secure Chat
+    ├── 📁 Buoi 4_14_10_26/                   # Buổi 4: Dò quét WebVulnScanner & API Gateway bảo mật JWT
+    ├── 📁 Buoi5_21_10_26/                    # Buổi 5: Phát triển bộ công cụ kiểm thử bảo mật SAST & DAST
+    └── 📁 Buoi6_28_10_26/                    # Buổi 6: Thiết lập CI/CD Pipeline & Kiểm thử bảo mật tự động
+`
 
 ---
 
@@ -77,17 +85,17 @@ Thuc-Hanh-Hutech/
 | **Mạng & Tường lửa** | pfSense Firewall (WAN / LAN / DMZ, NAT, Rule filtering), VMware Workstation |
 | **Giám sát Mạng** | Cacti Network Monitoring, SNMP Daemon (snmpd), RRDtool, MariaDB, Apache LAMP Stack |
 | **Lập trình An toàn Mạng** | Python 3, Socket TCP/UDP, PyCryptodome, Hashlib, Requests |
-| **Cloud & DevOps** | Railway Cloud Platform, Docker, Git, GitHub |
+| **Bảo mật Ứng dụng (AppSec)** | SAST (AST, Regex, SARIF), DAST (Runtime Monitor, Memory Leak, Sandbox, API), JWT, Mini-CA |
+| **Cloud & DevOps** | Railway Cloud Platform, Docker, CI/CD Pipeline, Git, GitHub |
 
 ---
 
 ## 📌 Hướng Dẫn Clone & Khởi Chạy
 Để tải toàn bộ tài liệu và mã nguồn về máy cục bộ:
-```bash
+`ash
 git clone https://github.com/TranThinh112/Thuc-Hanh-Hutech.git
 cd Thuc-Hanh-Hutech
-```
+`
 
 ---
 *© 2026 Trần Tăng Trường Thịnh - HUTECH. Mọi tài liệu và mã nguồn phục vụ mục đích học tập và nghiên cứu khoa học.*
-
